@@ -10,8 +10,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { AccountBox, LocationOn, QueueMusic } from '@material-ui/icons';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 import musicNote from '../../assets/musicNote.png';
 import { Concert } from '../../type';
+import { ROUTE_PATHS } from '../../routes/type';
 
 const useStyles = makeStyles(() => ({
   image: {
@@ -43,7 +45,14 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
             {format(concert.date, 'yyyy/MM/dd')}
           </Typography>
         </Box>
-        <Typography variant="h6">サマーコンサート</Typography>
+        <Typography
+          component={Link}
+          to={ROUTE_PATHS.コンサート詳細}
+          variant="h6"
+          display="block"
+        >
+          サマーコンサート
+        </Typography>
         <List>
           <ListItem>
             <ListItemIcon>

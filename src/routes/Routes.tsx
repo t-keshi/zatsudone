@@ -6,6 +6,7 @@ import { Top } from '../pages/Top/Top';
 import { UpcomingConcerts } from '../pages/UpcomingConcerts/UpcomingConcerts';
 import { OrchestraDetail } from '../pages/OrchestraDetail/OrchestraDetail';
 import { ROUTE_PATHS } from './type';
+import { ConcertDetail } from '../pages/ConcertDetail/ConcertDetail';
 
 export const Routes: React.VFC = () => (
   <Switch>
@@ -17,6 +18,9 @@ export const Routes: React.VFC = () => (
     </Route>
     <Route exact path={ROUTE_PATHS.新着のコンサート}>
       <RecentConcerts />
+    </Route>
+    <Route exact path={ROUTE_PATHS.コンサート詳細}>
+      <ConcertDetail />
     </Route>
     <Route exact path={ROUTE_PATHS.楽団リスト}>
       <Orchestras />
