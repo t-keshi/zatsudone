@@ -1,15 +1,17 @@
+import { Box } from '@material-ui/core';
 import React from 'react';
 import { Layout } from '../../components/layout/Layout';
-import { CoverImage } from '../../components/ui/CoverImage';
 import { useTitle } from '../../helpers/hooks/useTitle';
+import { OrchestraList } from './OrchestraList/OrchestraList';
 
 export const Orchestras: React.VFC = () => {
   useTitle('SymphonyForum | 楽団リスト');
 
   return (
     <Layout>
-      <CoverImage />
-      楽団リスト
+      <Box p={3}>
+        <OrchestraList />
+      </Box>
     </Layout>
   );
 };

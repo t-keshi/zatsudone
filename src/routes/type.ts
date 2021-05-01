@@ -3,6 +3,7 @@ export const ROUTE_PATHS = {
   近日中のコンサート: '/upcoming-concerts',
   新着のコンサート: '/recent-concerts',
   楽団リスト: '/orchestras',
+  楽団詳細: '/orchestras/id',
   ログイン: '/login',
 } as const;
 
