@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import React from 'react';
 import heroHeader from '../../assets/heroHeader.png';
-import { Layout } from '../../components/layout/Layout';
+import { TopLayout } from '../../components/layout/TopLayout';
 import { useRouter } from '../../helpers/hooks/useRouter';
 import { useTitle } from '../../helpers/hooks/useTitle';
 import { ROUTE_PATHS } from '../../routes/type';
@@ -11,7 +11,7 @@ export const Top: React.VFC = () => {
   const { history } = useRouter();
 
   return (
-    <Layout isShowHeader={false}>
+    <TopLayout>
       <Box
         width="100%"
         height="90vh"
@@ -37,7 +37,7 @@ export const Top: React.VFC = () => {
             </Button>
             <Button
               variant="contained"
-              onClick={() => history.push(ROUTE_PATHS.近日中のイベント)}
+              onClick={() => history.push(ROUTE_PATHS.近日中のコンサート)}
             >
               はじめる
             </Button>
@@ -47,6 +47,6 @@ export const Top: React.VFC = () => {
           <img alt="music" src={heroHeader} />
         </Box>
       </Box>
-    </Layout>
+    </TopLayout>
   );
 };

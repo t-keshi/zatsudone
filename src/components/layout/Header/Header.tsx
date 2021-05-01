@@ -1,4 +1,4 @@
-import { Container } from '@material-ui/core';
+import { Container, Hidden, Box } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,11 +18,8 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     backgroundColor: theme.palette.background.default,
   },
-  container: {
+  toolbar: {
     padding: 0,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -36,24 +33,29 @@ export const Header: React.VFC = () => {
   return (
     <div className={classes.root}>
       <AppBar className={classes.appBar} position="fixed">
-        <Container className={classes.container} maxWidth="lg">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-              onClick={handleMenuOpen}
-            >
-              <MenuIcon />
-            </IconButton>
+        <Container maxWidth="lg">
+          <Toolbar className={classes.toolbar}>
+            <Hidden smUp implementation="css">
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={handleMenuOpen}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Hidden>
             {isMenuOpen && (
               <HeaderMenu anchorEl={anchorEl} handleClose={handleMenuClose} />
             )}
             <Typography variant="h6" className={classes.title}>
-              News
+              Symphony Forum
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="default" variant="outlined">
+              SignUp
+            </Button>
+            <Box ml={2} />
+            <Button color="primary">Login</Button>
           </Toolbar>
         </Container>
       </AppBar>

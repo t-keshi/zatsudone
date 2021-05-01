@@ -1,6 +1,8 @@
 export const ROUTE_PATHS = {
   トップ: '/',
-  近日中のイベント: '/upcoming',
+  近日中のコンサート: '/upcoming-concerts',
+  新着のコンサート: '/recent-concerts',
+  楽団リスト: '/orchestras',
   ログイン: '/login',
 } as const;
 
