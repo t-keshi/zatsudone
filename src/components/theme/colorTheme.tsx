@@ -17,6 +17,7 @@ export const colorTheme = {
     },
     background: {
       default: '#F6F6F6',
+      paper: '#F6F6F6',
     },
     text: {
       primary: '#151D1D',
