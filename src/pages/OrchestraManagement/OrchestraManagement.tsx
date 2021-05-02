@@ -1,23 +1,29 @@
-import { Tabs, Tab, Box } from '@material-ui/core';
-import SwipeableViews from 'react-swipeable-views';
+import { Box, Typography, Tabs, Tab, Container } from '@material-ui/core';
 import React from 'react';
+import SwipeableViews from 'react-swipeable-views';
 import { Layout } from '../../components/layout/Layout';
-import { CoverImage } from '../../components/ui/CoverImage';
-import { useTab } from '../../helpers/hooks/useTab';
 import { useTitle } from '../../helpers/hooks/useTitle';
+import { useTab } from '../../helpers/hooks/useTab';
 import { TabPanel } from '../../components/ui/TabPanel';
-import { OrchestraConcerts } from './OrchestraConcerts/OrchestraConcerts';
-import { OrchestraMembers } from './OrchestraMembers/OrchestraMembers';
-import { OrchestraDetailInfo } from './OrchestraDetailInfo/OrchestraDetailInfo';
+import { OrchestraForms } from './OrchestraForm/OrchestraForms';
+import { MembersForm } from './MembersForm/MembersForm';
+import { ConcertForm } from './ConcertForm/ConcertForm';
+import { CoverImage } from '../../components/ui/CoverImage';
 
-export const OrchestraDetail: React.VFC = () => {
+export const OrchestraManagement: React.VFC = () => {
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
 
-  useTitle('SymphonyForum | 大阪大学吹奏楽団');
+  useTitle('SymphonyForum | ユーザーリスト');
 
   return (
     <Layout noPadding>
-      <CoverImage />
+      <Container maxWidth={false}>
+        <Box py={2}>
+          <Typography variant="overline">ORCHESTRA MANAGEMENT </Typography>
+          <Typography variant="h5">楽団運営</Typography>
+        </Box>
+      </Container>
+      <CoverImage isTopImage={false} />
       <Tabs
         value={tabIndex}
         onChange={handleChangeTab}
@@ -35,13 +41,13 @@ export const OrchestraDetail: React.VFC = () => {
         onChangeIndex={handleChangeTabBySwipe}
       >
         <TabPanel value={tabIndex} index={0}>
-          <OrchestraDetailInfo />
+          <OrchestraForms />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
-          <OrchestraMembers />
+          <MembersForm />
         </TabPanel>
         <TabPanel value={tabIndex} index={2}>
-          <OrchestraConcerts />
+          <ConcertForm />
         </TabPanel>
       </SwipeableViews>
     </Layout>

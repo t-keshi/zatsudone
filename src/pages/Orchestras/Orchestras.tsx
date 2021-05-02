@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import React from 'react';
 import { Layout } from '../../components/layout/Layout';
 import { useTitle } from '../../helpers/hooks/useTitle';
@@ -9,9 +9,12 @@ export const Orchestras: React.VFC = () => {
 
   return (
     <Layout>
-      <Box p={3}>
-        <OrchestraList />
-      </Box>
+      <div>
+        <Typography variant="overline">Orchestra List</Typography>
+        <Typography variant="h5">楽団リスト</Typography>
+      </div>
+      <Box mt={3} />
+      <OrchestraList />
     </Layout>
   );
 };

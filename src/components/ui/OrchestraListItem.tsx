@@ -1,10 +1,10 @@
 import { Typography, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import musicNote from '../../assets/musicNote.png';
 import { ROUTE_PATHS } from '../../routes/type';
 import { Orchestra } from '../../type';
+import { StyledLink } from './StyledLink';
 
 const useStyles = makeStyles(() => ({
   image: {
@@ -26,13 +26,15 @@ export const OrchestraListItem: React.VFC<Props> = ({ orchestra }) => {
       <img className={classes.image} alt="musicNote" src={musicNote} />
       <Box>
         <Typography
-          component={Link}
+          component={StyledLink}
           variant="h6"
-          gutterBottom
+          color="textPrimary"
+          underline="always"
           to={ROUTE_PATHS.楽団詳細}
         >
           {orchestra.name}
         </Typography>
+        <Box mt={1} />
         <Typography variant="body2" color="textSecondary">
           大阪大学吹奏楽団は団員数100名を超える、関西でも最大級の規模を誇る吹奏楽団です。年2回の演奏会の開催を目指し、日々練習に励んでいます。
         </Typography>
