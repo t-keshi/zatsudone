@@ -10,11 +10,9 @@ export const RecentConcerts: React.VFC = () => {
 
   return (
     <Layout>
-      <Box p={3}>
-        <ContainerHeader />
-        <Box mt={3} />
-        <ConcertList />
-      </Box>
+      <ContainerHeader />
+      <Box mt={3} />
+      <ConcertList />
     </Layout>
   );
 };

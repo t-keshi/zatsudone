@@ -3,6 +3,10 @@ import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import orchestraCover from '../../assets/orchestraCover.jpg';
 
+interface Props {
+  isTopImage?: boolean;
+}
+
 const useStyles = makeStyles((theme) => ({
   image: {
     height: 320,
@@ -12,7 +16,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    borderRadius: `${theme.shape.borderRadius}px ${theme.shape.borderRadius}px 0 0`,
+    borderRadius: (props: Props) =>
+      props.isTopImage
+        ? `${theme.shape.borderRadius}px ${theme.shape.borderRadius}px 0 0`
+        : 0,
   },
   shadow: {
     position: 'absolute',
@@ -33,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CoverImage: React.VFC = () => {
-  const classes = useStyles();
+export const CoverImage: React.VFC<Props> = ({ isTopImage = true }) => {
+  const classes = useStyles({ isTopImage });
 
   return (
     <Box position="relative">

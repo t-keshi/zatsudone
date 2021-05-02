@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Layout: React.FC = ({ children }) => {
+interface Props {
+  noPadding?: boolean;
+}
+
+export const Layout: React.FC<Props> = ({ children, noPadding }) => {
   const classes = useStyles();
 
   return (
@@ -33,7 +37,15 @@ export const Layout: React.FC = ({ children }) => {
           <Toolbar />
           <Box display="flex" my={3} style={{ columnGap: '24px' }}>
             <Box className={classes.content}>
-              <Paper variant="outlined">{children}</Paper>
+              <Paper variant="outlined">
+                {noPadding ? (
+                  children
+                ) : (
+                  <Container maxWidth={false}>
+                    <Box py={2}>{children}</Box>
+                  </Container>
+                )}
+              </Paper>
             </Box>
             <Box className={classes.sidebar}>
               <Hidden xsDown implementation="css">

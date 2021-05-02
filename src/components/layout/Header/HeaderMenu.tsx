@@ -24,6 +24,10 @@ export const HeaderMenu: React.VFC<Props> = ({ handleClose, anchorEl }) => {
       label: '楽団リスト',
       link: ROUTE_PATHS.楽団リスト,
     },
+    {
+      label: '楽団運営',
+      link: ROUTE_PATHS.楽団運営,
+    },
   ];
 
   return (
