@@ -4,8 +4,12 @@ import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/auth';
 import 'firebase/firestore';
+import * as yup from 'yup';
 import { Providers } from './containers/Providers';
 import { Routes } from './routes/Routes';
+import { yupLocaleJP } from './constants/yupLocaleJP';
+
+yup.setLocale(yupLocaleJP);
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA2HuHqiV_v8pyFVILMVM3Tvzqg5cLJsgI',
