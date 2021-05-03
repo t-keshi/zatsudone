@@ -5,19 +5,25 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Hidden,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { AccountBox, LocationOn, QueueMusic } from '@material-ui/icons';
+import { LocationOn, QueueMusic, Event } from '@material-ui/icons';
 import { format } from 'date-fns';
 import musicNote from '../../assets/musicNote.png';
 import { Concert } from '../../type';
+import { ROUTE_PATHS } from '../../routes/type';
+import { StyledLink } from './StyledLink';
 
 const useStyles = makeStyles(() => ({
   image: {
     objectFit: 'contain',
     height: 120,
     width: 120,
+  },
+  icon: {
+    minWidth: 32,
   },
 }));
 
@@ -30,7 +36,9 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
 
   return (
     <Box display="flex" style={{ columnGap: '24px' }}>
-      <img className={classes.image} alt="musicNote" src={musicNote} />
+      <Hidden xsDown implementation="css">
+        <img className={classes.image} alt="musicNote" src={musicNote} />
+      </Hidden>
       <Box>
         <Box
           bgcolor="primary.main"
@@ -40,28 +48,37 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
           mb={1}
         >
           <Typography variant="button" display="block">
-            {format(concert.date, 'yyyy/MM/dd')}
+            {concert.orchestra.name}
           </Typography>
         </Box>
-        <Typography variant="h6">サマーコンサート</Typography>
+        <Typography
+          component={StyledLink}
+          to={ROUTE_PATHS.コンサート詳細}
+          variant="h6"
+          color="textPrimary"
+          underline="always"
+          display="block"
+        >
+          サマーコンサート
+        </Typography>
         <List>
-          <ListItem>
-            <ListItemIcon>
-              <AccountBox />
+          <ListItem dense>
+            <ListItemIcon className={classes.icon}>
+              <Event fontSize="small" />
             </ListItemIcon>
-            <ListItemText primary="大阪大学吹奏楽団" />
+            <ListItemText secondary={format(concert.date, 'yyyy/MM/dd')} />
           </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <QueueMusic />
+          <ListItem dense>
+            <ListItemIcon className={classes.icon}>
+              <LocationOn fontSize="small" />
             </ListItemIcon>
-            <ListItemText primary="ドラゴンの年、宇宙の音楽　他" />
+            <ListItemText secondary="兵庫県尼崎市あましんアルカイックホール" />
           </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <LocationOn />
+          <ListItem dense>
+            <ListItemIcon className={classes.icon}>
+              <QueueMusic fontSize="small" />
             </ListItemIcon>
-            <ListItemText primary="兵庫県尼崎市あましんアルカイックホール" />
+            <ListItemText secondary="ドラゴンの年、宇宙の音楽　他" />
           </ListItem>
         </List>
       </Box>

@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
 import { useMenu } from '../../../helpers/hooks/useMenu';
+import { useRouter } from '../../../helpers/hooks/useRouter';
+import { ROUTE_PATHS } from '../../../routes/type';
 import { HeaderMenu } from './HeaderMenu';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Header: React.VFC = () => {
   const classes = useStyles();
+  const { history } = useRouter();
   const { anchorEl, isMenuOpen, handleMenuOpen, handleMenuClose } = useMenu();
 
   return (
@@ -55,7 +58,12 @@ export const Header: React.VFC = () => {
               SignUp
             </Button>
             <Box ml={2} />
-            <Button color="primary">Login</Button>
+            <Button
+              color="primary"
+              onClick={() => history.push(ROUTE_PATHS.ログイン)}
+            >
+              Login
+            </Button>
           </Toolbar>
         </Container>
       </AppBar>
