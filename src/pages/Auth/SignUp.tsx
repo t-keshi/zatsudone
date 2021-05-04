@@ -1,24 +1,34 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Container, Paper, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  ButtonBase,
+  Container,
+  Paper,
+  Typography,
+} from '@material-ui/core';
 import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import googleLogIn from '../../assets/googleLogIn.png';
 import { TopLayout } from '../../components/layout/TopLayout';
+import { DividerWithText } from '../../components/ui/DividerWithText';
 import { FormTextField } from '../../components/ui/FormTextField';
-import { useLogIn } from '../../containers/api/auth/useLogin';
+import { useGoogleLogIn } from '../../containers/api/auth/useGoogleLogIn';
+import { useSignUp } from '../../containers/api/auth/useSignUp';
 import { useRouter } from '../../helpers/hooks/useRouter';
 import { useTitle } from '../../helpers/hooks/useTitle';
 import { ROUTE_PATHS } from '../../routes/type';
 
 interface FormValues {
-  name: string;
+  displayName: string;
   email: string;
   password: string;
 }
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  name: yup.string().max(12).required(),
+  displayName: yup.string().max(12).required(),
   email: yup
     .string()
     .email('メールアドレスの形式が正しくありません')
@@ -41,7 +51,8 @@ export const Signup: React.VFC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  const { mutate } = useLogIn();
+  const { mutate } = useSignUp();
+  const { mutate: googleMutate } = useGoogleLogIn();
   const onSubmit = (formValues: FormValues) => {
     console.log(formValues);
     mutate(formValues);
@@ -66,11 +77,11 @@ export const Signup: React.VFC = () => {
                 </Typography>
                 <FormTextField
                   control={control}
-                  name="name"
+                  name="displayName"
                   margin="normal"
                   label="名前(ニックネーム可)"
                   fullWidth
-                  errorMessage={errors.name?.message}
+                  errorMessage={errors.displayName?.message}
                 />
                 <Box mt={1} />
                 <FormTextField
@@ -93,7 +104,7 @@ export const Signup: React.VFC = () => {
                   errorMessage={errors.password?.message}
                 />
                 <Box mt={3} />
-                <Box display="flex" justifyContent="space-between">
+                <Box mb={2} display="flex" justifyContent="space-between">
                   <Button
                     variant="text"
                     color="secondary"
@@ -103,6 +114,12 @@ export const Signup: React.VFC = () => {
                     ログイン
                   </Button>
                   <Button type="submit">新規登録</Button>
+                </Box>
+                <DividerWithText>OR</DividerWithText>
+                <Box my={2} display="flex" justifyContent="center">
+                  <ButtonBase onClick={() => googleMutate()}>
+                    <img src={googleLogIn} alt="googleLogIn" />
+                  </ButtonBase>
                 </Box>
               </Box>
             </Paper>

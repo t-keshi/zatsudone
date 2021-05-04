@@ -1,12 +1,23 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Container, Paper, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  ButtonBase,
+  Container,
+  Paper,
+  Typography,
+} from '@material-ui/core';
 import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import googleLogIn from '../../assets/googleLogIn.png';
 import { TopLayout } from '../../components/layout/TopLayout';
+import { DividerWithText } from '../../components/ui/DividerWithText';
 import { FormTextField } from '../../components/ui/FormTextField';
 import { StyledLink } from '../../components/ui/StyledLink';
+import { useGoogleLogIn } from '../../containers/api/auth/useGoogleLogIn';
+import { useLogIn } from '../../containers/api/auth/useLogIn';
 import { useRouter } from '../../helpers/hooks/useRouter';
 import { useTitle } from '../../helpers/hooks/useTitle';
 import { ROUTE_PATHS } from '../../routes/type';
@@ -39,8 +50,10 @@ export const LogIn: React.VFC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
+  const { mutate } = useLogIn();
+  const { mutate: googleMutate } = useGoogleLogIn();
   const onSubmit = (formValues: FormValues) => {
-    console.log(formValues);
+    mutate(formValues);
   };
 
   useTitle('SymphonyForum | ログイン');
@@ -85,7 +98,7 @@ export const LogIn: React.VFC = () => {
                   パスワードを忘れた方
                 </StyledLink>
                 <Box mt={3} />
-                <Box display="flex" justifyContent="space-between">
+                <Box mb={2} display="flex" justifyContent="space-between">
                   <Button
                     variant="text"
                     color="secondary"
@@ -95,6 +108,12 @@ export const LogIn: React.VFC = () => {
                     新規登録
                   </Button>
                   <Button type="submit">ログイン</Button>
+                </Box>
+                <DividerWithText>OR</DividerWithText>
+                <Box my={2} display="flex" justifyContent="center">
+                  <ButtonBase onClick={() => googleMutate()}>
+                    <img src={googleLogIn} alt="googleLogIn" />
+                  </ButtonBase>
                 </Box>
               </Box>
             </Paper>

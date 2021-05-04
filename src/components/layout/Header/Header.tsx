@@ -1,4 +1,4 @@
-import { Container, Hidden, Box } from '@material-ui/core';
+import { Box, Container, Hidden } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -6,7 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
+import firebase from 'firebase/app';
 import React from 'react';
+import { useLogOut } from '../../../containers/api/auth/useLogOut';
 import { useMenu } from '../../../helpers/hooks/useMenu';
 import { useRouter } from '../../../helpers/hooks/useRouter';
 import { ROUTE_PATHS } from '../../../routes/type';
@@ -32,6 +34,8 @@ export const Header: React.VFC = () => {
   const classes = useStyles();
   const { history } = useRouter();
   const { anchorEl, isMenuOpen, handleMenuOpen, handleMenuClose } = useMenu();
+  const user = firebase.auth().currentUser;
+  const { mutate } = useLogOut();
 
   return (
     <div className={classes.root}>
@@ -54,16 +58,32 @@ export const Header: React.VFC = () => {
             <Typography variant="h6" className={classes.title}>
               Symphony Forum
             </Typography>
-            <Button color="default" variant="outlined">
-              SignUp
-            </Button>
-            <Box ml={2} />
-            <Button
-              color="primary"
-              onClick={() => history.push(ROUTE_PATHS.ログイン)}
-            >
-              Login
-            </Button>
+            {!user ? (
+              <>
+                <Button
+                  color="default"
+                  variant="outlined"
+                  onClick={() => history.push(ROUTE_PATHS.新規登録)}
+                >
+                  SignUp
+                </Button>
+                <Box ml={2} />
+                <Button
+                  color="primary"
+                  onClick={() => history.push(ROUTE_PATHS.ログイン)}
+                >
+                  LogIn
+                </Button>
+              </>
+            ) : (
+              <>
+                <Typography variant="caption">{user.displayName}</Typography>
+                <Box ml={2} />
+                <Button color="primary" onClick={() => mutate()}>
+                  LogOut
+                </Button>
+              </>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
