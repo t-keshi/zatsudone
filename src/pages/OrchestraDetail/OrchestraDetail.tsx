@@ -1,14 +1,14 @@
-import { Tabs, Tab, Box } from '@material-ui/core';
-import SwipeableViews from 'react-swipeable-views';
+import { Box, Tab, Tabs } from '@material-ui/core';
 import React from 'react';
+import SwipeableViews from 'react-swipeable-views';
 import { Layout } from '../../components/layout/Layout';
-import { CoverImage } from '../../components/ui/CoverImage';
+import { CoverImage } from '../../components/ui/CoverImage/CoverImage';
+import { TabPanel } from '../../components/ui/TabPanel';
 import { useTab } from '../../helpers/hooks/useTab';
 import { useTitle } from '../../helpers/hooks/useTitle';
-import { TabPanel } from '../../components/ui/TabPanel';
 import { OrchestraConcerts } from './OrchestraConcerts/OrchestraConcerts';
-import { OrchestraMembers } from './OrchestraMembers/OrchestraMembers';
 import { OrchestraDetailInfo } from './OrchestraDetailInfo/OrchestraDetailInfo';
+import { OrchestraMembers } from './OrchestraMembers/OrchestraMembers';
 
 export const OrchestraDetail: React.VFC = () => {
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();

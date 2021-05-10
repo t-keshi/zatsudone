@@ -1,17 +1,20 @@
-import { Box, Typography, Tabs, Tab, Container } from '@material-ui/core';
+import { Box, Container, Tab, Tabs, Typography } from '@material-ui/core';
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { Layout } from '../../components/layout/Layout';
-import { useTitle } from '../../helpers/hooks/useTitle';
-import { useTab } from '../../helpers/hooks/useTab';
+import { CoverImageEditable } from '../../components/ui/CoverImage/CoverImageEditable';
 import { TabPanel } from '../../components/ui/TabPanel';
-import { OrchestraForms } from './OrchestraForm/OrchestraForms';
-import { MembersForm } from './MembersForm/MembersForm';
+import { useTab } from '../../helpers/hooks/useTab';
+import { useTitle } from '../../helpers/hooks/useTitle';
+import { useToggle } from '../../helpers/hooks/useToggle';
 import { ConcertForm } from './ConcertForm/ConcertForm';
-import { CoverImage } from '../../components/ui/CoverImage';
+import { ImageUploadModal } from './ImageUploadModal/ImageUploadModal';
+import { MembersForm } from './MembersForm/MembersForm';
+import { OrchestraForms } from './OrchestraForm/OrchestraForms';
 
 export const OrchestraManagement: React.VFC = () => {
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
+  const [isModalOpen, handleIsModalOpen] = useToggle(false);
 
   useTitle('SymphonyForum | ユーザーリスト');
 
@@ -23,7 +26,14 @@ export const OrchestraManagement: React.VFC = () => {
           <Typography variant="h5">楽団運営</Typography>
         </Box>
       </Container>
-      <CoverImage isTopImage={false} />
+      <CoverImageEditable
+        isTopImage={false}
+        openModal={() => handleIsModalOpen(true)}
+      />
+      <ImageUploadModal
+        isModalOpen={isModalOpen}
+        closeModal={() => handleIsModalOpen(false)}
+      />
       <Tabs
         value={tabIndex}
         onChange={handleChangeTab}

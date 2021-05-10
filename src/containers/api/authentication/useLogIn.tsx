@@ -21,11 +21,10 @@ export const useLogIn: UseLogIn = (options) => {
   const { history } = useRouter();
 
   return useMutation(
-    async (variables: Variables) => {
-      await firebase
+    (variables: Variables) =>
+      firebase
         .auth()
-        .signInWithEmailAndPassword(variables.email, variables.password);
-    },
+        .signInWithEmailAndPassword(variables.email, variables.password),
     {
       onSuccess: () => history.push(ROUTE_PATHS.近日中のコンサート),
       onError: (error: Error) =>

@@ -1,7 +1,7 @@
-import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import orchestraCover from '../../assets/orchestraCover.jpg';
+import React from 'react';
+import orchestraCover from '../../../assets/orchestraCover.jpg';
 
 interface Props {
   isTopImage?: boolean;
