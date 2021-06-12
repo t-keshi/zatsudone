@@ -1,6 +1,7 @@
 import { Box, Container, Hidden, Paper, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import { PageTransition } from '../ui/PageTransition';
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
 
@@ -24,9 +25,11 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   noPadding?: boolean;
+  hasPageTransition?: boolean;
 }
 
-export const Layout: React.FC<Props> = ({ children, noPadding }) => {
+export const Layout: React.FC<Props> = (props) => {
+  const { children, noPadding = false, hasPageTransition = false } = props;
   const classes = useStyles();
 
   return (
@@ -37,15 +40,17 @@ export const Layout: React.FC<Props> = ({ children, noPadding }) => {
           <Toolbar />
           <Box display="flex" my={3} style={{ columnGap: '24px' }}>
             <Box className={classes.content}>
-              <Paper variant="outlined">
-                {noPadding ? (
-                  children
-                ) : (
-                  <Container maxWidth={false}>
-                    <Box py={2}>{children}</Box>
-                  </Container>
-                )}
-              </Paper>
+              <PageTransition hasPageTransition={hasPageTransition}>
+                <Paper variant="outlined">
+                  {noPadding ? (
+                    children
+                  ) : (
+                    <Container maxWidth={false}>
+                      <Box py={2}>{children}</Box>
+                    </Container>
+                  )}
+                </Paper>
+              </PageTransition>
             </Box>
             <Box className={classes.sidebar}>
               <Hidden xsDown implementation="css">

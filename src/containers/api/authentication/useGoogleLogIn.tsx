@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import {
   useMutation,
   UseMutationOptions,
-  UseMutationResult
+  UseMutationResult,
 } from 'react-query';
 import { handleApiError } from '../../../helpers/handleApiError';
 import { useRouter } from '../../../helpers/hooks/useRouter';
@@ -16,7 +16,6 @@ type UseGoogleLogIn = (
 export const useGoogleLogIn: UseGoogleLogIn = (options) => {
   const provider = new firebase.auth.GoogleAuthProvider();
   const { history } = useRouter();
-  // signInWithPopup(provider)
 
   return useMutation(() => firebase.auth().signInWithPopup(provider), {
     onSuccess: () => history.push(ROUTE_PATHS.近日中のコンサート),

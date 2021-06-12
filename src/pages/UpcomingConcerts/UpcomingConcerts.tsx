@@ -3,14 +3,14 @@ import React from 'react';
 import { Layout } from '../../components/layout/Layout';
 import { useTitle } from '../../helpers/hooks/useTitle';
 import { ConcertList } from './ConcertList/ConcertList';
-import { ContainerHeader } from './ContainerHeader/ContainerHeader';
+import { ContentHeader } from './ContentHeader/ContentHeader';
 
 export const UpcomingConcerts: React.VFC = () => {
   useTitle('SymphonyForum | 近日中のコンサート');
 
   return (
-    <Layout>
-      <ContainerHeader />
+    <Layout hasPageTransition>
+      <ContentHeader />
       <Box mt={3} />
       <ConcertList />
     </Layout>

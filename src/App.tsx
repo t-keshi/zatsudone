@@ -1,24 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import firebase from 'firebase/app';
 import 'firebase/analytics';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import * as yup from 'yup';
+import { yupLocaleJP } from './constants/yupLocaleJP';
 import { Providers } from './containers/Providers';
 import { Routes } from './routes/Routes';
-import { yupLocaleJP } from './constants/yupLocaleJP';
 
 yup.setLocale(yupLocaleJP);
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyA2HuHqiV_v8pyFVILMVM3Tvzqg5cLJsgI',
-  authDomain: 'symphony-forum.firebaseapp.com',
-  projectId: 'symphony-forum',
-  storageBucket: 'symphony-forum.appspot.com',
-  messagingSenderId: '790819168126',
-  appId: '1:790819168126:web:9b06137671a85be7181d2f',
-  measurementId: 'G-BZN0NKFS63',
+  apiKey: process.env.REACT_APP_API_KEY ?? '',
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN ?? '',
+  projectId: process.env.REACT_APP_PROJECT_ID ?? '',
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET ?? '',
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID ?? '',
+  appId: process.env.REACT_APP_APP_ID ?? '',
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID ?? '',
 };
 
 firebase.initializeApp(firebaseConfig);

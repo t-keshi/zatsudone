@@ -16,6 +16,14 @@ export interface Concert {
 export interface Orchestra {
   id: number;
   name: string;
+  // orchestraDetail: string;
+}
+
+export interface OrchestraDetail extends Orchestra {
+  membersCount: number;
+  conductor: string;
+  subConductor: string;
+  homePage: string;
 }
 
 export interface Symphony {
