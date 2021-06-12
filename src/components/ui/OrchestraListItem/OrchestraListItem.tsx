@@ -1,10 +1,10 @@
-import { Typography, Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import musicNote from '../../assets/musicNote.png';
-import { ROUTE_PATHS } from '../../routes/type';
-import { Orchestra } from '../../type';
-import { StyledLink } from './StyledLink';
+import musicNote from '../../../assets/musicNote.png';
+import { ROUTE_PATHS } from '../../../routes/type';
+import { Orchestra } from '../../../type';
+import { StyledLink } from '../../helpers/StyledLink/StyledLink';
 
 const useStyles = makeStyles(() => ({
   image: {

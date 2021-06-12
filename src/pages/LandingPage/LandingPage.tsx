@@ -6,7 +6,7 @@ import { ROUTE_PATHS } from '../../routes/type';
 import { useRouter } from '../../utility/hooks/useRouter';
 import { useTitle } from '../../utility/hooks/useTitle';
 
-export const Top: React.VFC = () => {
+export const LandingPage: React.VFC = () => {
   useTitle('SymphonyForum | 音楽を楽しもう');
   const { history } = useRouter();
 

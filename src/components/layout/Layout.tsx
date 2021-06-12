@@ -1,7 +1,7 @@
 import { Box, Container, Hidden, Paper, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { PageTransition } from '../helpers/PageTransition';
+import { PageTransition } from '../helpers/PageTransition/PageTransition';
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
 

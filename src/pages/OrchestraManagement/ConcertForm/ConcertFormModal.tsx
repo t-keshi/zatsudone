@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { format } from 'date-fns';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormTextField } from '../../../components/helpers/FormTextField';
-import { YesOrNoButton } from '../../../components/helpers/YesOrNoButton';
+import { YesOrNoButton } from '../../../components/helpers/YesOrNoButton/YesOrNoButton';
+import { FormTextField } from '../../../components/ui/FormTextField/FormTextField';
 
 interface Props {
   isModalOpen: boolean;

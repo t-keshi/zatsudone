@@ -1,5 +1,5 @@
 export const ROUTE_PATHS = {
-  トップ: '/',
+  ランディングページ: '/',
   近日中のコンサート: '/upcoming-concerts',
   新着のコンサート: '/recent-concerts',
   コンサート詳細: '/concerts/id',

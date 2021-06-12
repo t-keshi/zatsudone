@@ -1,7 +1,7 @@
 import { Box, List, ListItem, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { Fragment } from 'react';
-import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
+import { SubHeading } from '../../../components/helpers/SubHeading/SubHeading';
 import { Program } from '../../../type';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,9 +24,9 @@ export const ConcertProgram: React.VFC<Props> = ({ program }) => {
   return (
     <Box>
       <Box mt={3} />
-      <TypographyWithLabel variant="h5" paragraph>
+      <SubHeading variant="h5" paragraph>
         プログラム
-      </TypographyWithLabel>
+      </SubHeading>
       <List>
         {program.map((part) => (
           <Fragment key={part.id}>

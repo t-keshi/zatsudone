@@ -4,11 +4,11 @@ import { ForgetPassword } from '../pages/Auth/ForgetPassword';
 import { LogIn } from '../pages/Auth/LogIn';
 import { Signup } from '../pages/Auth/SignUp';
 import { ConcertDetail } from '../pages/ConcertDetail/ConcertDetail';
+import { LandingPage } from '../pages/LandingPage/LandingPage';
 import { OrchestraDetail } from '../pages/OrchestraDetail/OrchestraDetail';
 import { OrchestraManagement } from '../pages/OrchestraManagement/OrchestraManagement';
 import { Orchestras } from '../pages/Orchestras/Orchestras';
 import { RecentConcerts } from '../pages/RecentConcerts/RecentConcerts';
-import { Top } from '../pages/Top/Top';
 import { UpcomingConcerts } from '../pages/UpcomingConcerts/UpcomingConcerts';
 import { usePageScrollReset } from '../utility/hooks/useScrollReset';
 import { ROUTE_PATHS } from './type';
@@ -18,8 +18,8 @@ export const Routes: React.VFC = () => {
 
   return (
     <Switch>
-      <Route exact path={ROUTE_PATHS.トップ}>
-        <Top />
+      <Route exact path={ROUTE_PATHS.ランディングページ}>
+        <LandingPage />
       </Route>
       <Route exact path={ROUTE_PATHS.近日中のコンサート}>
         <UpcomingConcerts />

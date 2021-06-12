@@ -1,6 +1,6 @@
 import { Box, Typography } from '@material-ui/core';
 import React from 'react';
-import { FilterByPrefecture } from '../../../components/helpers/FilterByPrefecture';
+import { FilterByPrefecture } from '../../../components/ui/FilterByPrefeture/FilterByPrefecture';
 
 export const ContentHeader: React.VFC = () => (
   <Box display="flex" alignItems="flex-end">

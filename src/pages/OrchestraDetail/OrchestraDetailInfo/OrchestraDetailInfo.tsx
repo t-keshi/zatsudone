@@ -1,7 +1,7 @@
 import { Box, List, ListItem, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
+import { SubHeading } from '../../../components/helpers/SubHeading/SubHeading';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,9 +32,9 @@ export const OrchestraDetailInfo: React.VFC = () => {
 
   return (
     <div>
-      <TypographyWithLabel variant="h5" gutterBottom>
+      <SubHeading variant="h5" gutterBottom>
         お知らせ
-      </TypographyWithLabel>
+      </SubHeading>
       <List>
         {news.map((newsItem) => (
           <ListItem dense key={newsItem}>
@@ -43,9 +43,9 @@ export const OrchestraDetailInfo: React.VFC = () => {
         ))}
       </List>
       <Box mt={2} />
-      <TypographyWithLabel variant="h5" gutterBottom>
+      <SubHeading variant="h5" gutterBottom>
         楽団情報詳細
-      </TypographyWithLabel>
+      </SubHeading>
       <Box maxWidth={500}>
         <List>
           <ListItem dense>

@@ -1,20 +1,20 @@
 import {
-  Typography,
   Box,
+  Hidden,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Hidden,
+  Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
-import { LocationOn, QueueMusic, Event } from '@material-ui/icons';
+import { Event, LocationOn, QueueMusic } from '@material-ui/icons';
 import { format } from 'date-fns';
-import musicNote from '../../assets/musicNote.png';
-import { Concert } from '../../type';
-import { ROUTE_PATHS } from '../../routes/type';
-import { StyledLink } from './StyledLink';
+import React from 'react';
+import musicNote from '../../../assets/musicNote.png';
+import { ROUTE_PATHS } from '../../../routes/type';
+import { Concert } from '../../../type';
+import { StyledLink } from '../../helpers/StyledLink/StyledLink';
 
 const useStyles = makeStyles(() => ({
   image: {

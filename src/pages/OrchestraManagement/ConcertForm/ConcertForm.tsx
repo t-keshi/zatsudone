@@ -1,7 +1,7 @@
 import { Box, Button, Divider } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import React, { Fragment } from 'react';
-import { ConcertListItem } from '../../../components/helpers/ConcertListItem';
+import { ConcertListItem } from '../../../components/ui/ConcertListItem/ConcertListItem';
 import { useToggle } from '../../../utility/hooks/useToggle';
 import { concertListResponse } from '../../RecentConcerts/ConcertList/dummy';
 import { ConcertFormModal } from './ConcertFormModal';

@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
-import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
+import { SubHeading } from '../../../components/helpers/SubHeading/SubHeading';
 
 const useStyles = makeStyles((theme) => ({
   avatarWrapper: {
@@ -25,9 +25,9 @@ export const MembersForm: React.VFC = () => {
 
   return (
     <>
-      <TypographyWithLabel variant="h5" paragraph>
+      <SubHeading variant="h5" paragraph>
         入団リクエスト
-      </TypographyWithLabel>
+      </SubHeading>
       <div className={classes.avatarWrapper}>
         {joinRequests.map((request) => (
           <Box width={100} key={request}>
@@ -52,9 +52,9 @@ export const MembersForm: React.VFC = () => {
         ))}
       </div>
       <Box mt={5} />
-      <TypographyWithLabel variant="h5" paragraph>
+      <SubHeading variant="h5" paragraph>
         メンバー
-      </TypographyWithLabel>
+      </SubHeading>
       <div className={classes.avatarWrapper}>
         {members.map((member) => (
           <Box width={100} key={member}>

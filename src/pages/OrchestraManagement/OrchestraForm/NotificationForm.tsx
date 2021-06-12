@@ -2,8 +2,8 @@ import { Box, Button, List, ListItem, ListItemText } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormTextField } from '../../../components/helpers/FormTextField';
-import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
+import { FormTextField } from '../../../components/helpers/FormTextField/FormTextField';
+import { SubHeading } from '../../../components/helpers/SubHeading/SubHeading';
 
 export const NotificationForm: React.VFC = () => {
   const {
@@ -16,9 +16,9 @@ export const NotificationForm: React.VFC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TypographyWithLabel variant="h5" gutterBottom>
+      <SubHeading variant="h5" gutterBottom>
         お知らせ
-      </TypographyWithLabel>
+      </SubHeading>
       <List>
         {news.map((newsItem) => (
           <ListItem dense key={newsItem}>

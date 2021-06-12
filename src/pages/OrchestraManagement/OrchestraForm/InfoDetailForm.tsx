@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
+import { SubHeading } from '../../../components/helpers/SubHeading/SubHeading';
 import { InfoDetailFormItem } from './InfoDetailFormItem';
 
 export const InfoDetailForm: React.VFC = () => {
@@ -18,9 +18,9 @@ export const InfoDetailForm: React.VFC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TypographyWithLabel variant="h5" gutterBottom>
+      <SubHeading variant="h5" gutterBottom>
         楽団詳細情報
-      </TypographyWithLabel>
+      </SubHeading>
       <InfoDetailFormItem
         control={control}
         label="団員数"

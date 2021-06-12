@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
-import { Prefecture, PREFECTURES } from '../../constants/prefectures';
-import { useSelect } from '../../utility/hooks/useSelect';
+import { Prefecture, PREFECTURES } from '../../../constants/prefectures';
+import { useSelect } from '../../../utility/hooks/useSelect';
 
 export const FilterByPrefecture: React.VFC = () => {
   const [selectedPrefecture, handleSelectPrefecture] = useSelect('すべて');

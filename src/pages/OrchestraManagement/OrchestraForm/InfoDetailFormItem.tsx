@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Close, Edit } from '@material-ui/icons';
 import React from 'react';
 import { Control, FieldValues, Path } from 'react-hook-form';
-import { FormTextField } from '../../../components/helpers/FormTextField';
+import { FormTextField } from '../../../components/ui/FormTextField/FormTextField';
 import { useToggle } from '../../../utility/hooks/useToggle';
 
 const useStyles = makeStyles((theme) => ({

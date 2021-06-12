@@ -1,6 +1,6 @@
 import { Box, Divider } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import { OrchestraListItem } from '../../../components/helpers/OrchestraListItem';
+import { OrchestraListItem } from '../../../components/ui/OrchestraListItem/OrchestraListItem';
 import { orchestraListResponse } from './dummy';
 
 export const OrchestraList: React.VFC = () => (

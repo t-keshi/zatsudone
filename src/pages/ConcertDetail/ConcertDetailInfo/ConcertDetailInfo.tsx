@@ -12,7 +12,7 @@ import { Event, LocationOn, Schedule } from '@material-ui/icons';
 import { format } from 'date-fns';
 import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
-import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
+import { SubHeading } from '../../../components/helpers/SubHeading/SubHeading';
 import { Prefecture } from '../../../constants/prefectures';
 import { concertResponse } from './dummy';
 
@@ -61,9 +61,9 @@ export const ConcertDetailInfo: React.VFC<Props> = ({ detail }) => {
             団員一同、素晴らしい演奏会になるよう日々練習に励んでいますので、ぜひ会場へ足をお運びください。ホームページより事前受付が必要です
           </Typography>
           <Box mt={5} />
-          <TypographyWithLabel variant="h5" paragraph>
+          <SubHeading variant="h5" paragraph>
             コンサート情報
-          </TypographyWithLabel>
+          </SubHeading>
           <List>
             <ListItem dense>
               <ListItemIcon>
