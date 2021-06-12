@@ -1,4 +1,4 @@
-import { Concert, Orchestra, Program, Part } from '../../../type';
+import { Concert, Orchestra, Part, Program } from '../../../type';
 
 const orchestra: Orchestra = {
   id: 1,

@@ -29,7 +29,7 @@ export const ImageUploadModal: React.VFC<Props> = ({
 }) => {
   const cropperRef = useRef<ReactCropperElement>(null);
   const classes = useStyles();
-  const [image, fileName, imageUrl, handleUploadImage] = useImageUpload();
+  const [_, fileName, imageUrl, handleUploadImage] = useImageUpload();
   const { mutate } = useUploadCoverImage();
   const onSubmit = () => {
     const dataUrl = cropperRef.current?.cropper

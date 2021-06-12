@@ -1,10 +1,10 @@
-# 新メディカル BOX
+# SymphonyForum
 
 ## [🏠URL](https://symphony-forum.vercel.app)
 
 ## 概要
 
-歯科医院向けの画像管理のシステムのフロントエンド
+吹奏楽向けのイベントサイト Web アプリケーションのフロントエンド
 
 ## スタートガイド
 

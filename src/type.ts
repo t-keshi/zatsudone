@@ -16,7 +16,7 @@ export interface Concert {
 export interface Orchestra {
   id: number;
   name: string;
-  orchestraDetail: string;
+  // orchestraDetail: string;
 }
 
 export interface OrchestraDetail extends Orchestra {
