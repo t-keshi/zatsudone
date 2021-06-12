@@ -1,11 +1,11 @@
 import { Box, Tab, Tabs } from '@material-ui/core';
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import { CoverImage } from '../../components/helpers/CoverImage/CoverImage';
+import { TabPanel } from '../../components/helpers/TabPanel';
 import { Layout } from '../../components/layout/Layout';
-import { CoverImage } from '../../components/ui/CoverImage/CoverImage';
-import { TabPanel } from '../../components/ui/TabPanel';
-import { useTab } from '../../helpers/hooks/useTab';
-import { useTitle } from '../../helpers/hooks/useTitle';
+import { useTab } from '../../utility/hooks/useTab';
+import { useTitle } from '../../utility/hooks/useTitle';
 import { OrchestraConcerts } from './OrchestraConcerts/OrchestraConcerts';
 import { OrchestraDetailInfo } from './OrchestraDetailInfo/OrchestraDetailInfo';
 import { OrchestraMembers } from './OrchestraMembers/OrchestraMembers';

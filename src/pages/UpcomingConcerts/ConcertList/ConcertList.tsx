@@ -1,6 +1,6 @@
 import { Box, Divider } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import { ConcertListItem } from '../../../components/ui/ConcertListItem';
+import { ConcertListItem } from '../../../components/helpers/ConcertListItem';
 import { useFetchConcerts } from '../../../containers/api/concert/useFetchConcerts';
 import { concertListResponse } from './dummy';
 

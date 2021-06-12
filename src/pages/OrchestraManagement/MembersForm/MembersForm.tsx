@@ -1,8 +1,8 @@
-import React from 'react';
+import { Avatar, Box, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Typography, Box, Button } from '@material-ui/core';
+import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
-import { TypographyWithLabel } from '../../../components/ui/TypographyWithLabel';
+import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
 
 const useStyles = makeStyles((theme) => ({
   avatarWrapper: {

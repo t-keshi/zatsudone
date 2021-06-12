@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { TypographyWithLabel } from '../../../components/ui/TypographyWithLabel';
+import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
 import { InfoDetailFormItem } from './InfoDetailFormItem';
 
 export const InfoDetailForm: React.VFC = () => {

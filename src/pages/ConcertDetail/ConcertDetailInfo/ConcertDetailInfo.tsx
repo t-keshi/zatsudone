@@ -1,20 +1,20 @@
 import {
-  Typography,
   Box,
+  Container,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Container,
+  Typography,
 } from '@material-ui/core';
-import { LocationOn, Event, Schedule } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
+import { Event, LocationOn, Schedule } from '@material-ui/icons';
 import { format } from 'date-fns';
+import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
-import { concertResponse } from './dummy';
-import { TypographyWithLabel } from '../../../components/ui/TypographyWithLabel';
+import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
 import { Prefecture } from '../../../constants/prefectures';
+import { concertResponse } from './dummy';
 
 const useStyles = makeStyles(() => ({
   image: {

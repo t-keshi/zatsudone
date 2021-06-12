@@ -1,17 +1,17 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { ForgetPassword } from '../pages/Auth/ForgetPassword';
+import { LogIn } from '../pages/Auth/LogIn';
+import { Signup } from '../pages/Auth/SignUp';
+import { ConcertDetail } from '../pages/ConcertDetail/ConcertDetail';
+import { OrchestraDetail } from '../pages/OrchestraDetail/OrchestraDetail';
+import { OrchestraManagement } from '../pages/OrchestraManagement/OrchestraManagement';
 import { Orchestras } from '../pages/Orchestras/Orchestras';
 import { RecentConcerts } from '../pages/RecentConcerts/RecentConcerts';
 import { Top } from '../pages/Top/Top';
 import { UpcomingConcerts } from '../pages/UpcomingConcerts/UpcomingConcerts';
-import { OrchestraDetail } from '../pages/OrchestraDetail/OrchestraDetail';
+import { usePageScrollReset } from '../utility/hooks/useScrollReset';
 import { ROUTE_PATHS } from './type';
-import { ConcertDetail } from '../pages/ConcertDetail/ConcertDetail';
-import { OrchestraManagement } from '../pages/OrchestraManagement/OrchestraManagement';
-import { LogIn } from '../pages/Auth/LogIn';
-import { ForgetPassword } from '../pages/Auth/ForgetPassword';
-import { Signup } from '../pages/Auth/SignUp';
-import { usePageScrollReset } from '../helpers/hooks/useScrollReset';
 
 export const Routes: React.VFC = () => {
   usePageScrollReset();

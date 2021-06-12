@@ -1,12 +1,12 @@
 import { Box, Container, Tab, Tabs, Typography } from '@material-ui/core';
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import { CoverImageEditable } from '../../components/helpers/CoverImage/CoverImageEditable';
+import { TabPanel } from '../../components/helpers/TabPanel';
 import { Layout } from '../../components/layout/Layout';
-import { CoverImageEditable } from '../../components/ui/CoverImage/CoverImageEditable';
-import { TabPanel } from '../../components/ui/TabPanel';
-import { useTab } from '../../helpers/hooks/useTab';
-import { useTitle } from '../../helpers/hooks/useTitle';
-import { useToggle } from '../../helpers/hooks/useToggle';
+import { useTab } from '../../utility/hooks/useTab';
+import { useTitle } from '../../utility/hooks/useTitle';
+import { useToggle } from '../../utility/hooks/useToggle';
 import { ConcertForm } from './ConcertForm/ConcertForm';
 import { ImageUploadModal } from './ImageUploadModal/ImageUploadModal';
 import { MembersForm } from './MembersForm/MembersForm';

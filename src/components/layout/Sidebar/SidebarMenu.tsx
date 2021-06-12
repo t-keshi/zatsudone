@@ -1,9 +1,9 @@
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
 import { ArrowRight } from '@material-ui/icons';
+import React from 'react';
 import { ROUTE_PATHS } from '../../../routes/type';
-import { useRouter } from '../../../helpers/hooks/useRouter';
+import { useRouter } from '../../../utility/hooks/useRouter';
 
 const useStyles = makeStyles(() => ({
   icon: {

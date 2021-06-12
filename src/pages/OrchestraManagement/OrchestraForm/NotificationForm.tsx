@@ -1,9 +1,9 @@
-import { useForm } from 'react-hook-form';
-import React from 'react';
-import { Button, Box, List, ListItem, ListItemText } from '@material-ui/core';
+import { Box, Button, List, ListItem, ListItemText } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import { TypographyWithLabel } from '../../../components/ui/TypographyWithLabel';
-import { FormTextField } from '../../../components/ui/FormTextField';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { FormTextField } from '../../../components/helpers/FormTextField';
+import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
 
 export const NotificationForm: React.VFC = () => {
   const {

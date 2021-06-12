@@ -1,6 +1,6 @@
-import { Divider, Box } from '@material-ui/core';
+import { Box, Divider } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import { ConcertListItem } from '../../../components/ui/ConcertListItem';
+import { ConcertListItem } from '../../../components/helpers/ConcertListItem';
 import { concertListResponse } from './dummy';
 
 export const ConcertList: React.VFC = () => (

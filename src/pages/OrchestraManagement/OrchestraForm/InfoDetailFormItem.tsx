@@ -1,16 +1,16 @@
 import {
-  ListItem,
   Box,
-  Typography,
-  IconButton,
   Button,
+  IconButton,
+  ListItem,
+  Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Edit, Close } from '@material-ui/icons';
+import { Close, Edit } from '@material-ui/icons';
 import React from 'react';
 import { Control, FieldValues, Path } from 'react-hook-form';
-import { FormTextField } from '../../../components/ui/FormTextField';
-import { useToggle } from '../../../helpers/hooks/useToggle';
+import { FormTextField } from '../../../components/helpers/FormTextField';
+import { useToggle } from '../../../utility/hooks/useToggle';
 
 const useStyles = makeStyles((theme) => ({
   editButton: {

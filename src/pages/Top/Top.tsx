@@ -2,9 +2,9 @@ import { Box, Button, Typography } from '@material-ui/core';
 import React from 'react';
 import heroHeader from '../../assets/heroHeader.png';
 import { TopLayout } from '../../components/layout/TopLayout';
-import { useRouter } from '../../helpers/hooks/useRouter';
-import { useTitle } from '../../helpers/hooks/useTitle';
 import { ROUTE_PATHS } from '../../routes/type';
+import { useRouter } from '../../utility/hooks/useRouter';
+import { useTitle } from '../../utility/hooks/useTitle';
 
 export const Top: React.VFC = () => {
   useTitle('SymphonyForum | 音楽を楽しもう');

@@ -12,14 +12,14 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import googleLogIn from '../../assets/googleLogIn.png';
+import { DividerWithText } from '../../components/helpers/DividerWithText/DividerWithText';
+import { FormTextField } from '../../components/helpers/FormTextField';
 import { TopLayout } from '../../components/layout/TopLayout';
-import { DividerWithText } from '../../components/ui/DividerWithText';
-import { FormTextField } from '../../components/ui/FormTextField';
 import { useGoogleLogIn } from '../../containers/api/authentication/useGoogleLogIn';
 import { useSignUp } from '../../containers/api/authentication/useSignUp';
-import { useRouter } from '../../helpers/hooks/useRouter';
-import { useTitle } from '../../helpers/hooks/useTitle';
 import { ROUTE_PATHS } from '../../routes/type';
+import { useRouter } from '../../utility/hooks/useRouter';
+import { useTitle } from '../../utility/hooks/useTitle';
 
 interface FormValues {
   displayName: string;

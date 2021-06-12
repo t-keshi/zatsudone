@@ -4,7 +4,7 @@ import 'cropperjs/dist/cropper.css';
 import React, { useRef } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import { useUploadCoverImage } from '../../../containers/api/orchestra/useUploadCoverImage';
-import { useImageUpload } from '../../../helpers/hooks/useImageUpload';
+import { useImageUpload } from '../../../utility/hooks/useImageUpload';
 
 interface Props {
   isModalOpen: boolean;

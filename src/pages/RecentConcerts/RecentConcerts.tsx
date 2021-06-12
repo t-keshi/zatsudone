@@ -1,7 +1,7 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
 import { Layout } from '../../components/layout/Layout';
-import { useTitle } from '../../helpers/hooks/useTitle';
+import { useTitle } from '../../utility/hooks/useTitle';
 import { ConcertList } from './ConcertList/ConcertList';
 import { ContentHeader } from './ContentHeader/ContentHeader';
 

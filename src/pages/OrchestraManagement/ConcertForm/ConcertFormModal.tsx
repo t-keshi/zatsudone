@@ -1,10 +1,10 @@
-import { Modal, Box, Paper } from '@material-ui/core';
+import { Box, Modal, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
 import { format } from 'date-fns';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormTextField } from '../../../components/ui/FormTextField';
-import { YesOrNoButton } from '../../../components/ui/YesOrNoButton';
+import { FormTextField } from '../../../components/helpers/FormTextField';
+import { YesOrNoButton } from '../../../components/helpers/YesOrNoButton';
 
 interface Props {
   isModalOpen: boolean;

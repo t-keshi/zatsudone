@@ -12,15 +12,15 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import googleLogIn from '../../assets/googleLogIn.png';
+import { DividerWithText } from '../../components/helpers/DividerWithText/DividerWithText';
+import { FormTextField } from '../../components/helpers/FormTextField';
+import { StyledLink } from '../../components/helpers/StyledLink';
 import { TopLayout } from '../../components/layout/TopLayout';
-import { DividerWithText } from '../../components/ui/DividerWithText';
-import { FormTextField } from '../../components/ui/FormTextField';
-import { StyledLink } from '../../components/ui/StyledLink';
 import { useGoogleLogIn } from '../../containers/api/authentication/useGoogleLogIn';
 import { useLogIn } from '../../containers/api/authentication/useLogIn';
-import { useRouter } from '../../helpers/hooks/useRouter';
-import { useTitle } from '../../helpers/hooks/useTitle';
 import { ROUTE_PATHS } from '../../routes/type';
+import { useRouter } from '../../utility/hooks/useRouter';
+import { useTitle } from '../../utility/hooks/useTitle';
 
 interface FormValues {
   email: string;

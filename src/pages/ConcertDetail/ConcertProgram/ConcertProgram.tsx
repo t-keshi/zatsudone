@@ -1,7 +1,7 @@
 import { Box, List, ListItem, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { Fragment } from 'react';
-import { TypographyWithLabel } from '../../../components/ui/TypographyWithLabel';
+import { TypographyWithLabel } from '../../../components/helpers/TypographyWithLabel';
 import { Program } from '../../../type';
 
 const useStyles = makeStyles((theme) => ({

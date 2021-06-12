@@ -4,9 +4,9 @@ import {
   UseMutationOptions,
   UseMutationResult,
 } from 'react-query';
-import { handleApiError } from '../../../helpers/handleApiError';
-import { useRouter } from '../../../helpers/hooks/useRouter';
 import { ROUTE_PATHS } from '../../../routes/type';
+import { handleApiError } from '../../../utility/handleApiError';
+import { useRouter } from '../../../utility/hooks/useRouter';
 
 type Data = unknown;
 type UseLogIn = (
