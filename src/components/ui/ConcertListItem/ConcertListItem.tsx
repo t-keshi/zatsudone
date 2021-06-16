@@ -13,10 +13,15 @@ import { format } from 'date-fns';
 import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
 import { ROUTE_PATHS } from '../../../routes/type';
-import { Concert } from '../../../type';
+import { ConcertType } from '../../../types';
 import { StyledLink } from '../../helpers/StyledLink/StyledLink';
+import { TextLabel } from '../../helpers/TextLabel/TextLabel';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    columnGap: theme.spacing(3),
+  },
   image: {
     objectFit: 'contain',
     height: 120,
@@ -28,32 +33,23 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface Props {
-  concert: Concert;
+  concert: ConcertType;
 }
 
 export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
   const classes = useStyles();
+  console.log(ROUTE_PATHS.コンサート詳細.split('/'));
 
   return (
-    <Box display="flex" style={{ columnGap: '24px' }}>
+    <Box className={classes.root}>
       <Hidden xsDown implementation="css">
         <img className={classes.image} alt="musicNote" src={musicNote} />
       </Hidden>
       <Box>
-        <Box
-          bgcolor="primary.main"
-          display="inline-flex"
-          paddingRight="8px"
-          paddingLeft="8px"
-          mb={1}
-        >
-          <Typography variant="button" display="block">
-            {concert.orchestra.name}
-          </Typography>
-        </Box>
+        <TextLabel gutterBottom>{concert.orchestra.name}</TextLabel>
         <Typography
           component={StyledLink}
-          to={ROUTE_PATHS.コンサート詳細}
+          to={`/${ROUTE_PATHS.コンサート詳細.split('/')[1]}/${concert.id}`}
           variant="h6"
           color="textPrimary"
           underline="always"
@@ -66,19 +62,24 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
             <ListItemIcon className={classes.icon}>
               <Event fontSize="small" />
             </ListItemIcon>
-            <ListItemText secondary={format(concert.date, 'yyyy/MM/dd')} />
+            <ListItemText
+              secondary={format(new Date(concert.date), 'yyyy/MM/dd')}
+            />
           </ListItem>
           <ListItem dense>
             <ListItemIcon className={classes.icon}>
               <LocationOn fontSize="small" />
             </ListItemIcon>
-            <ListItemText secondary="兵庫県尼崎市あましんアルカイックホール" />
+            <ListItemText
+              // eslint-disable-next-line no-underscore-dangle
+              secondary={concert.location._longitude}
+            />
           </ListItem>
           <ListItem dense>
             <ListItemIcon className={classes.icon}>
               <QueueMusic fontSize="small" />
             </ListItemIcon>
-            <ListItemText secondary="ドラゴンの年、宇宙の音楽　他" />
+            <ListItemText secondary={concert.symphonies.join(' ')} />
           </ListItem>
         </List>
       </Box>

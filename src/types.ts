@@ -1,22 +1,23 @@
 export interface Location {
-  _latitude: 10;
-  _longitude: 120;
+  _latitude: number;
+  _longitude: number;
 }
 
 export interface TimeStamp {
-  _seconds: 1621035000;
-  _nanoseconds: 0;
+  _seconds: number;
+  _nanoseconds: number;
 }
 
 // ---------- concert ----------
 export interface ConcertResponse {
   id: string;
   title: string;
+  programs: string;
   location: Location;
-  date: TimeStamp;
-  openAt: TimeStamp;
-  startAt: TimeStamp;
-  closeAt: TimeStamp;
+  date: string;
+  openAt: string;
+  startAt: string;
+  closeAt: string;
   orchestra: OrchestraSnippets;
   participantsCount: number;
 }
@@ -31,8 +32,9 @@ export type ConcertType = {
   id: string;
   title: string;
   program: string;
-  location: string;
+  location: Location;
   date: Date;
+  orchestra: OrchestraSnippets;
   symphonies: string[];
 };
 

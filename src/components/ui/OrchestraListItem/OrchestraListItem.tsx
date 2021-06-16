@@ -6,7 +6,11 @@ import { ROUTE_PATHS } from '../../../routes/type';
 import { Orchestra } from '../../../type';
 import { StyledLink } from '../../helpers/StyledLink/StyledLink';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    columnGap: theme.spacing(3),
+  },
   image: {
     objectFit: 'contain',
     height: 120,
@@ -22,7 +26,7 @@ export const OrchestraListItem: React.VFC<Props> = ({ orchestra }) => {
   const classes = useStyles();
 
   return (
-    <Box display="flex" style={{ columnGap: '24px' }}>
+    <Box className={classes.root}>
       <img className={classes.image} alt="musicNote" src={musicNote} />
       <Box>
         <Typography
@@ -30,7 +34,7 @@ export const OrchestraListItem: React.VFC<Props> = ({ orchestra }) => {
           variant="h6"
           color="textPrimary"
           underline="always"
-          to={ROUTE_PATHS.楽団詳細}
+          to={`/${ROUTE_PATHS.楽団詳細.split('/')[1]}/${orchestra.id}`}
         >
           {orchestra.name}
         </Typography>

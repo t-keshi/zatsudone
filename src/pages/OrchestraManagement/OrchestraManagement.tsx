@@ -1,16 +1,18 @@
-import { Box, Container, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Container, Tab, Tabs } from '@material-ui/core';
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
+import image from '../../assets/orchestraCover.jpg';
+import { CoverImage } from '../../components/helpers/CoverImage/CoverImage';
 import { TabPanel } from '../../components/helpers/TabPanel/TabPanel';
 import { Layout } from '../../components/layout/Layout';
-import { CoverImageEditable } from '../../components/ui/CoverImage/CoverImageEditable';
+import { ConcertForm } from '../../components/ui/ConcertForm/ConcertForm';
+import { ImageUploadModal } from '../../components/ui/ImageUploadModal/ImageUploadModal';
+import { ContentHeader } from '../../components/uiGroup/ContentHeader/ContentHeader';
+import { MembersForm } from '../../components/uiGroup/MembersForm/MembersForm';
+import { OrchestraForms } from '../../components/uiGroup/OrchestraForms/OrchestraForms';
 import { useTab } from '../../utility/hooks/useTab';
 import { useTitle } from '../../utility/hooks/useTitle';
 import { useToggle } from '../../utility/hooks/useToggle';
-import { ConcertForm } from './ConcertForm/ConcertForm';
-import { ImageUploadModal } from './ImageUploadModal/ImageUploadModal';
-import { MembersForm } from './MembersForm/MembersForm';
-import { OrchestraForms } from './OrchestraForm/OrchestraForms';
 
 export const OrchestraManagement: React.VFC = () => {
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
@@ -21,14 +23,16 @@ export const OrchestraManagement: React.VFC = () => {
   return (
     <Layout noPadding>
       <Container maxWidth={false}>
-        <Box py={2}>
-          <Typography variant="overline">ORCHESTRA MANAGEMENT </Typography>
-          <Typography variant="h5">楽団運営</Typography>
-        </Box>
+        <ContentHeader
+          pageTitle="楽団運営"
+          pageTitleOverline="ORCHESTRA MANAGEMENT"
+        />
       </Container>
-      <CoverImageEditable
-        isTopImage={false}
-        openModal={() => handleIsModalOpen(true)}
+      <CoverImage
+        title="大阪大学吹奏楽団"
+        image={image}
+        hasRadiusTop={false}
+        editModal={() => handleIsModalOpen(true)}
       />
       <ImageUploadModal
         isModalOpen={isModalOpen}
