@@ -1,19 +1,21 @@
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
 import { ArrowRight } from '@material-ui/icons';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../../routes/type';
-import { useRouter } from '../../../helpers/hooks/useRouter';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   icon: {
     minWidth: 28,
+  },
+  activeNavLink: {
+    color: theme.palette.primary.main,
   },
 }));
 
 export const SidebarMenu: React.VFC = () => {
   const classes = useStyles();
-  const { history } = useRouter();
   const sidebarNavItems = [
     {
       label: '近日中のコンサート',
@@ -37,9 +39,11 @@ export const SidebarMenu: React.VFC = () => {
     <List>
       {sidebarNavItems.map((navItem) => (
         <ListItem
-          button
           key={navItem.label}
-          onClick={() => history.push(navItem.link)}
+          component={NavLink}
+          activeClassName={classes.activeNavLink}
+          button
+          to={navItem.link}
         >
           <ListItemIcon className={classes.icon}>
             <ArrowRight />

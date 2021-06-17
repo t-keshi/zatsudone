@@ -11,20 +11,23 @@ type UseFetchConcert = (
 ) => UseQueryResult<Data, unknown>;
 
 export const useFetchConcert: UseFetchConcert = (options) => {
-  const params: { id: string } = useParams();
-  const { id } = params;
+  const params: { concertId: string } = useParams();
+  const { concertId } = params;
 
   const queryFn = async () => {
-    const response = await axios.get<Data>(`${BASE_URL}/concerts/${id}`, {
-      params: {
-        prefecture: 'all',
+    const response = await axios.get<Data>(
+      `${BASE_URL}/concerts/${concertId}`,
+      {
+        params: {
+          prefecture: 'all',
+        },
       },
-    });
+    );
 
     return response.data;
   };
 
-  return useQuery([QUERY.concerts, id], queryFn, {
+  return useQuery([QUERY.concerts, concertId], queryFn, {
     ...options,
   });
 };

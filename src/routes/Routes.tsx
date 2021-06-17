@@ -1,31 +1,31 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Orchestras } from '../pages/Orchestras/Orchestras';
-import { RecentConcerts } from '../pages/RecentConcerts/RecentConcerts';
-import { Top } from '../pages/Top/Top';
-import { UpcomingConcerts } from '../pages/UpcomingConcerts/UpcomingConcerts';
-import { OrchestraDetail } from '../pages/OrchestraDetail/OrchestraDetail';
+import { AuthForgetPassword } from '../pages/AuthForgetPassword';
+import { AuthLogIn } from '../pages/AuthLogIn';
+import { AuthSignup } from '../pages/AuthSignUp';
+import { ConcertDetail } from '../pages/ConcertDetail';
+import { ConcertsRecent } from '../pages/ConcertsRecent';
+import { ConcertsUpcoming } from '../pages/ConcertsUpcoming';
+import { LandingPage } from '../pages/LandingPage';
+import { OrchestraDetail } from '../pages/OrchestraDetail';
+import { OrchestraManagement } from '../pages/OrchestraManagement';
+import { Orchestras } from '../pages/Orchestras';
+import { usePageScrollReset } from '../utility/hooks/useScrollReset';
 import { ROUTE_PATHS } from './type';
-import { ConcertDetail } from '../pages/ConcertDetail/ConcertDetail';
-import { OrchestraManagement } from '../pages/OrchestraManagement/OrchestraManagement';
-import { LogIn } from '../pages/Auth/LogIn';
-import { ForgetPassword } from '../pages/Auth/ForgetPassword';
-import { Signup } from '../pages/Auth/SignUp';
-import { usePageScrollReset } from '../helpers/hooks/useScrollReset';
 
 export const Routes: React.VFC = () => {
   usePageScrollReset();
 
   return (
     <Switch>
-      <Route exact path={ROUTE_PATHS.トップ}>
-        <Top />
+      <Route exact path={ROUTE_PATHS.ランディングページ}>
+        <LandingPage />
       </Route>
       <Route exact path={ROUTE_PATHS.近日中のコンサート}>
-        <UpcomingConcerts />
+        <ConcertsUpcoming />
       </Route>
       <Route exact path={ROUTE_PATHS.新着のコンサート}>
-        <RecentConcerts />
+        <ConcertsRecent />
       </Route>
       <Route exact path={ROUTE_PATHS.コンサート詳細}>
         <ConcertDetail />
@@ -40,13 +40,13 @@ export const Routes: React.VFC = () => {
         <OrchestraManagement />
       </Route>
       <Route exact path={ROUTE_PATHS.ログイン}>
-        <LogIn />
+        <AuthLogIn />
       </Route>
       <Route exact path={ROUTE_PATHS.新規登録}>
-        <Signup />
+        <AuthSignup />
       </Route>
       <Route exact path={ROUTE_PATHS.パスワード忘れ}>
-        <ForgetPassword />
+        <AuthForgetPassword />
       </Route>
     </Switch>
   );

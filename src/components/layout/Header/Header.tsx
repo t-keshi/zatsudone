@@ -9,9 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import firebase from 'firebase/app';
 import React from 'react';
 import { useLogOut } from '../../../containers/api/authentication/useLogOut';
-import { useMenu } from '../../../helpers/hooks/useMenu';
-import { useRouter } from '../../../helpers/hooks/useRouter';
 import { ROUTE_PATHS } from '../../../routes/type';
+import { useMenu } from '../../../utility/hooks/useMenu';
+import { useRouter } from '../../../utility/hooks/useRouter';
 import { HeaderMenu } from './HeaderMenu';
 
 const useStyles = makeStyles((theme) => ({

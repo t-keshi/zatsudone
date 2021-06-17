@@ -3,24 +3,33 @@ import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../../constants/env';
 import { QUERY } from '../../../constants/query';
-import { OrchestraResponse } from '../../../types';
 
-type Data = OrchestraResponse;
-type UseFetchOrchestras = (
+export interface Orchestra {
+  id: string;
+  name: string;
+  description: string;
+  membersCount: number;
+  conductor: string;
+  subConductor: string;
+  homePage: string;
+}
+type Data = Orchestra;
+type UseFetchConcerts = (
   options?: UseQueryOptions<Data, unknown, Data, [string, string]>,
 ) => UseQueryResult<Data, unknown>;
 
-export const useFetchOrchestras: UseFetchOrchestras = (options) => {
-  const params: { id: string } = useParams();
-  const { id } = params;
-
+export const useFetchOrchestra: UseFetchConcerts = (options) => {
+  const params: { orchestraId: string } = useParams();
+  const { orchestraId } = params;
   const queryFn = async () => {
-    const response = await axios.get<Data>(`${BASE_URL}/orchestras/${id}`);
+    const response = await axios.get<Data>(
+      `${BASE_URL}/orchestras/${orchestraId}`,
+    );
 
     return response.data;
   };
 
-  return useQuery([QUERY.concerts, id], queryFn, {
+  return useQuery([QUERY.orchestra, orchestraId], queryFn, {
     ...options,
   });
 };
