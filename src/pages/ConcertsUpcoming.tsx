@@ -1,8 +1,8 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
 import { Layout } from '../components/layout/Layout';
-import { ConcertList } from '../components/uiGroup/ConcertList/ConcertList';
-import { ContentHeader } from '../components/uiGroup/ContentHeader/ContentHeader';
+import { ConcertList } from '../components/ui/ConcertList/ConcertList';
+import { ContentHeader } from '../components/ui/ContentHeader/ContentHeader';
 import { useFetchConcerts } from '../containers/api/concert/useFetchConcerts';
 import { useTitle } from '../utility/hooks/useTitle';
 

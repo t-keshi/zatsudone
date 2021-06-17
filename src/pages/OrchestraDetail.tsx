@@ -1,31 +1,28 @@
 import { Box, Tab, Tabs } from '@material-ui/core';
 import React from 'react';
-import { useQueryClient } from 'react-query';
 import SwipeableViews from 'react-swipeable-views';
 import image from '../assets/orchestraCover.jpg';
 import { CoverImage } from '../components/helpers/CoverImage/CoverImage';
 import { TabPanel } from '../components/helpers/TabPanel/TabPanel';
 import { Layout } from '../components/layout/Layout';
+import { ConcertList } from '../components/ui/ConcertList/ConcertList';
 import { OrchestraDetailInfo } from '../components/ui/OrchestraDetailInfo/OrchestraDetailInfo';
 import { OrchestraMembers } from '../components/ui/OrchestraMembers/OrchestraMembers';
-import { ConcertList } from '../components/uiGroup/ConcertList/ConcertList';
-import { QUERY } from '../constants/query';
-import { ConcertsResponse } from '../types';
+import { useFetchConcerts } from '../containers/api/concert/useFetchConcerts';
+import { useFetchOrchestra } from '../containers/api/orchestra/useFetchOrchestra';
 import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const OrchestraDetail: React.VFC = () => {
+  const { data } = useFetchOrchestra();
+  const { data: concertData } = useFetchConcerts();
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
-  const queryClient = useQueryClient();
-  const queryCache: ConcertsResponse | undefined = queryClient.getQueryData(
-    QUERY.concerts,
-  );
 
   useTitle('SymphonyForum | 大阪大学吹奏楽団');
 
   return (
     <Layout noPadding>
-      <CoverImage title="大阪大学吹奏楽団" image={image} />
+      <CoverImage title={data?.name} image={image} hasRadiusTop />
       <Tabs
         value={tabIndex}
         onChange={handleChangeTab}
@@ -43,15 +40,13 @@ export const OrchestraDetail: React.VFC = () => {
         onChangeIndex={handleChangeTabBySwipe}
       >
         <TabPanel value={tabIndex} index={0}>
-          <OrchestraDetailInfo />
+          <OrchestraDetailInfo orchestra={data} />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
           <OrchestraMembers />
         </TabPanel>
         <TabPanel value={tabIndex} index={2}>
-          {queryCache !== undefined && (
-            <ConcertList concerts={queryCache.concerts} />
-          )}
+          <ConcertList concerts={concertData?.concerts} />
         </TabPanel>
       </SwipeableViews>
     </Layout>

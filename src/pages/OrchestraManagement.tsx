@@ -5,14 +5,16 @@ import coverImage from '../assets/orchestraCover.jpg';
 import { TabPanel } from '../components/helpers/TabPanel/TabPanel';
 import { Layout } from '../components/layout/Layout';
 import { ConcertForm } from '../components/ui/ConcertForm/ConcertForm';
+import { ContentHeader } from '../components/ui/ContentHeader/ContentHeader';
 import { OrchestraFormImage } from '../components/ui/OrchestraFormImage/OrchestraFormImage';
-import { ContentHeader } from '../components/uiGroup/ContentHeader/ContentHeader';
 import { MembersForm } from '../components/uiGroup/MembersForm/MembersForm';
 import { OrchestraForms } from '../components/uiGroup/OrchestraForms/OrchestraForms';
+import { useFetchConcerts } from '../containers/api/concert/useFetchConcerts';
 import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const OrchestraManagement: React.VFC = () => {
+  const { data } = useFetchConcerts();
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
 
   useTitle('SymphonyForum | ユーザーリスト');
@@ -51,7 +53,7 @@ export const OrchestraManagement: React.VFC = () => {
           <MembersForm />
         </TabPanel>
         <TabPanel value={tabIndex} index={2}>
-          <ConcertForm />
+          <ConcertForm concerts={data?.concerts} />
         </TabPanel>
       </SwipeableViews>
     </Layout>

@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Image } from '@material-ui/icons';
+import { Skeleton } from '@material-ui/lab';
 import React from 'react';
 
 interface StyleProps {
@@ -8,18 +9,23 @@ interface StyleProps {
 }
 
 interface Props extends StyleProps {
-  title: string;
-  image: string;
+  title: string | undefined;
+  image: string | undefined;
   editModal?: () => void;
 }
 
+const COVER_IMAGE_HEIGHT = 320;
+
 const useStyles = makeStyles((theme) => ({
   image: {
-    height: 320,
+    height: COVER_IMAGE_HEIGHT,
     width: '100%',
     objectFit: 'cover',
     display: 'block',
     background: 'center/cover no-repeat',
+    contentVisibility: 'auto',
+    containIntrinsicSize: COVER_IMAGE_HEIGHT,
+
     borderRadius: ({ hasRadiusTop }: StyleProps) =>
       hasRadiusTop
         ? `${theme.shape.borderRadius}px ${theme.shape.borderRadius}px 0 0`
@@ -66,6 +72,10 @@ export const CoverImage: React.VFC<Props> = (props) => {
   const { hasRadiusTop = false, title, image, editModal } = props;
   const classes = useStyles({ hasRadiusTop });
 
+  if (title === undefined || image === undefined) {
+    return <Skeleton className={classes.image} variant="rect" />;
+  }
+
   return (
     <Box position="relative">
       <img className={classes.image} src={image} alt={title} />
@@ -74,19 +84,19 @@ export const CoverImage: React.VFC<Props> = (props) => {
           {title}
         </Typography>
       </div>
-      {/* edit start */}
-      <div className={classes.overlay} />
       {Boolean(editModal) && (
-        <Button
-          className={classes.editButton}
-          variant="text"
-          startIcon={<Image color="inherit" />}
-          onClick={editModal}
-        >
-          カバー写真を変更
-        </Button>
+        <>
+          <div className={classes.overlay} />
+          <Button
+            className={classes.editButton}
+            variant="text"
+            startIcon={<Image color="inherit" />}
+            onClick={editModal}
+          >
+            カバー写真を変更
+          </Button>
+        </>
       )}
-      {/* edit end */}
     </Box>
   );
 };

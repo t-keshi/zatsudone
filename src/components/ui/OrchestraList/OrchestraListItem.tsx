@@ -1,10 +1,13 @@
-import { Box, Typography } from '@material-ui/core';
+import { Box, Hidden, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Skeleton } from '@material-ui/lab';
 import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
+import { Orchestra } from '../../../containers/api/orchestra/useFetchOrchestras';
 import { ROUTE_PATHS } from '../../../routes/type';
-import { Orchestra } from '../../../type';
 import { StyledLink } from '../../helpers/StyledLink/StyledLink';
+
+const IMAGE_SIZE = 120;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,21 +16,38 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     objectFit: 'contain',
-    height: 120,
-    width: 120,
+    height: IMAGE_SIZE,
+    width: IMAGE_SIZE,
   },
 }));
 
 interface Props {
-  orchestra: Orchestra;
+  orchestra: Orchestra | undefined;
 }
 
 export const OrchestraListItem: React.VFC<Props> = ({ orchestra }) => {
   const classes = useStyles();
 
+  if (orchestra === undefined) {
+    return (
+      <Box className={classes.root}>
+        <Hidden xsDown implementation="css">
+          <Skeleton className={classes.image} variant="rect" />
+        </Hidden>
+        <Box>
+          <Skeleton width={100}>
+            <Typography variant="h6" />
+          </Skeleton>
+        </Box>
+      </Box>
+    );
+  }
+
   return (
     <Box className={classes.root}>
-      <img className={classes.image} alt="musicNote" src={musicNote} />
+      <Hidden xsDown implementation="css">
+        <img className={classes.image} alt="musicNote" src={musicNote} />
+      </Hidden>
       <Box>
         <Typography
           component={StyledLink}

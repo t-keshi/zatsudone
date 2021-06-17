@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: 100,
     height: 100,
+    marginBottom: theme.spacing(1),
   },
 }));
 
@@ -31,8 +32,7 @@ export const MembersForm: React.VFC = () => {
       <div className={classes.avatarWrapper}>
         {joinRequests.map((request) => (
           <Box width={100} key={request}>
-            <Avatar alt="avatar" src={musicNote} className={classes.avatar} />
-            <Box mt={1} />
+            <Avatar className={classes.avatar} alt="avatar" src={musicNote} />
             <Typography align="center" variant="body1">
               山田 太郎
             </Typography>
@@ -58,8 +58,7 @@ export const MembersForm: React.VFC = () => {
       <div className={classes.avatarWrapper}>
         {members.map((member) => (
           <Box width={100} key={member}>
-            <Avatar alt="avatar" src={musicNote} className={classes.avatar} />
-            <Box mt={1} />
+            <Avatar className={classes.avatar} alt="avatar" src={musicNote} />
             <Typography align="center" variant="body1">
               山田 太郎
             </Typography>

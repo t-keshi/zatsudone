@@ -1,7 +1,7 @@
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { FilterByPrefecture } from '../../ui/FilterByPrefeture/FilterByPrefecture';
+import { FilterByPrefecture } from '../FilterByPrefeture/FilterByPrefecture';
 
 interface Props {
   pageTitle: string;

@@ -53,7 +53,11 @@ export const ConcertDetail: React.VFC = () => {
                   variant="text"
                   color="default"
                   startIcon={<AccountBox color="primary" />}
-                  onClick={() => history.push(ROUTE_PATHS.楽団詳細)}
+                  onClick={() =>
+                    history.push(
+                      `/${ROUTE_PATHS.楽団詳細.split('/')[1]}/${data.id}`,
+                    )
+                  }
                 >
                   楽団情報を見る
                 </Button>

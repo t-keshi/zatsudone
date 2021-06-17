@@ -10,15 +10,13 @@ import { Close, Edit } from '@material-ui/icons';
 import React from 'react';
 import { Control, FieldValues, Path } from 'react-hook-form';
 import { useToggle } from '../../../utility/hooks/useToggle';
-import { FormTextField } from '../../helpers/FormTextField/FormTextField';
+import { FormTextField } from '../FormTextField/FormTextField';
 
-const useStyles = makeStyles((theme) => ({
-  editButton: {
-    marginLeft: theme.spacing(2),
-  },
-}));
+interface StyleProps {
+  rowWidth: number;
+}
 
-interface Props<TFieldValues> {
+interface Props<TFieldValues> extends StyleProps {
   label: string;
   value: string;
   control: Control<TFieldValues>;
@@ -26,23 +24,44 @@ interface Props<TFieldValues> {
   errorMessage: string | undefined;
 }
 
-export const OrchestraFormInfoItem = <TFieldValues extends FieldValues>({
+const useStyles = makeStyles((theme) => ({
+  listItemText: {
+    display: 'flex',
+    width: '100%',
+    maxWidth: ({ rowWidth }: StyleProps) => rowWidth,
+    alignItems: 'center',
+  },
+  label: {
+    width: '30%',
+  },
+  value: {
+    width: '70%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  editButton: {
+    marginLeft: theme.spacing(2),
+  },
+}));
+
+export const ListItemRowEditable = <TFieldValues extends FieldValues>({
   label,
   value,
   control,
   name,
   errorMessage,
+  rowWidth,
 }: Props<TFieldValues>): React.ReactElement => {
-  const classes = useStyles();
+  const classes = useStyles({ rowWidth });
   const [isEditMode, handleIsEditMode] = useToggle(false);
 
   return (
     <ListItem dense>
-      <Box display="flex" maxWidth={500} width="100%" alignItems="center">
-        <Box width="30%">
+      <Box className={classes.listItemText}>
+        <Box className={classes.label}>
           <Typography variant="body2">{label}</Typography>
         </Box>
-        <Box width="70%" display="flex" alignItems="center">
+        <Box className={classes.value}>
           {!isEditMode ? (
             <>
               <Typography variant="body2" color="textSecondary">

@@ -1,34 +1,27 @@
-import { Box, List, ListItem, ListItemText } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  Box,
+  CircularProgress,
+  List,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core';
 import React from 'react';
+import { Orchestra } from '../../../containers/api/orchestra/useFetchOrchestra';
+import { ListItemRow } from '../../helpers/ListItemRow/ListItemRow';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    rowGap: theme.spacing(4),
-    columnGap: theme.spacing(5),
-    justifyContent: 'center',
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-  },
-  listItem: {
-    display: 'inline-flex',
-  },
-  label: {
-    width: '50%',
-  },
-  valueText: {
-    width: '50%',
-  },
-}));
+interface Props {
+  orchestra: Orchestra | undefined;
+}
 
-export const OrchestraDetailInfo: React.VFC = () => {
-  const classes = useStyles();
+const ROW_WIDTH = 500;
+
+export const OrchestraDetailInfo: React.VFC<Props> = ({ orchestra }) => {
   const news = ['ファゴット募集中！', 'サマーコンサートの受付を開始しました'];
+
+  if (orchestra === undefined) {
+    return <CircularProgress />;
+  }
 
   return (
     <div>
@@ -46,60 +39,36 @@ export const OrchestraDetailInfo: React.VFC = () => {
       <SubHeading variant="h5" gutterBottom>
         楽団情報詳細
       </SubHeading>
-      <Box maxWidth={500}>
-        <List>
-          <ListItem dense>
-            <ListItemText
-              classes={{
-                root: classes.listItem,
-                primary: classes.label,
-                secondary: classes.valueText,
-              }}
-              primary="団員数"
-              secondary="142名"
-            />
-          </ListItem>
-          <ListItem dense>
-            <ListItemText
-              classes={{
-                root: classes.listItem,
-                primary: classes.label,
-                secondary: classes.valueText,
-              }}
-              primary="指揮"
-              secondary="142名"
-            />
-          </ListItem>
-          <ListItem dense>
-            <ListItemText
-              classes={{
-                root: classes.listItem,
-                primary: classes.label,
-                secondary: classes.valueText,
-              }}
-              primary="副指揮"
-              secondary="142名"
-            />
-          </ListItem>
-          <ListItem dense>
-            <ListItemText
-              classes={{
-                root: classes.listItem,
-                primary: classes.label,
-                secondary: classes.valueText,
-              }}
-              primary="公式ホームページ"
-              secondary="https://google.com"
-              secondaryTypographyProps={{
-                component: 'a',
-                target: '_blank',
-                rel: 'noopener',
-                href: 'https://google.com',
-              }}
-            />
-          </ListItem>
-        </List>
-      </Box>
+      <List>
+        <ListItemRow
+          label="団員数"
+          value={orchestra.conductor}
+          rowWidth={ROW_WIDTH}
+        />
+        <ListItemRow
+          label="指揮"
+          value={orchestra.conductor}
+          rowWidth={ROW_WIDTH}
+        />
+        <ListItemRow
+          label="副指揮"
+          value={orchestra.subConductor}
+          rowWidth={ROW_WIDTH}
+        />
+        <ListItemRow
+          label="公式ホームページ"
+          value={orchestra.homePage}
+          rowWidth={ROW_WIDTH}
+          listItemTextProps={{
+            secondaryTypographyProps: {
+              component: 'a',
+              target: '_blank',
+              rel: 'noopener',
+              href: orchestra.homePage,
+            },
+          }}
+        />
+      </List>
     </div>
   );
 };

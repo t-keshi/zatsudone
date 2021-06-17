@@ -18,6 +18,8 @@ import { ConcertType } from '../../../types';
 import { StyledLink } from '../../helpers/StyledLink/StyledLink';
 import { TextLabel } from '../../helpers/TextLabel/TextLabel';
 
+const IMAGE_SIZE = 120;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -25,8 +27,10 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     objectFit: 'contain',
-    height: 120,
-    width: 120,
+    height: IMAGE_SIZE,
+    width: IMAGE_SIZE,
+    contentVisibility: 'auto',
+    containIntrinsicSize: IMAGE_SIZE,
   },
   icon: {
     minWidth: 32,
@@ -39,6 +43,7 @@ interface Props {
 
 export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
   const classes = useStyles();
+
   if (concert === undefined) {
     return (
       <Box className={classes.root}>

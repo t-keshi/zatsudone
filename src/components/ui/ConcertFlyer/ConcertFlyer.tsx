@@ -7,11 +7,15 @@ interface Props {
   image: string | undefined;
 }
 
+const FLYER_HEIGHT = 500;
+
 const useStyles = makeStyles(() => ({
   image: {
     objectFit: 'contain',
-    height: 500,
+    height: FLYER_HEIGHT,
     width: '100%',
+    contentVisibility: 'auto',
+    containIntrinsicSize: FLYER_HEIGHT,
   },
 }));
 

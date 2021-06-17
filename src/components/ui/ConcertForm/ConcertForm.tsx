@@ -1,11 +1,16 @@
-import { Box, Button, Divider } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import React, { Fragment } from 'react';
-import { concertListResponse } from '../../../routes/dummy';
+import React from 'react';
+import { ConcertsResponse } from '../../../types';
 import { useToggle } from '../../../utility/hooks/useToggle';
+import { ConcertList } from '../ConcertList/ConcertList';
 import { ConcertFormModal } from './ConcertFormModal';
 
-export const ConcertForm: React.VFC = () => {
+interface Props {
+  concerts: ConcertsResponse['concerts'] | undefined;
+}
+
+export const ConcertForm: React.VFC<Props> = ({ concerts }) => {
   const [isModalOpen, handleIsModalOpen] = useToggle(false);
 
   return (
@@ -19,14 +24,7 @@ export const ConcertForm: React.VFC = () => {
         isModalOpen={isModalOpen}
         handleIsModalOpen={handleIsModalOpen}
       />
-      {concertListResponse.map((concert, index) => (
-        <Fragment key={concert.id}>
-          <Box mt={2} />
-          {index !== 0 && <Divider />}
-          <Box mt={4} />
-          {/* <ConcertListItem concert={concert} /> */}
-        </Fragment>
-      ))}
+      <ConcertList concerts={concerts} />
     </>
   );
 };
