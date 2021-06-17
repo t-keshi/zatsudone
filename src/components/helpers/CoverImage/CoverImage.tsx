@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Image } from '@material-ui/icons';
 import { Skeleton } from '@material-ui/lab';
 import React from 'react';
+import { Overlay } from '../Overlay/Overlay';
 
 interface StyleProps {
   hasRadiusTop?: boolean;
@@ -48,20 +49,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: theme.palette.common.white,
   },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
-    zIndex: 1,
-    opacity: 0.3,
-    backgroundColor: theme.palette.grey[900],
-  },
   editButton: {
     color: theme.palette.common.white,
     position: 'absolute',
-    zIndex: 2,
+    zIndex: theme.zIndex.overlay + 1,
     top: '50%',
     left: '50%',
     transform: 'translateY(-50%) translateX(-50%)',
@@ -86,7 +77,7 @@ export const CoverImage: React.VFC<Props> = (props) => {
       </div>
       {Boolean(editModal) && (
         <>
-          <div className={classes.overlay} />
+          <Overlay />
           <Button
             className={classes.editButton}
             variant="text"

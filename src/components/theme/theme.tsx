@@ -2,11 +2,13 @@ import { jaJP } from '@material-ui/core/locale';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { colorTheme } from './colorTheme';
 import { typographyTheme } from './typographyTheme';
+import { zIndexTheme } from './zIndexTheme';
 
 export const theme = createMuiTheme(
   {
     ...colorTheme,
     ...typographyTheme,
+    ...zIndexTheme,
     shape: {
       borderRadius: 8,
     },
