@@ -1,13 +1,30 @@
+import { Box, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { Paper, Box } from '@material-ui/core';
 import { SidebarMenu } from './SidebarMenu';
 
-export const Sidebar: React.VFC = () => (
-  <Box position="relative">
-    <Box position="fixed" width={280}>
-      <Paper variant="outlined">
-        <SidebarMenu />
-      </Paper>
+const SIDEBAR_WIDTH = 280;
+
+const useStyles = makeStyles(() => ({
+  root: {
+    position: 'relative',
+  },
+  sidebar: {
+    position: 'fixed',
+    width: SIDEBAR_WIDTH,
+  },
+}));
+
+export const Sidebar: React.VFC = () => {
+  const classes = useStyles();
+
+  return (
+    <Box className={classes.root}>
+      <Box className={classes.sidebar}>
+        <Paper variant="outlined">
+          <SidebarMenu />
+        </Paper>
+      </Box>
     </Box>
-  </Box>
-);
+  );
+};

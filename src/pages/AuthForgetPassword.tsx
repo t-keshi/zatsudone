@@ -2,17 +2,17 @@ import { Box, Button, Container, Paper, Typography } from '@material-ui/core';
 import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormTextField } from '../../components/helpers/FormTextField/FormTextField';
-import { TopLayout } from '../../components/layout/TopLayout';
-import { ROUTE_PATHS } from '../../routes/type';
-import { useRouter } from '../../utility/hooks/useRouter';
-import { useTitle } from '../../utility/hooks/useTitle';
+import { FormTextField } from '../components/helpers/FormTextField/FormTextField';
+import { TopLayout } from '../components/layout/TopLayout';
+import { ROUTE_PATHS } from '../routes/type';
+import { useRouter } from '../utility/hooks/useRouter';
+import { useTitle } from '../utility/hooks/useTitle';
 
 interface FormValue {
   email: string;
 }
 
-export const ForgetPassword: React.VFC = () => {
+export const AuthForgetPassword: React.VFC = () => {
   const { history } = useRouter();
   const {
     control,

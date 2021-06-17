@@ -12,6 +12,15 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100vh',
     backgroundColor: theme.palette.background.default,
   },
+  containerWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  main: {
+    display: 'flex',
+    margin: theme.spacing(3, 0),
+    columnGap: theme.spacing(3),
+  },
   content: {
     flexGrow: 1,
   },
@@ -35,10 +44,10 @@ export const Layout: React.FC<Props> = (props) => {
   return (
     <Box className={classes.root}>
       <Header />
-      <Box display="flex" justifyContent="center">
+      <Box className={classes.containerWrapper}>
         <Container maxWidth="lg">
           <Toolbar />
-          <Box display="flex" my={3} style={{ columnGap: '24px' }}>
+          <Box className={classes.main}>
             <Box className={classes.content}>
               <PageTransition hasPageTransition={hasPageTransition}>
                 <Paper variant="outlined">

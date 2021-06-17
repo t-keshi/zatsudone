@@ -11,15 +11,15 @@ import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import googleLogIn from '../../assets/googleLogIn.png';
-import { DividerWithText } from '../../components/helpers/DividerWithText/DividerWithText';
-import { FormTextField } from '../../components/helpers/FormTextField/FormTextField';
-import { TopLayout } from '../../components/layout/TopLayout';
-import { useGoogleLogIn } from '../../containers/api/authentication/useGoogleLogIn';
-import { useSignUp } from '../../containers/api/authentication/useSignUp';
-import { ROUTE_PATHS } from '../../routes/type';
-import { useRouter } from '../../utility/hooks/useRouter';
-import { useTitle } from '../../utility/hooks/useTitle';
+import googleLogIn from '../assets/googleLogIn.png';
+import { DividerWithText } from '../components/helpers/DividerWithText/DividerWithText';
+import { FormTextField } from '../components/helpers/FormTextField/FormTextField';
+import { TopLayout } from '../components/layout/TopLayout';
+import { useGoogleLogIn } from '../containers/api/authentication/useGoogleLogIn';
+import { useSignUp } from '../containers/api/authentication/useSignUp';
+import { ROUTE_PATHS } from '../routes/type';
+import { useRouter } from '../utility/hooks/useRouter';
+import { useTitle } from '../utility/hooks/useTitle';
 
 interface FormValues {
   displayName: string;
@@ -42,7 +42,7 @@ const schema: yup.SchemaOf<FormValues> = yup.object().shape({
     .required(),
 });
 
-export const Signup: React.VFC = () => {
+export const AuthSignup: React.VFC = () => {
   const { history } = useRouter();
   const {
     control,

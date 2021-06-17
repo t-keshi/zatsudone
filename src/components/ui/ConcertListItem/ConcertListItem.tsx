@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Event, LocationOn, QueueMusic } from '@material-ui/icons';
+import { Skeleton } from '@material-ui/lab';
 import { format } from 'date-fns';
 import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
@@ -33,12 +34,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface Props {
-  concert: ConcertType;
+  concert: ConcertType | undefined;
 }
 
 export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
   const classes = useStyles();
-  console.log(ROUTE_PATHS.コンサート詳細.split('/'));
+  if (concert === undefined) {
+    return (
+      <Box className={classes.root}>
+        <Hidden xsDown implementation="css">
+          <Skeleton className={classes.image} variant="rect" />
+        </Hidden>
+        <Box>
+          <Skeleton width={100}>
+            <TextLabel gutterBottom />
+          </Skeleton>
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box className={classes.root}>

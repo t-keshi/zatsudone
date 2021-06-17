@@ -7,6 +7,10 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100vh',
     backgroundColor: theme.palette.background.default,
   },
+  containerWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
 export const TopLayout: React.FC = ({ children }) => {
@@ -14,7 +18,7 @@ export const TopLayout: React.FC = ({ children }) => {
 
   return (
     <Box className={classes.root}>
-      <Box display="flex" justifyContent="center">
+      <Box className={classes.containerWrapper}>
         <Container maxWidth="lg">
           <Box p={3}>{children}</Box>
         </Container>

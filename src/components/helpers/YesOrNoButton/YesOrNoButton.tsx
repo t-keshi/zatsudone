@@ -32,7 +32,12 @@ export const YesOrNoButton: React.VFC<Props> = ({
 
   return (
     <Box display="flex">
-      <Button className={classes.button} variant="text" {...noButtonProps}>
+      <Button
+        className={classes.button}
+        variant="text"
+        color="default"
+        {...noButtonProps}
+      >
         {noLabel}
       </Button>
       <Button className={classes.button} {...yesButtonProps}>

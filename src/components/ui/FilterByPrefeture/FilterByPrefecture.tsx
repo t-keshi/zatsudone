@@ -1,6 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React from 'react';
 import { Prefecture, PREFECTURES } from '../../../constants/prefectures';
+import { menuProps } from '../../../constants/ui';
 import { useSelect } from '../../../utility/hooks/useSelect';
 
 export const FilterByPrefecture: React.VFC = () => {
@@ -15,17 +16,7 @@ export const FilterByPrefecture: React.VFC = () => {
         value={selectedPrefecture}
         onChange={handleSelectPrefecture}
         label="開催場所"
-        MenuProps={{
-          getContentAnchorEl: null,
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'center',
-          },
-          transformOrigin: {
-            vertical: 'top',
-            horizontal: 'center',
-          },
-        }}
+        MenuProps={menuProps}
       >
         <MenuItem value="すべて">
           <em>すべて</em>

@@ -4,7 +4,7 @@ import React from 'react';
 
 interface Props {
   title: string | undefined;
-  src: string | undefined;
+  image: string | undefined;
 }
 
 const useStyles = makeStyles(() => ({
@@ -16,12 +16,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const ConcertFlyer: React.VFC<Props> = ({ title, src }) => {
+export const ConcertFlyer: React.VFC<Props> = ({ title, image }) => {
   const classes = useStyles();
 
   if (title === undefined) {
     return <Skeleton className={classes.image} variant="rect" />;
   }
 
-  return <img className={classes.image} alt={`${title}-flyer`} src={src} />;
+  return <img className={classes.image} alt={`${title}-flyer`} src={image} />;
 };

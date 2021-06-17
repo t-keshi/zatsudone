@@ -11,7 +11,7 @@ export const ConcertSummary: React.VFC<Props> = ({ orchestraName }) => {
   if (orchestraName === undefined) {
     return (
       <div>
-        <Skeleton>
+        <Skeleton width={200}>
           <TextLabel gutterBottom />
         </Skeleton>
         <Skeleton>
