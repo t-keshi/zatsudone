@@ -1,6 +1,7 @@
 export const QUERY = {
   concerts: 'concerts',
   concert: 'concert',
+  access: 'access',
   orchestras: 'orchestras',
   orchestra: 'orchestra',
   participation: 'participation',

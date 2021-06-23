@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 
+interface Props {
+  isBlack?: boolean;
+}
+
 const useStyles = makeStyles((theme) => ({
   overlay: {
     position: 'absolute',
@@ -10,12 +14,14 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     zIndex: theme.zIndex.overlay,
     opacity: 0.3,
-    backgroundColor: theme.palette.grey[900],
+    backgroundColor: ({ isBlack }: Props) =>
+      isBlack ? theme.palette.grey[900] : theme.palette.grey[100],
   },
 }));
 
-export const Overlay: React.VFC = () => {
-  const classes = useStyles();
+export const Overlay: React.VFC<Props> = (props) => {
+  const { isBlack = true } = props;
+  const classes = useStyles({ isBlack });
 
   return <div className={classes.overlay} />;
 };

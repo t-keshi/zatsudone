@@ -6,11 +6,11 @@ declare module '@material-ui/core/styles/zIndex' {
 
 export const zIndexTheme = {
   zIndex: {
+    overlay: 900,
     mobileStepper: 1000,
     speedDial: 1050,
     appBar: 1100,
     drawer: 1200,
-    overlay: 1250,
     modal: 1300,
     snackbar: 1400,
     tooltip: 1500,
