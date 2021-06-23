@@ -6,6 +6,7 @@ export const ROUTE_PATHS = {
   楽団リスト: '/orchestras',
   楽団詳細: '/orchestras/:orchestraId',
   楽団運営: '/orchestra-management',
+  コンサート編集: '/orchestra-management/concerts/:concertId',
   ログイン: '/login',
   新規登録: '/signup',
   パスワード忘れ: '/forget-password',

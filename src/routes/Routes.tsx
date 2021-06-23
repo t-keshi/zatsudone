@@ -4,6 +4,7 @@ import { AuthForgetPassword } from '../pages/AuthForgetPassword';
 import { AuthLogIn } from '../pages/AuthLogIn';
 import { AuthSignup } from '../pages/AuthSignUp';
 import { ConcertDetail } from '../pages/ConcertDetail';
+import { ConcertEdit } from '../pages/ConcertEdit';
 import { ConcertsRecent } from '../pages/ConcertsRecent';
 import { ConcertsUpcoming } from '../pages/ConcertsUpcoming';
 import { LandingPage } from '../pages/LandingPage';
@@ -41,6 +42,9 @@ export const Routes: React.VFC = () => {
       </Route>
       <Route exact path={ROUTE_PATHS.ログイン}>
         <AuthLogIn />
+      </Route>
+      <Route exact path={ROUTE_PATHS.コンサート編集}>
+        <ConcertEdit />
       </Route>
       <Route exact path={ROUTE_PATHS.新規登録}>
         <AuthSignup />

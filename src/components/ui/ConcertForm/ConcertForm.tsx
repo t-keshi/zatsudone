@@ -17,7 +17,7 @@ export const ConcertForm: React.VFC<Props> = ({ concerts }) => {
     <>
       <Box display="flex" justifyContent="center">
         <Button startIcon={<Add />} onClick={() => handleIsModalOpen(true)}>
-          演奏会を追加
+          演奏会の作成
         </Button>
       </Box>
       <ConcertFormModal

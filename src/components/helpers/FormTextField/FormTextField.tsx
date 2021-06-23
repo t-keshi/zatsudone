@@ -13,17 +13,16 @@ export const FormTextField = <TFieldValues extends FieldValues>({
   control,
   name,
   errorMessage,
-  ...props
+  ...typographyProps
 }: Props<TFieldValues> & Partial<TextFieldProps>): React.ReactElement => (
   <Controller
     name={name}
     control={control}
     render={({ field }) => (
       <TextField
-        variant="outlined"
-        error={Boolean(errorMessage)}
         {...field}
-        {...props}
+        {...typographyProps}
+        error={Boolean(errorMessage)}
         helperText={errorMessage}
       />
     )}

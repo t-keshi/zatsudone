@@ -6,7 +6,7 @@ import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
 const ROW_WIDTH = 500;
 
-export const OrchestraFormInfo: React.VFC = () => {
+export const OrchestraDetailInfoForm: React.VFC = () => {
   const {
     control,
     handleSubmit,

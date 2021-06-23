@@ -2,6 +2,8 @@ import { Box } from '@material-ui/core';
 import { format } from 'date-fns';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { GoogleMapLocation } from '../../../containers/api/concert/useSearchAccess';
+import { FormMapLocation } from '../../helpers/FormMapLocation/FormMapLocation';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
 import { ModalCustom } from '../../helpers/ModalCustom/ModalCustom';
 
@@ -16,6 +18,7 @@ interface FormValue {
   startAt: string;
   openAt: string;
   closeAt: string;
+  location: GoogleMapLocation;
 }
 
 export const ConcertFormModal: React.VFC<Props> = ({
@@ -27,17 +30,18 @@ export const ConcertFormModal: React.VFC<Props> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<FormValue>();
-  const onSubmit = (data: unknown) => console.log(data);
+  const onSubmit = handleSubmit((data: unknown) => console.log(data));
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <ModalCustom
         variant="standard"
         title="演奏会の作成"
         isModalOpen={isModalOpen}
         closeModal={() => handleIsModalOpen(false)}
-        yesButtonProps={{ onClick: () => handleIsModalOpen(false) }}
+        yesButtonProps={{ onClick: onSubmit }}
         noButtonProps={{ onClick: () => handleIsModalOpen(false) }}
+        modalWidth={500}
       >
         <FormTextField
           control={control}
@@ -70,11 +74,20 @@ export const ConcertFormModal: React.VFC<Props> = ({
         <Box mt={1} />
         <FormTextField
           control={control}
-          name="startAt"
-          label="開演時間"
+          name="closeAt"
+          label="終了予定時間"
           margin="normal"
           fullWidth
           errorMessage={errors.title?.message}
+        />
+        <Box mt={1} />
+        <FormMapLocation
+          control={control}
+          name="location"
+          errorMessage={
+            errors.location?.address?.message ??
+            errors.location?.placeId?.message
+          }
         />
       </ModalCustom>
     </form>

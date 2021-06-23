@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     height: 100,
     width: '100%',
-    zIndex: 10,
+    zIndex: theme.zIndex.overlay + 1,
     opacity: 0.9,
     backgroundImage:
       'linear-gradient(to top, #000000, rgb(0, 0, 0), rgba(0,0,0,0.7), rgba(0,0,0,0.4), rgba(0,0,0,0))',

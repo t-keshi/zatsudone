@@ -25,24 +25,22 @@ export const FormDatePicker = <TFieldValues extends FieldValues>({
   value,
   onChange,
   errorMessage,
-  ...props
+  ...typographyProps
 }: Props<TFieldValues> & Partial<TextFieldProps>): React.ReactElement => (
   <Controller
     name={name}
     control={control}
     render={({ field }) => (
       <DatePicker
-        label="Basic example"
         value={value}
         onChange={onChange}
-        renderInput={(innerProps) => (
+        renderInput={(datePickerProps) => (
           <TextField
-            variant="outlined"
+            {...field}
+            {...datePickerProps}
+            {...typographyProps}
             error={Boolean(errorMessage)}
             helperText={errorMessage}
-            {...innerProps}
-            {...props}
-            {...field}
           />
         )}
       />
