@@ -6,6 +6,7 @@ import musicNote from '../../../assets/musicNote.png';
 import { Orchestra } from '../../../containers/api/orchestra/useFetchOrchestras';
 import { ROUTE_PATHS } from '../../../routes/type';
 import { StyledLink } from '../../helpers/StyledLink/StyledLink';
+import { TextLabel } from '../../helpers/TextLabel/TextLabel';
 
 const IMAGE_SIZE = 120;
 
@@ -36,7 +37,7 @@ export const OrchestraListItem: React.VFC<Props> = ({ orchestra }) => {
         </Hidden>
         <Box>
           <Skeleton width={100}>
-            <Typography variant="h6" />
+            <TextLabel gutterBottom />
           </Skeleton>
         </Box>
       </Box>

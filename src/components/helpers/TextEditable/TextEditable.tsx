@@ -17,6 +17,9 @@ interface Props<TFieldValues> {
 }
 
 const useStyles = makeStyles((theme) => ({
+  textFieldWrapper: {
+    display: 'flex',
+  },
   editButton: {
     marginLeft: theme.spacing(2),
   },
@@ -38,38 +41,43 @@ export const TextEditable = <TFieldValues extends FieldValues>({
   const [isEditMode, handleIsEditMode] = useToggle(false);
 
   if (!isEditMode) {
-    <>
-      <Typography variant="body2" color="textSecondary">
-        {value}
-      </Typography>
-      <IconButton
-        className={classes.editButton}
-        size="small"
-        onClick={() => handleIsEditMode(true)}
-      >
-        <Edit />
-      </IconButton>
-    </>;
+    return (
+      <div className={classes.textFieldWrapper}>
+        <Typography variant="body2" color="textSecondary">
+          {value}
+        </Typography>
+        <IconButton
+          className={classes.editButton}
+          size="small"
+          onClick={() => handleIsEditMode(true)}
+        >
+          <Edit />
+        </IconButton>
+      </div>
+    );
   }
 
   return (
     <>
-      <FormTextField
-        autoFocus
-        size="small"
-        variant="standard"
-        defaultValue={value}
-        control={control}
-        name={name}
-        errorMessage={errorMessage}
-      />
-      <IconButton
-        className={classes.editButton}
-        size="small"
-        onClick={() => handleIsEditMode(false)}
-      >
-        <Close />
-      </IconButton>
+      <div className={classes.textFieldWrapper}>
+        <FormTextField
+          autoFocus
+          size="small"
+          variant="standard"
+          fullWidth
+          defaultValue={value}
+          control={control}
+          name={name}
+          errorMessage={errorMessage}
+        />
+        <IconButton
+          className={classes.editButton}
+          size="small"
+          onClick={() => handleIsEditMode(false)}
+        >
+          <Close />
+        </IconButton>
+      </div>
       <div className={classes.yesOrNoButtonWrapper}>
         <YesOrNoButton
           yesLabel="保存"
@@ -79,7 +87,7 @@ export const TextEditable = <TFieldValues extends FieldValues>({
               handleIsEditMode(false);
             },
           }}
-          noLabel="保存"
+          noLabel="キャンセル"
           noButtonProps={{ onClick: () => handleIsEditMode(false) }}
         />
       </div>
