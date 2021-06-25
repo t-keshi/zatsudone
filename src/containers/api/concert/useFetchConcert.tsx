@@ -2,15 +2,26 @@ import axios from 'axios';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../../constants/env';
+import { Prefecture } from '../../../constants/prefectures';
 import { QUERY } from '../../../constants/query';
 import { ConcertResponse } from '../../../types';
 
 type Data = ConcertResponse;
+interface Variables {
+  orderBy?: 'updateTime' | 'date';
+  prefecture?: Prefecture;
+}
 type UseFetchConcert = (
-  options?: UseQueryOptions<Data, unknown, Data, [string, string]>,
+  variables?: Variables,
+  options?: UseQueryOptions<
+    Data,
+    unknown,
+    Data,
+    [string, string | undefined, string | undefined]
+  >,
 ) => UseQueryResult<Data, unknown>;
 
-export const useFetchConcert: UseFetchConcert = (options) => {
+export const useFetchConcert: UseFetchConcert = (variables, options) => {
   const params: { concertId: string } = useParams();
   const { concertId } = params;
 
@@ -19,7 +30,8 @@ export const useFetchConcert: UseFetchConcert = (options) => {
       `${BASE_URL}/concerts/${concertId}`,
       {
         params: {
-          prefecture: 'all',
+          orderBy: variables?.orderBy,
+          prefecture: variables?.prefecture,
         },
       },
     );
@@ -27,7 +39,11 @@ export const useFetchConcert: UseFetchConcert = (options) => {
     return response.data;
   };
 
-  return useQuery([QUERY.concerts, concertId], queryFn, {
-    ...options,
-  });
+  return useQuery(
+    [QUERY.concerts, variables?.orderBy, variables?.prefecture],
+    queryFn,
+    {
+      ...options,
+    },
+  );
 };

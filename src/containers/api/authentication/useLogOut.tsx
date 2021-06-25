@@ -5,7 +5,7 @@ import {
   UseMutationResult,
 } from 'react-query';
 import { ROUTE_PATHS } from '../../../routes/type';
-import { handleApiError } from '../../../utility/handleApiError';
+import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { useRouter } from '../../../utility/hooks/useRouter';
 
 type Data = unknown;
@@ -14,6 +14,7 @@ type UseLogIn = (
 ) => UseMutationResult<Data, Error, void>;
 
 export const useLogOut: UseLogIn = (options) => {
+  const handleApiError = useHandleApiError();
   const { history } = useRouter();
 
   return useMutation(() => firebase.auth().signOut(), {

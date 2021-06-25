@@ -18,7 +18,7 @@ import { FormTextField } from './FormTextField';
 interface Props<TFieldValues, K> {
   control: Control<TFieldValues>;
   name: ArrayPath<TFieldValues>;
-  key: K;
+  keyName: K;
   errorMessage: string | undefined;
 }
 
@@ -45,7 +45,7 @@ export const FormArrayTextField = <
 >({
   control,
   name,
-  key,
+  keyName,
   errorMessage,
   ...typographyProps
 }: Props<TFieldValues, K> & Partial<TextFieldProps>): React.ReactElement => {
@@ -62,23 +62,31 @@ export const FormArrayTextField = <
       <div className={classes.textFieldWrapper}>
         <FormTextField
           control={control}
-          name={`${name}.${inputIndex}.${key}` as Path<TFieldValues>}
+          name={
+            `${name}.${inputIndex}.${String(keyName)}` as Path<TFieldValues>
+          }
           errorMessage={errorMessage}
           fullWidth
           {...typographyProps}
         />
         <IconButton
           onClick={() => {
+            console.log(inputIndex);
             const value = getValues(
-              `${name}.${inputIndex}.${key}` as Path<TFieldValues>,
+              `${name}.${inputIndex}.${String(keyName)}` as Path<TFieldValues>,
             );
 
+            if (value === '') {
+              return;
+            }
+
             setValue(
-              `${name}.${inputIndex}.${key}` as Path<TFieldValues>,
+              `${name}.${inputIndex}.${String(keyName)}` as Path<TFieldValues>,
               '' as PathValue<FieldValues, Path<TFieldValues>>,
             );
 
-            append({ [key]: value } as FieldArray<
+            // eslint-disable-next-line consistent-return
+            return append({ [keyName]: value } as FieldArray<
               TFieldValues,
               ArrayPath<TFieldValues>
             >);
@@ -92,7 +100,7 @@ export const FormArrayTextField = <
           <li key={item.id}>
             <Chip
               className={classes.chip}
-              label={item[key]}
+              label={item[keyName]}
               onDelete={() => remove(index)}
             />
           </li>

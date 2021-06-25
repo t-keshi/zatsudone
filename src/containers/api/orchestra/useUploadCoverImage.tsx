@@ -5,7 +5,7 @@ import {
   UseMutationResult,
 } from 'react-query';
 import { ROUTE_PATHS } from '../../../routes/type';
-import { handleApiError } from '../../../utility/handleApiError';
+import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { useRouter } from '../../../utility/hooks/useRouter';
 
 interface Variables {
@@ -18,6 +18,7 @@ type UseUploadCoverImage = (
 ) => UseMutationResult<Data, Error, Variables>;
 
 export const useUploadCoverImage: UseUploadCoverImage = (options) => {
+  const handleApiError = useHandleApiError();
   const { history } = useRouter();
   const mutate = async (variables: Variables) => {
     const storageRef = firebase.storage().ref();

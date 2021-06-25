@@ -74,7 +74,7 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
           underline="always"
           display="block"
         >
-          サマーコンサート
+          {concert.title}
         </Typography>
         <List>
           <ListItem dense>
@@ -89,10 +89,7 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
             <ListItemIcon className={classes.icon}>
               <LocationOn fontSize="small" />
             </ListItemIcon>
-            <ListItemText
-              // eslint-disable-next-line no-underscore-dangle
-              secondary={concert.location._longitude}
-            />
+            <ListItemText secondary={concert.location.address} />
           </ListItem>
           <ListItem dense>
             <ListItemIcon className={classes.icon}>

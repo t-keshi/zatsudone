@@ -1,6 +1,6 @@
 export interface Location {
-  _latitude: number;
-  _longitude: number;
+  address: string;
+  placeId: string;
 }
 
 export interface TimeStamp {
@@ -31,11 +31,10 @@ export interface OrchestraSnippets {
 export type ConcertType = {
   id: string;
   title: string;
-  program: string;
   location: Location;
   date: Date;
-  orchestra: OrchestraSnippets;
   symphonies: string[];
+  orchestra: OrchestraSnippets;
 };
 
 export type ConcertsResponse = Record<'concerts', ConcertType[]>;

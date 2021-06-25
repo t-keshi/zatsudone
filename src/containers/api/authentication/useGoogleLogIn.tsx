@@ -5,7 +5,7 @@ import {
   UseMutationResult,
 } from 'react-query';
 import { ROUTE_PATHS } from '../../../routes/type';
-import { handleApiError } from '../../../utility/handleApiError';
+import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { useRouter } from '../../../utility/hooks/useRouter';
 
 type Data = unknown;
@@ -14,8 +14,9 @@ type UseGoogleLogIn = (
 ) => UseMutationResult<Data, Error, void>;
 
 export const useGoogleLogIn: UseGoogleLogIn = (options) => {
-  const provider = new firebase.auth.GoogleAuthProvider();
+  const handleApiError = useHandleApiError();
   const { history } = useRouter();
+  const provider = new firebase.auth.GoogleAuthProvider();
 
   return useMutation(() => firebase.auth().signInWithPopup(provider), {
     onSuccess: () => history.push(ROUTE_PATHS.近日中のコンサート),

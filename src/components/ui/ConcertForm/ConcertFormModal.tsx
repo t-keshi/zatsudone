@@ -1,8 +1,9 @@
 import { Box } from '@material-ui/core';
-import { format } from 'date-fns';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useCreateConcert } from '../../../containers/api/concert/useCreateConcert';
 import { GoogleMapLocation } from '../../../containers/api/concert/useSearchAccess';
+import { extractPrefectureFromAddress } from '../../../utility/extractPrefectureFromAddress';
 import { FormMapLocation } from '../../helpers/FormMapLocation/FormMapLocation';
 import { FormArrayTextField } from '../../helpers/FormTextField/FormArrayTextField';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
@@ -19,7 +20,7 @@ interface Symphony {
 
 export interface FormValue {
   title: string;
-  date: Date;
+  date: string;
   location: GoogleMapLocation;
   symphonies: Symphony[];
 }
@@ -28,13 +29,42 @@ export const ConcertFormModal: React.VFC<Props> = ({
   isModalOpen,
   handleIsModalOpen,
 }) => {
-  const methods = useForm<FormValue>();
+  const methods = useForm<FormValue>({
+    defaultValues: {
+      title: '',
+      date: '2017-05-24',
+      location: { address: '', placeId: '' },
+      symphonies: [],
+    },
+  });
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = methods;
-  const onSubmit = handleSubmit((data: unknown) => console.log(data));
+  const { mutate } = useCreateConcert();
+  const onSubmit = handleSubmit((data: FormValue) => {
+    const { title, date, location, symphonies } = data;
+    const formattedSymphonies = symphonies
+      .filter((symphony) => symphony.symphony !== '')
+      .map((symphony) => symphony.symphony);
+    const variables = {
+      title,
+      date: new Date(date),
+      location: {
+        address: location.address,
+        placeId: location.placeId,
+        prefecture: extractPrefectureFromAddress(location.address) ?? null
+      },
+      symphonies: formattedSymphonies,
+      orchestra: {
+        id: 'HugSlHXnLK4D39Oe3M2z',
+        name: '大阪大学吹奏楽団',
+      },
+    };
+
+    return mutate(variables);
+  });
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -63,7 +93,6 @@ export const ConcertFormModal: React.VFC<Props> = ({
             name="date"
             type="date"
             label="開催日"
-            defaultValue={format(new Date(), 'yyyy-MM-dd')}
             margin="normal"
             fullWidth
             errorMessage={errors.date?.message}
@@ -81,7 +110,7 @@ export const ConcertFormModal: React.VFC<Props> = ({
           <Box mt={2} />
           <FormArrayTextField
             control={control}
-            key="symphony"
+            keyName="symphony"
             name="symphonies"
             label="主な演奏曲(3曲まで)"
             errorMessage={
