@@ -5,7 +5,7 @@ import {
   UseMutationResult,
 } from 'react-query';
 import { ROUTE_PATHS } from '../../../routes/type';
-import { handleApiError } from '../../../utility/handleApiError';
+import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { useRouter } from '../../../utility/hooks/useRouter';
 
 interface Variables {
@@ -19,6 +19,7 @@ type UseSignUp = (
 ) => UseMutationResult<Data, Error, Variables>;
 
 export const useSignUp: UseSignUp = (options) => {
+  const handleApiError = useHandleApiError();
   const { history } = useRouter();
 
   return useMutation(

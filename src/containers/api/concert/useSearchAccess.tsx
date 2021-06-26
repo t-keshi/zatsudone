@@ -16,7 +16,7 @@ interface FnResponse {
 
 type FnData = { results: FnResponse[] };
 type Data = GoogleMapLocation[];
-type UseFetchConcerts = (
+type UseSearchAccess = (
   inputAddress: string,
   options?: UseQueryOptions<FnData, unknown, Data, [string, string]>,
 ) => UseQueryResult<Data, unknown>;
@@ -25,7 +25,7 @@ type UseFetchConcerts = (
 const POSTAL_CODE_STRING_COUNT = 9;
 const API_KEY = process.env.REACT_APP_API_KEY ?? '';
 
-export const useSearchAccess: UseFetchConcerts = (inputAddress, options) => {
+export const useSearchAccess: UseSearchAccess = (inputAddress, options) => {
   const queryFn = async () => {
     const url = `https://maps.googleapis.com/maps/api/geocode/json`;
     const parameters = {

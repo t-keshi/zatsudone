@@ -15,14 +15,7 @@ export const useFetchConcert: UseFetchConcert = (options) => {
   const { concertId } = params;
 
   const queryFn = async () => {
-    const response = await axios.get<Data>(
-      `${BASE_URL}/concerts/${concertId}`,
-      {
-        params: {
-          prefecture: 'all',
-        },
-      },
-    );
+    const response = await axios.get<Data>(`${BASE_URL}/concerts/${concertId}`);
 
     return response.data;
   };

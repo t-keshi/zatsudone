@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
-export const OrchestraFormNotification: React.VFC = () => {
+export const OrchestraNotificationForm: React.VFC = () => {
   const {
     control,
     handleSubmit,

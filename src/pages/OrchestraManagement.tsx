@@ -17,7 +17,7 @@ export const OrchestraManagement: React.VFC = () => {
   const { data } = useFetchConcerts();
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
 
-  useTitle('SymphonyForum | ユーザーリスト');
+  useTitle('SymphonyForum | 楽団運営');
 
   return (
     <Layout noPadding>
