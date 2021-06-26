@@ -1,15 +1,29 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { Prefecture, PREFECTURES } from '../../../constants/prefectures';
 import { menuProps } from '../../../constants/ui';
-import { useSelect } from '../../../utility/hooks/useSelect';
 
-export const FilterByPrefecture: React.VFC = () => {
-  const [selectedPrefecture, handleSelectPrefecture] = useSelect('すべて');
+interface Props {
+  selectedPrefecture: Prefecture | 'すべて';
+  handleSelectPrefecture: (e: React.ChangeEvent<{ value: unknown }>) => void;
+}
+
+const useStyles = makeStyles(() => ({
+  formControl: {
+    minWidth: 120,
+  },
+}));
+
+export const FilterByPrefecture: React.VFC<Props> = ({
+  selectedPrefecture,
+  handleSelectPrefecture,
+}) => {
+  const classes = useStyles();
   const prefectures = Object.keys(PREFECTURES) as Prefecture[];
 
   return (
-    <FormControl variant="outlined">
+    <FormControl className={classes.formControl} variant="outlined">
       <InputLabel id="prefecture">開催場所</InputLabel>
       <Select
         labelId="prefecture"
@@ -18,9 +32,7 @@ export const FilterByPrefecture: React.VFC = () => {
         label="開催場所"
         MenuProps={menuProps}
       >
-        <MenuItem value="すべて">
-          <em>すべて</em>
-        </MenuItem>
+        <MenuItem value="すべて">すべて</MenuItem>
         {prefectures.map((prefecture) => (
           <MenuItem key={prefecture} value={prefecture}>
             {prefecture}

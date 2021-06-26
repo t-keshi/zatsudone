@@ -10,11 +10,9 @@ import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 interface Variables {
   title: string;
   date: Date;
-  location: {
-    address: string;
-    placeId: string;
-    prefecture: string | null;
-  };
+  address: string;
+  placeId: string;
+  prefecture: string | null;
   symphonies: string[];
   orchestra: {
     id: string;
@@ -29,13 +27,23 @@ type UseUploadCoverImage = (
 export const useCreateConcert: UseUploadCoverImage = (options) => {
   const handleApiError = useHandleApiError();
   const mutateFn = async (variables: Variables) => {
-    const { title, date, location, symphonies, orchestra } = variables;
+    const {
+      title,
+      date,
+      address,
+      placeId,
+      prefecture,
+      symphonies,
+      orchestra,
+    } = variables;
     const response = await axios.post<Data>(
       `${BASE_URL}/concerts`,
       {
         title,
         date,
-        location,
+        address,
+        placeId,
+        prefecture,
         symphonies,
         orchestra,
       },

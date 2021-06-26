@@ -14,11 +14,11 @@ export interface Orchestra {
   homePage: string;
 }
 type Data = Orchestra;
-type UseFetchConcerts = (
+type UseFetchOrchestra = (
   options?: UseQueryOptions<Data, unknown, Data, [string, string]>,
 ) => UseQueryResult<Data, unknown>;
 
-export const useFetchOrchestra: UseFetchConcerts = (options) => {
+export const useFetchOrchestra: UseFetchOrchestra = (options) => {
   const params: { orchestraId: string } = useParams();
   const { orchestraId } = params;
   const queryFn = async () => {

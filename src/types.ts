@@ -1,3 +1,5 @@
+import { Prefecture } from './constants/prefectures';
+
 export interface Location {
   address: string;
   placeId: string;
@@ -13,7 +15,9 @@ export interface ConcertResponse {
   id: string;
   title: string;
   programs: string;
-  location: Location;
+  address: string;
+  placeId: string;
+  prefecture: Prefecture | null;
   date: string;
   openAt: string;
   startAt: string;
@@ -31,7 +35,9 @@ export interface OrchestraSnippets {
 export type ConcertType = {
   id: string;
   title: string;
-  location: Location;
+  address: string;
+  placeId: string;
+  prefecture: Prefecture | null;
   date: Date;
   symphonies: string[];
   orchestra: OrchestraSnippets;

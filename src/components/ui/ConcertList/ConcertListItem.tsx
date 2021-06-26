@@ -89,7 +89,7 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
             <ListItemIcon className={classes.icon}>
               <LocationOn fontSize="small" />
             </ListItemIcon>
-            <ListItemText secondary={concert.location.address} />
+            <ListItemText secondary={concert.address} />
           </ListItem>
           <ListItem dense>
             <ListItemIcon className={classes.icon}>

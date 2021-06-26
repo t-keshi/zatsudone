@@ -51,11 +51,9 @@ export const ConcertFormModal: React.VFC<Props> = ({
     const variables = {
       title,
       date: new Date(date),
-      location: {
-        address: location.address,
-        placeId: location.placeId,
-        prefecture: extractPrefectureFromAddress(location.address) ?? null
-      },
+      address: location.address,
+      placeId: location.placeId,
+      prefecture: extractPrefectureFromAddress(location.address) ?? null,
       symphonies: formattedSymphonies,
       orchestra: {
         id: 'HugSlHXnLK4D39Oe3M2z',
