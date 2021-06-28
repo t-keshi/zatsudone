@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import axios from 'axios';
 import { useCallback } from 'react';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { QUERY } from '../../../constants/query';
+import { searchAccess } from '../../database/concert/searchAccess';
 
 export interface GoogleMapLocation {
   address: string;
@@ -23,24 +23,9 @@ type UseSearchAccess = (
 
 // NOTE:「〒000-0000」の文字数
 const POSTAL_CODE_STRING_COUNT = 9;
-const API_KEY = process.env.REACT_APP_API_KEY ?? '';
 
 export const useSearchAccess: UseSearchAccess = (inputAddress, options) => {
-  const queryFn = async () => {
-    const url = `https://maps.googleapis.com/maps/api/geocode/json`;
-    const parameters = {
-      params: {
-        address: inputAddress,
-        key: API_KEY,
-        language: 'ja',
-      },
-    };
-    const response = await axios.get<FnData>(url, parameters);
-
-    console.log(response);
-
-    return response.data;
-  };
+  const queryFn = () => searchAccess(inputAddress);
   const selectFn = useCallback(
     (res: FnData) =>
       res?.results.map((result) => {

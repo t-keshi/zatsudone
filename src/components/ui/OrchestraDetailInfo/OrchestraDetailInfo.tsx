@@ -1,6 +1,6 @@
 import { Box, CircularProgress, List } from '@material-ui/core';
 import React from 'react';
-import { Orchestra } from '../../../containers/api/orchestra/useFetchOrchestra';
+import { Orchestra } from '../../../containers/controllers/orchestra/useFetchOrchestra';
 import { ListItemRow } from '../../helpers/ListItemRow/ListItemRow';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 

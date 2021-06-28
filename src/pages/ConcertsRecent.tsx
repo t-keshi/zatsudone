@@ -5,7 +5,7 @@ import { ConcertList } from '../components/ui/ConcertList/ConcertList';
 import { ContentHeader } from '../components/ui/ContentHeader/ContentHeader';
 import { FilterByPrefecture } from '../components/ui/FilterByPrefeture/FilterByPrefecture';
 import { Prefecture } from '../constants/prefectures';
-import { useFetchConcerts } from '../containers/api/concert/useFetchConcerts';
+import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
 import { useSelect } from '../utility/hooks/useSelect';
 import { useTitle } from '../utility/hooks/useTitle';
 

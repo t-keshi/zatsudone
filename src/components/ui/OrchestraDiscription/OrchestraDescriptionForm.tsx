@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useUploadCoverImage } from '../../../containers/api/orchestra/useUploadCoverImage';
+import { useUploadCoverImage } from '../../../containers/controllers/orchestra/useUploadCoverImage';
 import { Overlay } from '../../helpers/Overlay/Overlay';
 import { TextEditable } from '../../helpers/TextEditable/TextEditable';
 

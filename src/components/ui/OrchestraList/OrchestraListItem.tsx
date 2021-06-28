@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
 import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
-import { Orchestra } from '../../../containers/api/orchestra/useFetchOrchestras';
+import { Orchestra } from '../../../containers/controllers/orchestra/useFetchOrchestras';
 import { ROUTE_PATHS } from '../../../routes/type';
 import { StyledLink } from '../../helpers/StyledLink/StyledLink';
 import { TextLabel } from '../../helpers/TextLabel/TextLabel';

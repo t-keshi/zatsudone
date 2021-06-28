@@ -1,11 +1,10 @@
-import axios from 'axios';
 import {
   useMutation,
   UseMutationOptions,
   UseMutationResult,
 } from 'react-query';
-import { BASE_URL } from '../../../constants/env';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
+import { createConcert } from '../../database/concert/createConcert';
 
 interface Variables {
   title: string;
@@ -26,39 +25,7 @@ type UseUploadCoverImage = (
 
 export const useCreateConcert: UseUploadCoverImage = (options) => {
   const handleApiError = useHandleApiError();
-  const mutateFn = async (variables: Variables) => {
-    const {
-      title,
-      date,
-      address,
-      placeId,
-      prefecture,
-      symphonies,
-      orchestra,
-    } = variables;
-    const response = await axios.post<Data>(
-      `${BASE_URL}/concerts`,
-      {
-        title,
-        date,
-        address,
-        placeId,
-        prefecture,
-        symphonies,
-        orchestra,
-      },
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'content-type': 'application/json',
-          // 'access-control-allow-credentials': 'include',
-        },
-        // withCredentials: true,
-      },
-    );
-
-    return response.data;
-  };
+  const mutateFn = (variables: Variables) => createConcert(variables);
 
   return useMutation(mutateFn, {
     onError: (error: Error) =>
