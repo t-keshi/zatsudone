@@ -18,12 +18,12 @@ export interface ConcertResponse {
   address: string;
   placeId: string;
   prefecture: Prefecture | null;
-  date: string;
-  openAt: string;
-  startAt: string;
-  closeAt: string;
+  date: Date;
+  openAt: Date;
+  startAt: Date;
+  closeAt: Date;
+  symphonies: string[];
   orchestra: OrchestraSnippets;
-  participantsCount: number;
 }
 
 export interface OrchestraSnippets {

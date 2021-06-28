@@ -8,8 +8,8 @@ import { Layout } from '../components/layout/Layout';
 import { ConcertList } from '../components/ui/ConcertList/ConcertList';
 import { OrchestraDetailInfo } from '../components/ui/OrchestraDetailInfo/OrchestraDetailInfo';
 import { OrchestraMembers } from '../components/ui/OrchestraMembers/OrchestraMembers';
-import { useFetchConcerts } from '../containers/api/concert/useFetchConcerts';
-import { useFetchOrchestra } from '../containers/api/orchestra/useFetchOrchestra';
+import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
+import { useFetchOrchestra } from '../containers/controllers/orchestra/useFetchOrchestra';
 import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 

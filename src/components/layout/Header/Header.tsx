@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import firebase from 'firebase/app';
 import React from 'react';
-import { useLogOut } from '../../../containers/api/authentication/useLogOut';
+import { useLogOut } from '../../../containers/controllers/authentication/useLogOut';
 import { ROUTE_PATHS } from '../../../routes/type';
 import { useMenu } from '../../../utility/hooks/useMenu';
 import { useRouter } from '../../../utility/hooks/useRouter';

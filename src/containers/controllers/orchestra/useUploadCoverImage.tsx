@@ -1,4 +1,3 @@
-import firebase from 'firebase/app';
 import {
   useMutation,
   UseMutationOptions,
@@ -7,6 +6,7 @@ import {
 import { ROUTE_PATHS } from '../../../routes/type';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { useRouter } from '../../../utility/hooks/useRouter';
+import { uploadCoverImage } from '../../database/orchestra/uploadCoverImage';
 
 interface Variables {
   imageName: string;
@@ -20,14 +20,7 @@ type UseUploadCoverImage = (
 export const useUploadCoverImage: UseUploadCoverImage = (options) => {
   const handleApiError = useHandleApiError();
   const { history } = useRouter();
-  const mutate = async (variables: Variables) => {
-    const storageRef = firebase.storage().ref();
-    const imagesRef = storageRef.child(variables.imageName);
-    const uploadTask = imagesRef
-      .putString(variables.imageDataUrl, 'data_url')
-      .on('state_changed') as () => Promise<void>;
-    await uploadTask();
-  };
+  const mutate = (variables: Variables) => uploadCoverImage(variables);
 
   return useMutation(mutate, {
     onSuccess: () => history.push(ROUTE_PATHS.近日中のコンサート),

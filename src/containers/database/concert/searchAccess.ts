@@ -1,0 +1,29 @@
+import axios from 'axios';
+
+/* eslint-disable camelcase */
+interface FnResponse {
+  formatted_address: string;
+  place_id: string;
+}
+interface FnResponse {
+  formatted_address: string;
+  place_id: string;
+}
+
+type FnData = { results: FnResponse[] };
+
+const API_KEY = process.env.REACT_APP_API_KEY ?? '';
+
+export const searchAccess = async (inputAddress: string): Promise<FnData> => {
+  const url = `https://maps.googleapis.com/maps/api/geocode/json`;
+  const parameters = {
+    params: {
+      address: inputAddress,
+      key: API_KEY,
+      language: 'ja',
+    },
+  };
+  const res = await axios.get<FnData>(url, parameters);
+
+  return res.data;
+};

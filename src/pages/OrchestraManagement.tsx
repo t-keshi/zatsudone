@@ -9,7 +9,7 @@ import { ContentHeader } from '../components/ui/ContentHeader/ContentHeader';
 import { OrchestraFormImage } from '../components/ui/OrchestraFormImage/OrchestraFormImage';
 import { MembersForm } from '../components/uiGroup/MembersForm/MembersForm';
 import { OrchestraForms } from '../components/uiGroup/OrchestraForms/OrchestraForms';
-import { useFetchConcerts } from '../containers/api/concert/useFetchConcerts';
+import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
 import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 

@@ -1,9 +1,8 @@
-import axios from 'axios';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { BASE_URL } from '../../../constants/env';
 import { Prefecture } from '../../../constants/prefectures';
 import { QUERY } from '../../../constants/query';
 import { ConcertsResponse } from '../../../types';
+import { fetchConcerts } from '../../database/concert/fetchConcerts';
 
 type Data = ConcertsResponse;
 type OrderBy = 'createdAt' | 'date';
@@ -22,16 +21,7 @@ type UseFetchConcerts = (
 ) => UseQueryResult<Data, unknown>;
 
 export const useFetchConcerts: UseFetchConcerts = (variables, options) => {
-  const queryFn = async () => {
-    const response = await axios.get<Data>(`${BASE_URL}/concerts`, {
-      params: {
-        orderBy: variables?.orderBy,
-        prefecture: variables?.prefecture,
-      },
-    });
-
-    return response.data;
-  };
+  const queryFn = () => fetchConcerts(variables);
 
   return useQuery(
     [QUERY.concerts, variables?.orderBy, variables?.prefecture],

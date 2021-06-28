@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import 'cropperjs/dist/cropper.css';
 import React, { useRef } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
-import { useUploadCoverImage } from '../../../containers/api/orchestra/useUploadCoverImage';
+import { useUploadCoverImage } from '../../../containers/controllers/orchestra/useUploadCoverImage';
 import { useImageUpload } from '../../../utility/hooks/useImageUpload';
 import { ModalCustom } from '../../helpers/ModalCustom/ModalCustom';
 

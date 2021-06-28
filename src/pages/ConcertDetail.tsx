@@ -9,7 +9,7 @@ import { ConcertDetailInfo } from '../components/ui/ConcertDetailInfo/ConcertDet
 import { ConcertFlyer } from '../components/ui/ConcertFlyer/ConcertFlyer';
 import { ConcertProgram } from '../components/ui/ConcertProgram/ConcertProgram';
 import { ConcertSummary } from '../components/ui/ConcertSummary/ConcertSummary';
-import { useFetchConcert } from '../containers/api/concert/useFetchConcert';
+import { useFetchConcert } from '../containers/controllers/concert/useFetchConcert';
 import { ROUTE_PATHS } from '../routes/type';
 import { useRouter } from '../utility/hooks/useRouter';
 import { useTitle } from '../utility/hooks/useTitle';

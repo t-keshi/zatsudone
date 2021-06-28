@@ -16,8 +16,8 @@ import { DividerWithText } from '../components/helpers/DividerWithText/DividerWi
 import { FormTextField } from '../components/helpers/FormTextField/FormTextField';
 import { StyledLink } from '../components/helpers/StyledLink/StyledLink';
 import { TopLayout } from '../components/layout/TopLayout';
-import { useGoogleLogIn } from '../containers/api/authentication/useGoogleLogIn';
-import { useLogIn } from '../containers/api/authentication/useLogIn';
+import { useGoogleLogIn } from '../containers/controllers/authentication/useGoogleLogIn';
+import { useLogIn } from '../containers/controllers/authentication/useLogIn';
 import { ROUTE_PATHS } from '../routes/type';
 import { useRouter } from '../utility/hooks/useRouter';
 import { useTitle } from '../utility/hooks/useTitle';

@@ -1,6 +1,6 @@
 import { Box, Divider } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import { Orchestra } from '../../../containers/api/orchestra/useFetchOrchestras';
+import { Orchestra } from '../../../containers/controllers/orchestra/useFetchOrchestras';
 import { OrchestraListItem } from './OrchestraListItem';
 
 interface Props {
