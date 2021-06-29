@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
-import { Prefecture } from '../../../constants/prefectures';
 import { ConcertsResponse, ConcertType } from '../../../types';
+import { Prefecture } from '../../entities/prefectures';
 
 type OrderBy = 'createdAt' | 'date';
 interface Variables {
@@ -24,7 +24,6 @@ export const fetchConcerts = async (
       ? concertRefFiltered
       : concertRefFiltered.orderBy(variables.orderBy, 'desc');
   const querySnapshot = await concertRefOrdered.get();
-  console.log(querySnapshot, 'qu');
   const concerts = querySnapshot.docs.map((doc) => {
     const { id } = doc;
     const data = doc.data();

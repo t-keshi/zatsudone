@@ -1,4 +1,4 @@
-import { PREFECTURES } from '../constants/prefectures';
+import { PREFECTURES } from '../containers/entities/prefectures';
 
 export const extractPrefectureFromAddress = (
   location: string,

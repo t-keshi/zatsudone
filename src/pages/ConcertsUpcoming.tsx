@@ -4,8 +4,8 @@ import { Layout } from '../components/layout/Layout';
 import { ConcertList } from '../components/ui/ConcertList/ConcertList';
 import { ContentHeader } from '../components/ui/ContentHeader/ContentHeader';
 import { FilterByPrefecture } from '../components/ui/FilterByPrefeture/FilterByPrefecture';
-import { Prefecture } from '../constants/prefectures';
 import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
+import { Prefecture } from '../containers/entities/prefectures';
 import { useSelect } from '../utility/hooks/useSelect';
 import { useTitle } from '../utility/hooks/useTitle';
 

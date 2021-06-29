@@ -1,4 +1,4 @@
-import { Prefecture } from './constants/prefectures';
+import { Prefecture } from './containers/entities/prefectures';
 
 export interface Location {
   address: string;

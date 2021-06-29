@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.10.8",
+    "@firebase/rules-unit-testing": "^1.3.8",
     "@hookform/resolvers": "^2.4.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -25,6 +26,7 @@
     "date-fns": "^2.21.1",
     "fabric": "^4.3.1",
     "firebase": "^8.4.3",
+    "fs": "^0.0.1-security",
     "history": "^5.0.0",
     "immer": "^9.0.1",
     "markdown-to-jsx": "^7.1.3",
@@ -75,7 +77,9 @@
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "format": "prettier --write --loglevel=warn 'src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "emulator": "npx firebase emulators:start",
+    "deploy:rules": "firebase deploy --only firestore:rules"
   },
   "resolutions": {
     "babel-loader": "8.1.0"

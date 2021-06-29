@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { useCallback } from 'react';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { QUERY } from '../../../constants/query';
 import { searchAccess } from '../../database/concert/searchAccess';
+import { QUERY } from '../../entities/query';
 
 export interface GoogleMapLocation {
   address: string;
