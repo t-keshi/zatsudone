@@ -4,7 +4,6 @@ import { fetchConcerts } from '../../database/concert/fetchConcerts';
 import { Prefecture } from '../../entities/prefectures';
 import { QUERY } from '../../entities/query';
 
-
 type Data = ConcertsResponse;
 type OrderBy = 'createdAt' | 'date';
 interface Variables {
