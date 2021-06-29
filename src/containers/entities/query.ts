@@ -6,6 +6,7 @@ export const QUERY = {
   orchestra: 'orchestra',
   participation: 'participation',
   belong: 'belong',
+  user: 'user',
 } as const;
 
 export type Query = typeof QUERY[keyof typeof QUERY];
