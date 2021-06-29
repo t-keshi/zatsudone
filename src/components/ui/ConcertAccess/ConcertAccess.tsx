@@ -1,7 +1,6 @@
 import React from 'react';
+import { API_KEY } from '../../../containers/entities/env';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
-
-const API_KEY = process.env.REACT_APP_API_KEY ?? '';
 
 export const ConcertAccess: React.VFC = () => (
   <div>

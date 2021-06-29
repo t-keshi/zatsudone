@@ -1,8 +1,8 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { Prefecture } from '../../../constants/prefectures';
-import { QUERY } from '../../../constants/query';
 import { ConcertsResponse } from '../../../types';
 import { fetchConcerts } from '../../database/concert/fetchConcerts';
+import { Prefecture } from '../../entities/prefectures';
+import { QUERY } from '../../entities/query';
 
 type Data = ConcertsResponse;
 type OrderBy = 'createdAt' | 'date';

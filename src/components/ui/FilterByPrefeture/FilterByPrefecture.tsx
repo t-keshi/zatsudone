@@ -1,8 +1,11 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { Prefecture, PREFECTURES } from '../../../constants/prefectures';
-import { menuProps } from '../../../constants/ui';
+import {
+  Prefecture,
+  PREFECTURES,
+} from '../../../containers/entities/prefectures';
+import { menuProps } from '../../../containers/entities/ui';
 
 interface Props {
   selectedPrefecture: Prefecture | 'すべて';

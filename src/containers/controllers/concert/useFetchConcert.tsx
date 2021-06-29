@@ -1,8 +1,8 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { QUERY } from '../../../constants/query';
 import { ConcertResponse } from '../../../types';
 import { fetchConcert } from '../../database/concert/fetchConcert';
+import { QUERY } from '../../entities/query';
 
 type Data = ConcertResponse;
 type UseFetchConcert = (

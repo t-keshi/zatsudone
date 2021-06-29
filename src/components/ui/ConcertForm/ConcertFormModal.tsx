@@ -1,6 +1,8 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Box } from '@material-ui/core';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import { useCreateConcert } from '../../../containers/controllers/concert/useCreateConcert';
 import { GoogleMapLocation } from '../../../containers/controllers/concert/useSearchAccess';
 import { extractPrefectureFromAddress } from '../../../utility/extractPrefectureFromAddress';
@@ -18,24 +20,37 @@ interface Symphony {
   symphony: string;
 }
 
-export interface FormValue {
+export interface FormValues {
   title: string;
   date: string;
   location: GoogleMapLocation;
   symphonies: Symphony[];
 }
 
+const schema: yup.SchemaOf<FormValues> = yup.object().shape({
+  title: yup.string().required(),
+  date: yup.string().required(),
+  location: yup.object().shape({
+    address: yup.string().required(),
+    placeId: yup.string().required(),
+  }),
+  symphonies: yup
+    .array()
+    .of(yup.object().shape({ symphony: yup.string().required() })),
+});
+
 export const ConcertFormModal: React.VFC<Props> = ({
   isModalOpen,
   handleIsModalOpen,
 }) => {
-  const methods = useForm<FormValue>({
+  const methods = useForm<FormValues>({
     defaultValues: {
       title: '',
       date: '2017-05-24',
       location: { address: '', placeId: '' },
       symphonies: [],
     },
+    resolver: yupResolver(schema),
   });
   const {
     control,
@@ -43,7 +58,7 @@ export const ConcertFormModal: React.VFC<Props> = ({
     formState: { errors },
   } = methods;
   const { mutate } = useCreateConcert();
-  const onSubmit = handleSubmit((data: FormValue) => {
+  const onSubmit = handleSubmit((data: FormValues) => {
     const { title, date, location, symphonies } = data;
     const formattedSymphonies = symphonies
       .filter((symphony) => symphony.symphony !== '')

@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
-import { Prefecture } from '../../../constants/prefectures';
 import { ConcertsResponse, ConcertType } from '../../../types';
+import { Prefecture } from '../../entities/prefectures';
 
 type OrderBy = 'createdAt' | 'date';
 interface Variables {
@@ -8,10 +8,18 @@ interface Variables {
   prefecture?: Prefecture;
 }
 
+interface FetchConcertsReturnType {
+  concerts: ConcertsResponse['concerts'];
+  lastConcert: firebase.firestore.QueryDocumentSnapshot<ConcertType>;
+  isLast: boolean;
+}
+
 export const fetchConcerts = async (
   variables: Variables | undefined,
-): Promise<ConcertsResponse> => {
+  lastVisible?: firebase.firestore.QueryDocumentSnapshot<ConcertType>,
+): Promise<FetchConcertsReturnType> => {
   const db = firebase.firestore();
+  console.log('called');
   const concertsRef = db.collection(
     'concert',
   ) as firebase.firestore.CollectionReference<ConcertType>;
@@ -23,8 +31,12 @@ export const fetchConcerts = async (
     variables?.orderBy === undefined
       ? concertRefFiltered
       : concertRefFiltered.orderBy(variables.orderBy, 'desc');
-  const querySnapshot = await concertRefOrdered.get();
-  console.log(querySnapshot, 'qu');
+  const concertRefPaginated =
+    lastVisible === undefined
+      ? concertRefOrdered.limit(3)
+      : concertRefOrdered.startAfter(lastVisible).limit(3);
+  const querySnapshot = await concertRefPaginated.get();
+  console.log('called', querySnapshot);
   const concerts = querySnapshot.docs.map((doc) => {
     const { id } = doc;
     const data = doc.data();
@@ -35,11 +47,15 @@ export const fetchConcerts = async (
       address: data.address,
       placeId: data.placeId,
       prefecture: data.prefecture,
-      date: ((data.date as unknown) as firebase.firestore.Timestamp).toDate(),
+      date: (data.date as unknown as firebase.firestore.Timestamp).toDate(),
       symphonies: data.symphonies,
       orchestra: data.orchestra,
     };
   });
+  const lastConcert = querySnapshot.docs[querySnapshot.docs.length - 1];
+  // console.log('why', lastConcert);
+  // const isLast = lastConcert.id === (lastVisible?.id ?? undefined);
+  // console.log(isLast, lastConcert.id, lastVisible?.id);
 
-  return { concerts };
+  return { concerts, lastConcert, isLast: lastConcert === undefined };
 };

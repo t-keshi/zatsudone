@@ -1,23 +1,32 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Container, Paper, Typography } from '@material-ui/core';
 import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import { FormTextField } from '../components/helpers/FormTextField/FormTextField';
 import { TopLayout } from '../components/layout/TopLayout';
 import { ROUTE_PATHS } from '../routes/type';
 import { useRouter } from '../utility/hooks/useRouter';
 import { useTitle } from '../utility/hooks/useTitle';
 
-interface FormValue {
+interface FormValues {
   email: string;
 }
+
+const schema: yup.SchemaOf<FormValues> = yup.object().shape({
+  email: yup
+    .string()
+    .email('メールアドレスの形式が正しくありません')
+    .required(),
+});
 
 export const AuthForgetPassword: React.VFC = () => {
   const { history } = useRouter();
   const {
     control,
     formState: { errors },
-  } = useForm<FormValue>();
+  } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
   useTitle('SymphonyForum | パスワード再発行');
 

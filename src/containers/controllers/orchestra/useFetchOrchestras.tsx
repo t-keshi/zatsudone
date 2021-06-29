@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { QUERY } from '../../../constants/query';
 import { fetchOrchestras } from '../../database/orchestra/fetchOrchestras';
+import { QUERY } from '../../entities/query';
 
 export interface Orchestra {
   id: string;

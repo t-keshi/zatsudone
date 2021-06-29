@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_KEY } from '../../entities/env';
 
 /* eslint-disable camelcase */
 interface FnResponse {
@@ -11,8 +12,6 @@ interface FnResponse {
 }
 
 type FnData = { results: FnResponse[] };
-
-const API_KEY = process.env.REACT_APP_API_KEY ?? '';
 
 export const searchAccess = async (inputAddress: string): Promise<FnData> => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json`;
