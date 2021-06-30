@@ -1,19 +1,20 @@
-import { Avatar, Box, Button, IconButton } from '@material-ui/core';
+import { Avatar, Box, Button, IconButton, MenuItem } from '@material-ui/core';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import firebase from 'firebase/app';
 import React from 'react';
 import { useFetchUserInfo } from '../../../containers/controllers/authentication/useFetchUserInfo';
 import { useLogOut } from '../../../containers/controllers/authentication/useLogOut';
 import { ROUTE_PATHS } from '../../../routes/type';
+import { useMenu } from '../../../utility/hooks/useMenu';
 import { useRouter } from '../../../utility/hooks/useRouter';
+import { MenuCustom } from '../../helpers/MenuCustom/MenuCustom';
 
 export const HeaderAuth: React.VFC = () => {
   const { history } = useRouter();
   const user = firebase.auth().currentUser;
   const { data, isLoading } = useFetchUserInfo();
   const { mutate } = useLogOut();
-
-  console.log(data, user);
+  const { anchorEl, handleMenuOpen, handleMenuClose } = useMenu();
 
   if (!user) {
     return (
@@ -44,9 +45,22 @@ export const HeaderAuth: React.VFC = () => {
     return (
       <Box display="flex">
         <Avatar alt={data.displayName} src={data.photoURL} />
-        <IconButton onClick={() => mutate()}>
-          <KeyboardArrowDown />
+        <IconButton>
+          <KeyboardArrowDown onClick={handleMenuOpen} />
         </IconButton>
+        <MenuCustom
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          align="right"
+        >
+          <MenuItem value="すべて">プロフィール</MenuItem>
+          <MenuItem value="ログアウト" onClick={() => mutate()}>
+            ログアウト
+          </MenuItem>
+        </MenuCustom>
       </Box>
     );
   }
