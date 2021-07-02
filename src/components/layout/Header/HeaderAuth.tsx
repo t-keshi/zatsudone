@@ -56,7 +56,12 @@ export const HeaderAuth: React.VFC = () => {
           onClose={handleMenuClose}
           align="right"
         >
-          <MenuItem value="すべて">プロフィール</MenuItem>
+          <MenuItem
+            value="すべて"
+            onClick={() => history.push(ROUTE_PATHS.プロフィール設定)}
+          >
+            プロフィール設定
+          </MenuItem>
           <MenuItem value="ログアウト" onClick={() => mutate()}>
             ログアウト
           </MenuItem>

@@ -23,13 +23,13 @@ interface Variables {
 type UseFetchConcerts = (
   variables?: Variables,
   options?: UseInfiniteQueryOptions<
-    Data,
+    Data | void,
     unknown,
-    Data,
-    Data,
+    Data | void,
+    Data | void,
     [string, OrderBy | undefined, string | undefined]
   >,
-) => UseInfiniteQueryResult<Data, unknown>;
+) => UseInfiniteQueryResult<Data | void, unknown>;
 
 export const useInfiniteFetchConcerts: UseFetchConcerts = (
   variables,
@@ -38,24 +38,19 @@ export const useInfiniteFetchConcerts: UseFetchConcerts = (
   const [lastVisible, setLastVisible] = useState<
     firebase.firestore.QueryDocumentSnapshot<ConcertType> | undefined
   >(undefined);
-  const [shouldFetchNext, setShouldFetchNest] = useState<boolean>(true);
   const queryFn = () => fetchConcerts(variables, lastVisible);
-
-  console.log(shouldFetchNext);
 
   return useInfiniteQuery(
     [QUERY.concerts, variables?.orderBy, variables?.prefecture],
     queryFn,
     {
       ...options,
-      getPreviousPageParam: () => true,
-      getNextPageParam: () => shouldFetchNext,
+      getNextPageParam: (lastPage) => !lastPage?.isLast,
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
       onSuccess: (res) => {
-        setLastVisible(res.pages[res.pages.length - 1].lastConcert);
-        if (res.pages[res.pages.length - 1].isLast) {
-          setShouldFetchNest(false);
-        }
+        setLastVisible(res.pages[res.pages.length - 1]?.lastConcert);
       },
     },
   );

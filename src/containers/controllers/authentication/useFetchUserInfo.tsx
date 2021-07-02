@@ -2,11 +2,12 @@ import firebase from 'firebase';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { QUERY } from '../../entities/query';
 
-interface User {
+export interface User {
   email: string;
   displayName: string;
   photoURL: string;
   uid: string;
+  managementOrchestraId: string;
 }
 type Data = User;
 type UseFetchUserInfo = (
@@ -32,6 +33,7 @@ const fetchUserInfo = async () => {
     displayName: data.displayName,
     photoURL: data.photoURL,
     uid: data.uid,
+    managementOrchestraId: data.managementOrchestraId,
   };
 
   return userInfo;

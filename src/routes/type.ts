@@ -10,6 +10,7 @@ export const ROUTE_PATHS = {
   ログイン: '/login',
   新規登録: '/signup',
   パスワード忘れ: '/forget-password',
+  プロフィール設定: '/profile-setting',
 } as const;
 
 export type ROUTE_PATH = typeof ROUTE_PATHS[keyof typeof ROUTE_PATHS];

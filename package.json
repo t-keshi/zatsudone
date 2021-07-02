@@ -79,6 +79,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "emulator": "npx firebase emulators:start",
+    "deploy": "firebase deploy",
     "deploy:rules": "firebase deploy --only firestore:rules"
   },
   "resolutions": {

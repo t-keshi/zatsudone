@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 
 interface Variables {
   name: string;
+  description: string;
 }
 
 export const createOrchestra = async (variables: Variables): Promise<void> => {
@@ -10,5 +11,6 @@ export const createOrchestra = async (variables: Variables): Promise<void> => {
 
   await orchestrasRef.add({
     name: variables.name,
+    description: variables.description,
   });
 };
