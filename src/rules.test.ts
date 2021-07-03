@@ -6,8 +6,6 @@ import fs from 'fs';
 import { PROJECT_ID } from './containers/entities/env';
 import { firebaseConfig } from './firebaseConfig';
 
-type Auth = { uid?: string; email: string };
-
 // const adminDB = initializeTestApp({ projectId: PROJECT_ID });
 // const clientDB = (auth?: Auth) =>
 //   initializeTestApp({ projectId: PROJECT_ID, auth }).firestore();

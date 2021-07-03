@@ -1,3 +1,1 @@
-import React from 'react';
-
-export const ui = () => <div />;
+export const ui = (): void => console.log('');
