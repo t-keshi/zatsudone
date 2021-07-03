@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => ({
   button: {
     border: `1px solid ${theme.palette.divider}`,
     backgroundColor: TWITTER_COLOR,
-    color: theme.palette.error.contrastText,
+    color: theme.palette.common.white,
+    textTransform: 'none',
     '&:hover': {
       backgroundColor: darken(TWITTER_COLOR, theme.palette.action.hoverOpacity),
     },

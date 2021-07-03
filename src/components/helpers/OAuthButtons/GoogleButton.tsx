@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme) => ({
   button: {
     border: `1px solid ${theme.palette.divider}`,
     backgroundColor: GOOGLE_COLOR,
-    color: theme.palette.error.contrastText,
+    color: theme.palette.text.primary,
+    textTransform: 'none',
     '&:hover': {
       backgroundColor: darken(GOOGLE_COLOR, theme.palette.action.hoverOpacity),
     },

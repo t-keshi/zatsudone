@@ -8,7 +8,7 @@ import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { useRouter } from '../../../utility/hooks/useRouter';
 import { socialLogIn } from '../../database/authentication/socialLogIn';
 
-type SocialApp = 'google' | 'twitter' | 'facebook' | 'instagram';
+type SocialApp = 'google' | 'twitter' | 'facebook';
 type Data = unknown;
 type UseSocialLogIn = (
   options?: UseMutationOptions<Data, Error, SocialApp>,
