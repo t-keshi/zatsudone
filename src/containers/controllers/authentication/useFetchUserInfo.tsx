@@ -8,6 +8,8 @@ export interface User {
   photoURL: string;
   uid: string;
   managementOrchestraId: string;
+  twitterUserName: string | undefined;
+  facebookUserName: string | undefined;
 }
 type Data = User;
 type UseFetchUserInfo = (
@@ -34,6 +36,8 @@ const fetchUserInfo = async () => {
     photoURL: data.photoURL,
     uid: data.uid,
     managementOrchestraId: data.managementOrchestraId,
+    twitterUserName: data.twitterUserName,
+    facebookUserName: data.facebookUserName,
   };
 
   return userInfo;
