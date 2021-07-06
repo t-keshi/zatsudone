@@ -8,6 +8,7 @@ import { ConcertAccess } from '../components/ui/ConcertAccess/ConcertAccess';
 import { ConcertDetailInfo } from '../components/ui/ConcertDetailInfo/ConcertDetailInfo';
 import { ConcertFlyer } from '../components/ui/ConcertFlyer/ConcertFlyer';
 import { ConcertProgram } from '../components/ui/ConcertProgram/ConcertProgram';
+import { ConcertReactionButtons } from '../components/ui/ConcertReactionButtons/ConcertReactionButtons';
 import { ConcertSummary } from '../components/ui/ConcertSummary/ConcertSummary';
 import { useFetchConcert } from '../containers/controllers/concert/useFetchConcert';
 import { ROUTE_PATHS } from '../routes/type';
@@ -29,10 +30,16 @@ export const ConcertDetail: React.VFC = () => {
   const { data } = useFetchConcert();
 
   return (
-    <Layout noPadding>
+    <Layout noPadding hideAppBar>
+      {data !== undefined && (
+        <ConcertReactionButtons
+          isUserLike={data.isUserLike}
+          likesCount={data.likesCount}
+        />
+      )}
       <ConcertFlyer title={data?.title} image={musicNote} />
       <Container maxWidth={false}>
-        <Box py={2}>
+        <Box py={2} position="relative">
           <ConcertSummary orchestraName="大阪大学吹奏楽団" />
           {data !== undefined && (
             <>

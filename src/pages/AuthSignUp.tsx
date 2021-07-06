@@ -132,7 +132,7 @@ export const AuthSignup: React.VFC = () => {
                     Facebookアカウントを使用
                   </FacebookButton>
                   <TwitterButton onClick={() => socialLogIn('twitter')}>
-                    Twitterアカウントを使用
+                    twitterアカウントを使用
                   </TwitterButton>
                 </div>
               </Box>

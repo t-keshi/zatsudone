@@ -12,7 +12,7 @@ import { MenuCustom } from '../../helpers/MenuCustom/MenuCustom';
 export const HeaderAuth: React.VFC = () => {
   const { history } = useRouter();
   const user = firebase.auth().currentUser;
-  console.log(user);
+  console.log(user, 'uuuuuuuuuuu');
   const { data, isLoading } = useFetchUserInfo();
   console.log(data, 'daaaaaaaaaaata');
   const { mutate } = useLogOut();

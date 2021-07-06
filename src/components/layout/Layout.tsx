@@ -5,7 +5,13 @@ import { PageTransition } from '../helpers/PageTransition/PageTransition';
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
 
-const drawerWidth = 280;
+interface Props {
+  noPadding?: boolean;
+  hasPageTransition?: boolean;
+  hideAppBar?: boolean;
+}
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
   },
+  container: {
+    position: 'relative',
+    // [theme.breakpoints.up('lg')]: {
+    //   margin: theme.spacing(4),
+    // },
+  },
   sidebar: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -32,20 +44,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props {
-  noPadding?: boolean;
-  hasPageTransition?: boolean;
-}
-
-export const Layout: React.FC<Props> = (props) => {
-  const { children, noPadding = false, hasPageTransition = false } = props;
+export const Layout: React.FC<Props> = ({
+  children,
+  noPadding = false,
+  hasPageTransition = true,
+  hideAppBar = false,
+}) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
-      <Header />
+      <Header hideAppBar={hideAppBar} />
       <Box className={classes.containerWrapper}>
-        <Container maxWidth="lg">
+        <Container className={classes.container} maxWidth="lg">
           <Toolbar />
           <Box className={classes.main}>
             <Box className={classes.content}>

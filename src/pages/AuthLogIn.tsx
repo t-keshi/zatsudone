@@ -128,7 +128,7 @@ export const AuthLogIn: React.VFC = () => {
                     Facebookでログイン
                   </FacebookButton>
                   <TwitterButton onClick={() => socialLogIn('twitter')}>
-                    Twitterでログイン
+                    twitterでログイン
                   </TwitterButton>
                 </div>
               </Box>

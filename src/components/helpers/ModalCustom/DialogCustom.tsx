@@ -18,13 +18,15 @@ interface StyleProps {
 }
 
 const useStyles = makeStyles((theme) => ({
-  dialog: {
-    minWidth: ({ minWidth }: StyleProps) => minWidth || 'auto',
+  dialogPaper: {
+    width: '100%',
+    minWidth: ({ minWidth }: StyleProps) =>
+      minWidth ? theme.breakpoints.values[minWidth] : 'auto',
   },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
-    top: theme.spacing(1),
+    top: theme.spacing(0.5),
     color: theme.palette.grey[500],
   },
 }));
@@ -90,7 +92,7 @@ export const DialogCustom = ({
 
   return (
     <Dialog
-      className={classes.dialog}
+      classes={{ paper: classes.dialogPaper }}
       maxWidth={maxWidth}
       open={open}
       onClose={onClose}

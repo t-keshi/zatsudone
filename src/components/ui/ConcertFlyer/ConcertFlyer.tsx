@@ -1,6 +1,7 @@
 import { CardActionArea } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Skeleton } from '@material-ui/lab';
+import clsx from 'clsx';
 import React, { useRef } from 'react';
 import { useFullscreen } from '../../../utility/hooks/useFullscreen';
 import { useToggle } from '../../../utility/hooks/useToggle';
@@ -10,20 +11,20 @@ interface Props {
   image: string | undefined;
 }
 
-interface StyleProps {
-  isFullscreen: boolean;
-}
-
 const FLYER_HEIGHT = 500;
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   image: {
     objectFit: 'contain',
-    height: ({ isFullscreen }: StyleProps) =>
-      isFullscreen ? '100vh' : FLYER_HEIGHT,
+    height: FLYER_HEIGHT,
     width: '100%',
     contentVisibility: 'auto',
     containIntrinsicSize: FLYER_HEIGHT,
+    '& .isFullscreen': {
+      height: '100vh',
+      position: 'fixed',
+      backgroundColor: theme.palette.common.black,
+    },
   },
 }));
 
@@ -34,7 +35,7 @@ export const ConcertFlyer: React.VFC<Props> = ({ title, image }) => {
   const isFullscreen = useFullscreen(ref, show, {
     onClose: () => toggle(false),
   });
-  const classes = useStyles({ isFullscreen });
+  const classes = useStyles();
 
   if (title === undefined) {
     return <Skeleton className={classes.image} variant="rect" />;
@@ -43,7 +44,11 @@ export const ConcertFlyer: React.VFC<Props> = ({ title, image }) => {
   return (
     <div ref={ref}>
       <CardActionArea onClick={() => toggle()}>
-        <img className={classes.image} alt={`${title}-flyer`} src={image} />
+        <img
+          className={clsx(classes.image, isFullscreen && 'isFullscreen')}
+          alt={`${title}-flyer`}
+          src={image}
+        />
       </CardActionArea>
     </div>
   );
