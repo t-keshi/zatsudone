@@ -12,7 +12,7 @@ interface Props {
   hideAppBar?: boolean;
 }
 
-const drawerWidth = 240;
+const DRAWER_WIDTH = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sidebar: {
     [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
+      width: DRAWER_WIDTH,
       flexShrink: 0,
     },
   },
@@ -73,11 +73,11 @@ export const Layout: React.FC<Props> = ({
                 </ResponsivePaper>
               </PageTransition>
             </Box>
-            <Box className={classes.sidebar}>
-              <Hidden xsDown implementation="css">
+            <Hidden xsDown implementation="css">
+              <Box className={classes.sidebar}>
                 <Sidebar />
-              </Hidden>
-            </Box>
+              </Box>
+            </Hidden>
           </Box>
         </Container>
       </Box>

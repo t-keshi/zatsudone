@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { User } from '../../../containers/controllers/authentication/useFetchUserInfo';
 import { useSocialConnect } from '../../../containers/controllers/authentication/useSocialConnect';
+import { useUpdateUserInfo } from '../../../containers/controllers/authentication/useUpdateUserInfo';
 import { QUERY } from '../../../containers/entities/query';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
 import { DialogCustom } from '../../helpers/ModalCustom/DialogCustom';
@@ -38,59 +39,68 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ProfileFormDialog: React.VFC<Props> = ({ open, onClose }) => {
+  const classes = useStyles();
   const { mutate: socialConnect } = useSocialConnect();
+  const { mutate: updateUserInfo } = useUpdateUserInfo();
   const client = useQueryClient();
   const user: User | undefined = client.getQueryData([QUERY.user]);
-  console.log(user);
-  const twitterUserName = user?.twitterUserName;
-  const facebookUserName = user?.facebookUserName;
-  const classes = useStyles();
+  const twitterUserName = user?.twitterUserLink;
+  const facebookUserName = user?.facebookUserLink;
   const {
     control,
+    handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    updateUserInfo({ userHomePage: data.homePage });
+  });
 
   return (
-    <DialogCustom
-      open={open}
-      onClose={onClose}
-      variant="customAction"
-      title="リンクを追加"
-      actionButton={<></>}
-      maxWidth="sm"
-    >
-      <div className={classes.oauthWrapper}>
-        <TwitterButton
-          onClick={() => socialConnect('twitter')}
-          endIcon={twitterUserName && <Check />}
-        >
-          twitter
-        </TwitterButton>
-        <FacebookButton
-          onClick={() => socialConnect('facebook')}
-          endIcon={facebookUserName && <Check />}
-        >
-          Facebook
-        </FacebookButton>
-        <FormTextField
-          className={classes.textField}
-          control={control}
-          name="homePage"
-          label="ホームページ"
-          placeholder="例 ) https://www.google.com"
-          errorMessage={errors.homePage?.message}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <LinkIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <div className={classes.buttonWrapper}>
-          <Button>保存</Button>
+    <form onSubmit={onSubmit}>
+      <DialogCustom
+        open={open}
+        onClose={onClose}
+        variant="customAction"
+        title="リンクを追加"
+        actionButton={<></>}
+        maxWidth="sm"
+      >
+        <div className={classes.oauthWrapper}>
+          <TwitterButton
+            onClick={() => socialConnect('twitter')}
+            endIcon={twitterUserName && <Check />}
+          >
+            twitter
+          </TwitterButton>
+          <FacebookButton
+            onClick={() => socialConnect('facebook')}
+            endIcon={facebookUserName && <Check />}
+          >
+            Facebook
+          </FacebookButton>
+          <FormTextField
+            className={classes.textField}
+            control={control}
+            name="homePage"
+            label="ホームページ"
+            placeholder="例 ) https://www.google.com"
+            errorMessage={errors.homePage?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LinkIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <div className={classes.buttonWrapper}>
+            <Button type="submit" onClick={onSubmit}>
+              保存
+            </Button>
+          </div>
         </div>
-      </div>
-    </DialogCustom>
+      </DialogCustom>
+    </form>
   );
 };

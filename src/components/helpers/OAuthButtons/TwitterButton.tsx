@@ -2,16 +2,17 @@ import { Button, ButtonProps } from '@material-ui/core';
 import { darken, makeStyles } from '@material-ui/core/styles';
 import { Twitter } from '@material-ui/icons';
 
-const TWITTER_COLOR = '#1da1f2';
-
 const useStyles = makeStyles((theme) => ({
   button: {
     border: `1px solid ${theme.palette.divider}`,
-    backgroundColor: TWITTER_COLOR,
+    backgroundColor: theme.palette.custom.twitter,
     color: theme.palette.common.white,
     textTransform: 'none',
     '&:hover': {
-      backgroundColor: darken(TWITTER_COLOR, theme.palette.action.hoverOpacity),
+      backgroundColor: darken(
+        theme.palette.custom.twitter,
+        theme.palette.action.hoverOpacity,
+      ),
     },
   },
 }));

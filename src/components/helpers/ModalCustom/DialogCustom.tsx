@@ -7,8 +7,9 @@ import {
   DialogTitle,
   IconButton,
   Tooltip,
+  useMediaQuery,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
 import React from 'react';
 import { YesOrNoButton } from '../YesOrNoButton/YesOrNoButton';
@@ -89,6 +90,8 @@ export const DialogCustom = ({
   ...rest
 }: React.ComponentProps<React.FC<Props>>): React.ReactElement => {
   const classes = useStyles({ minWidth });
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Dialog
@@ -96,6 +99,7 @@ export const DialogCustom = ({
       maxWidth={maxWidth}
       open={open}
       onClose={onClose}
+      fullScreen={fullScreen}
     >
       {rest.variant === 'customHeader' ? (
         rest.header

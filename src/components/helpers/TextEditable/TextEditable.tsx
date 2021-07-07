@@ -1,4 +1,4 @@
-import { IconButton, Typography } from '@material-ui/core';
+import { IconButton, TextFieldProps, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Close, Edit } from '@material-ui/icons';
 import React from 'react';
@@ -36,7 +36,8 @@ export const TextEditable = <TFieldValues extends FieldValues>({
   name,
   errorMessage,
   onSubmit,
-}: Props<TFieldValues>): React.ReactElement => {
+  ...rest
+}: Props<TFieldValues> & TextFieldProps): React.ReactElement => {
   const classes = useStyles();
   const [isEditMode, handleIsEditMode] = useToggle(false);
 
@@ -69,6 +70,8 @@ export const TextEditable = <TFieldValues extends FieldValues>({
           control={control}
           name={name}
           errorMessage={errorMessage}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...rest}
         />
         <IconButton
           className={classes.editButton}

@@ -21,8 +21,7 @@ export const socialConnect = async (socialApp: SocialApp): Promise<void> => {
   const { currentUser } = firebase.auth();
   const uid = currentUser?.uid;
   try {
-    const userCredential: firebase.auth.UserCredential | undefined =
-      await currentUser?.linkWithPopup(getProvider());
+    const userCredential = await currentUser?.linkWithPopup(getProvider());
     const getUserLink = (): string => {
       if (socialApp === 'twitter') {
         const userName = userCredential?.additionalUserInfo?.username ?? '';

@@ -12,6 +12,7 @@ import { NotFound404 } from '../pages/NotFound404';
 import { OrchestraDetail } from '../pages/OrchestraDetail';
 import { OrchestraManagement } from '../pages/OrchestraManagement';
 import { Orchestras } from '../pages/Orchestras';
+import { Profile } from '../pages/Profile';
 import { ProfileSetting } from '../pages/ProfileSetting';
 import { usePageScrollReset } from '../utility/hooks/useScrollReset';
 import { ROUTE_PATHS } from './type';
@@ -56,6 +57,9 @@ export const Routes: React.VFC = () => {
       </Route>
       <Route exact path={ROUTE_PATHS.プロフィール設定}>
         <ProfileSetting />
+      </Route>
+      <Route exact path={ROUTE_PATHS.プロフィール}>
+        <Profile />
       </Route>
       <Route>
         <NotFound404 />
