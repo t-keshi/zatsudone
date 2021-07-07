@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Container, Paper, Typography } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
@@ -10,6 +10,7 @@ import { FormTextField } from '../components/helpers/FormTextField/FormTextField
 import { FacebookButton } from '../components/helpers/OAuthButtons/FacebookButton';
 import { GoogleButton } from '../components/helpers/OAuthButtons/GoogleButton';
 import { TwitterButton } from '../components/helpers/OAuthButtons/TwitterButton';
+import { ResponsivePaper } from '../components/helpers/ResponsivePaper.tsx/ResponsivePaper';
 import { StyledLink } from '../components/helpers/StyledLink/StyledLink';
 import { TopLayout } from '../components/layout/TopLayout';
 import { useLogIn } from '../containers/controllers/authentication/useLogIn';
@@ -67,74 +68,65 @@ export const AuthLogIn: React.VFC = () => {
   useTitle('SymphonyForum | ログイン');
 
   return (
-    <TopLayout>
+    <TopLayout maxWidth="sm">
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          height="80vh"
-        >
-          <Container maxWidth="sm">
-            <Paper variant="outlined">
-              <Box p={3}>
-                <Typography variant="h6" align="center" paragraph>
-                  Symphony Forum
-                </Typography>
-                <FormTextField
-                  control={control}
-                  name="email"
-                  type="email"
-                  margin="normal"
-                  label="メールアドレス"
-                  fullWidth
-                  errorMessage={errors.email?.message}
-                />
-                <Box mt={1} />
-                <FormTextField
-                  control={control}
-                  name="password"
-                  type="password"
-                  margin="normal"
-                  label="パスワード"
-                  fullWidth
-                  errorMessage={errors.password?.message}
-                />
-                <StyledLink
-                  color="textPrimary"
-                  underline="always"
-                  to={ROUTE_PATHS.パスワード忘れ}
-                >
-                  パスワードを忘れた方
-                </StyledLink>
-                <Box mt={3} />
-                <Box mb={2} display="flex" justifyContent="space-between">
-                  <Button
-                    variant="text"
-                    color="secondary"
-                    startIcon={<ChevronLeft />}
-                    onClick={() => history.push(ROUTE_PATHS.新規登録)}
-                  >
-                    新規登録
-                  </Button>
-                  <Button type="submit">ログイン</Button>
-                </Box>
-                <DividerWithText>OR</DividerWithText>
-                <div className={classes.oauthWrapper}>
-                  <GoogleButton onClick={() => socialLogIn('google')}>
-                    Googleでログイン
-                  </GoogleButton>
-                  <FacebookButton onClick={() => socialLogIn('facebook')}>
-                    Facebookでログイン
-                  </FacebookButton>
-                  <TwitterButton onClick={() => socialLogIn('twitter')}>
-                    twitterでログイン
-                  </TwitterButton>
-                </div>
-              </Box>
-            </Paper>
-          </Container>
-        </Box>
+        <ResponsivePaper breakpoint="xs" variant="outlined">
+          <Box p={3}>
+            <Typography variant="h6" align="center" paragraph>
+              Symphony Forum
+            </Typography>
+            <FormTextField
+              control={control}
+              name="email"
+              type="email"
+              margin="normal"
+              label="メールアドレス"
+              fullWidth
+              errorMessage={errors.email?.message}
+            />
+            <Box mt={1} />
+            <FormTextField
+              control={control}
+              name="password"
+              type="password"
+              margin="normal"
+              label="パスワード"
+              fullWidth
+              errorMessage={errors.password?.message}
+            />
+            <StyledLink
+              color="textPrimary"
+              underline="always"
+              to={ROUTE_PATHS.パスワード忘れ}
+            >
+              パスワードを忘れた方
+            </StyledLink>
+            <Box mt={3} />
+            <Box mb={2} display="flex" justifyContent="space-between">
+              <Button
+                variant="text"
+                color="secondary"
+                startIcon={<ChevronLeft />}
+                onClick={() => history.push(ROUTE_PATHS.新規登録)}
+              >
+                新規登録
+              </Button>
+              <Button type="submit">ログイン</Button>
+            </Box>
+            <DividerWithText>OR</DividerWithText>
+            <div className={classes.oauthWrapper}>
+              <GoogleButton onClick={() => socialLogIn('google')}>
+                Googleでログイン
+              </GoogleButton>
+              <FacebookButton onClick={() => socialLogIn('facebook')}>
+                Facebookでログイン
+              </FacebookButton>
+              <TwitterButton onClick={() => socialLogIn('twitter')}>
+                twitterでログイン
+              </TwitterButton>
+            </div>
+          </Box>
+        </ResponsivePaper>
       </form>
     </TopLayout>
   );

@@ -1,7 +1,8 @@
-import { Box, Container, Hidden, Paper, Toolbar } from '@material-ui/core';
+import { Box, Container, Hidden, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { PageTransition } from '../helpers/PageTransition/PageTransition';
+import { ResponsivePaper } from '../helpers/ResponsivePaper.tsx/ResponsivePaper';
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
 
@@ -32,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     position: 'relative',
-    // [theme.breakpoints.up('lg')]: {
-    //   margin: theme.spacing(4),
-    // },
+    [theme.breakpoints.down('xs')]: {
+      padding: 0,
+    },
   },
   sidebar: {
     [theme.breakpoints.up('sm')]: {
@@ -61,7 +62,7 @@ export const Layout: React.FC<Props> = ({
           <Box className={classes.main}>
             <Box className={classes.content}>
               <PageTransition hasPageTransition={hasPageTransition}>
-                <Paper variant="outlined">
+                <ResponsivePaper breakpoint="xs" variant="outlined">
                   {noPadding ? (
                     children
                   ) : (
@@ -69,7 +70,7 @@ export const Layout: React.FC<Props> = ({
                       <Box py={2}>{children}</Box>
                     </Container>
                   )}
-                </Paper>
+                </ResponsivePaper>
               </PageTransition>
             </Box>
             <Box className={classes.sidebar}>

@@ -8,6 +8,7 @@ import { ConcertEdit } from '../pages/ConcertEdit';
 import { ConcertsRecent } from '../pages/ConcertsRecent';
 import { ConcertsUpcoming } from '../pages/ConcertsUpcoming';
 import { LandingPage } from '../pages/LandingPage';
+import { NotFound404 } from '../pages/NotFound404';
 import { OrchestraDetail } from '../pages/OrchestraDetail';
 import { OrchestraManagement } from '../pages/OrchestraManagement';
 import { Orchestras } from '../pages/Orchestras';
@@ -55,6 +56,9 @@ export const Routes: React.VFC = () => {
       </Route>
       <Route exact path={ROUTE_PATHS.プロフィール設定}>
         <ProfileSetting />
+      </Route>
+      <Route>
+        <NotFound404 />
       </Route>
     </Switch>
   );

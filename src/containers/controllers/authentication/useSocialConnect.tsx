@@ -8,7 +8,7 @@ import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { useRouter } from '../../../utility/hooks/useRouter';
 import { socialConnect } from '../../database/authentication/socialConnect';
 
-type SocialApp = 'google' | 'twitter' | 'facebook';
+type SocialApp = 'twitter' | 'facebook';
 type Data = unknown;
 type UseSocialConnect = (
   options?: UseMutationOptions<Data, Error, SocialApp>,

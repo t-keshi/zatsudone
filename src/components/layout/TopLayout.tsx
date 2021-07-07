@@ -1,7 +1,11 @@
-import { Container } from '@material-ui/core';
+import { Container, ContainerProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import Div100vh from 'react-div-100vh';
+
+interface Props {
+  maxWidth?: ContainerProps['maxWidth'];
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,15 +18,21 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  container: {
+    position: 'relative',
+    [theme.breakpoints.down('xs')]: {
+      padding: 0,
+    },
+  },
 }));
 
-export const TopLayout: React.FC = ({ children }) => {
+export const TopLayout: React.FC<Props> = ({ children, maxWidth = 'lg' }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Div100vh className={classes.containerWrapper}>
-        <Container maxWidth="lg">
+        <Container className={classes.container} maxWidth={maxWidth}>
           <div>{children}</div>
         </Container>
       </Div100vh>

@@ -9,6 +9,7 @@ import 'firebase/storage';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as yup from 'yup';
+import { AppUtility } from './AppUtility';
 import { Providers } from './containers/Providers';
 import { firebaseConfig } from './firebaseConfig';
 import { Routes } from './routes/Routes';
@@ -29,6 +30,7 @@ export const App: React.VFC = () => {
     <Router>
       <Providers>
         <Routes />
+        <AppUtility />
       </Providers>
     </Router>
   );

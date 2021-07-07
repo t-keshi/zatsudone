@@ -9,8 +9,6 @@ import { ProfileFormDialog } from './ProfileFormDialog';
 
 export const ProfileForm: React.VFC<IconButtonProps> = () => {
   const { data } = useFetchUserInfo();
-  const twitterUserName = data?.twitterUserName;
-  const facebookUserName = data?.facebookUserName;
   const [isOpen, setIsOpen] = useToggle(false);
 
   return (
@@ -18,23 +16,17 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
       <Box display="flex" style={{ columnGap: '16px' }}>
         <TwitterIconButton
           component="a"
-          color={twitterUserName ? 'primary' : 'default'}
-          href={`https://twitter.com/${twitterUserName ?? ''}`}
-          disabled={twitterUserName === undefined}
+          color={data?.twitterUserLink ? 'primary' : 'default'}
+          href={data?.twitterUserLink ?? ''}
+          disabled={data?.twitterUserLink === undefined}
           target="_blank"
           rel="noopener"
         />
-        {/* <IconButton
-          color={facebookUserName ? 'primary' : 'default'}
-          onClick={() => socialConnect('facebook')}
-        >
-          <Facebook />
-        </IconButton> */}
         <FacebookIconButton
           component="a"
-          color={facebookUserName ? 'primary' : 'default'}
-          href={`https://www.facebook.com/${facebookUserName ?? ''}`}
-          disabled={facebookUserName === undefined}
+          color={data?.facebookUserLink ? 'primary' : 'default'}
+          href={data?.facebookUserLink ?? ''}
+          disabled={data?.facebookUserLink === undefined}
           target="_blank"
           rel="noopener"
         />
