@@ -49,7 +49,7 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
           control={control}
           onSubmit={onSubmit}
           name="profile"
-          value=""
+          value={data?.profile ?? ''}
           placeholder="例 ） 当楽団は団員数100名を超える、関西でも最大級の規模を誇る吹奏楽団です。年2回の演奏会の開催を目指し、日々練習に励んでいます。"
           margin="normal"
           fullWidth
@@ -76,12 +76,9 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
           />
           <LinkCustom
             className={classes.userHomePage}
-            href="http://google.home/google.homegoogle.homegoogle.homegoogle.home"
+            href={data?.userHomePage ?? ''}
           >
-            {textTruncate(
-              'http://google.home/google.homegoogle.homegoogle.homegoogle.home',
-              20,
-            )}
+            {textTruncate(data?.userHomePage ?? '', 20)}
           </LinkCustom>
         </Box>
         <Button onClick={() => setIsOpen(true)}>リンクを追加</Button>
