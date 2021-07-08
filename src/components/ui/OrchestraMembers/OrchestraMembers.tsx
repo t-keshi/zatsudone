@@ -1,6 +1,6 @@
-import React from 'react';
+import { Avatar, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Typography, Box } from '@material-ui/core';
+import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,7 @@ export const OrchestraMembers: React.VFC = () => {
     <div className={classes.root}>
       {members.map((member) => (
         <Box width={100} key={member}>
-          <Avatar alt="avatar" src={musicNote} className={classes.avatar} />
+          <Avatar className={classes.avatar} src={musicNote} alt="avatar" />
           <Box mt={1} />
           <Typography align="center" variant="body1">
             山田 太郎

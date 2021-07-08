@@ -17,21 +17,6 @@ import { YesOrNoButton } from '../YesOrNoButton/YesOrNoButton';
 interface StyleProps {
   minWidth?: DialogProps['maxWidth'];
 }
-
-const useStyles = makeStyles((theme) => ({
-  dialogPaper: {
-    width: '100%',
-    minWidth: ({ minWidth }: StyleProps) =>
-      minWidth ? theme.breakpoints.values[minWidth] : 'auto',
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(0.5),
-    color: theme.palette.grey[500],
-  },
-}));
-
 interface BaseProps extends StyleProps {
   open: DialogProps['open'];
   onClose: () => void;
@@ -44,7 +29,7 @@ interface DialogCustomProps extends BaseProps {
   yesLabel: string;
   yesButtonProps: ButtonProps;
   noLabel: string;
-  noButtonProps: ButtonProps;
+  noButtonProps?: ButtonProps;
   buttonWidth?: number;
 }
 
@@ -79,6 +64,20 @@ const defaultProps: DefaultProps = {
   yesLabel: '保存',
   noLabel: 'キャンセル',
 };
+
+const useStyles = makeStyles((theme) => ({
+  dialogPaper: {
+    width: '100%',
+    minWidth: ({ minWidth }: StyleProps) =>
+      minWidth ? theme.breakpoints.values[minWidth] : 'auto',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(0.5),
+    color: theme.palette.grey[500],
+  },
+}));
 
 export const DialogCustom = ({
   children,
@@ -120,9 +119,17 @@ export const DialogCustom = ({
         <DialogActions>
           <YesOrNoButton
             yesLabel={rest.yesLabel}
-            yesButtonProps={rest.yesButtonProps}
+            yesButtonProps={{
+              onClick: (e) => {
+                if (rest.yesButtonProps.onClick) {
+                  rest.yesButtonProps.onClick(e);
+                }
+                onClose();
+              },
+              ...rest.yesButtonProps,
+            }}
             noLabel={rest.noLabel}
-            noButtonProps={rest.noButtonProps}
+            noButtonProps={{ onClick: onClose, ...rest.noButtonProps }}
             width={rest.buttonWidth}
           />
         </DialogActions>

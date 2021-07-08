@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@material-ui/core';
+import { Avatar, Box, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Image } from '@material-ui/icons';
 import { Skeleton } from '@material-ui/lab';
@@ -10,8 +10,9 @@ interface StyleProps {
 }
 
 interface Props extends StyleProps {
-  title: string | undefined;
-  image: string | undefined;
+  title: string;
+  image: string;
+  avatar?: string;
   editModal?: () => void;
 }
 
@@ -26,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     background: 'center/cover no-repeat',
     contentVisibility: 'auto',
     containIntrinsicSize: COVER_IMAGE_HEIGHT,
-
     borderRadius: ({ hasRadiusTop }: StyleProps) =>
       hasRadiusTop
         ? `${theme.shape.borderRadius}px ${theme.shape.borderRadius}px 0 0`
@@ -45,9 +45,14 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     display: 'flex',
     alignItems: 'flex-end',
+    columnGap: theme.spacing(1),
   },
   title: {
     color: theme.palette.common.white,
+  },
+  avatar: {
+    width: 100,
+    height: 100,
   },
   editButton: {
     color: theme.palette.common.white,
@@ -59,8 +64,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CoverImage: React.VFC<Props> = (props) => {
-  const { hasRadiusTop = false, title, image, editModal } = props;
+export const CoverImage: React.VFC<Props> = ({
+  hasRadiusTop = false,
+  title,
+  image,
+  avatar,
+  editModal,
+}) => {
   const classes = useStyles({ hasRadiusTop });
 
   if (title === undefined || image === undefined) {
@@ -71,6 +81,9 @@ export const CoverImage: React.VFC<Props> = (props) => {
     <Box position="relative">
       <img className={classes.image} src={image} alt={title} />
       <div className={classes.titleWrapper}>
+        {Boolean(avatar) && (
+          <Avatar className={classes.avatar} src={avatar} alt="avatar" />
+        )}
         <Typography className={classes.title} variant="h4" display="block">
           {title}
         </Typography>

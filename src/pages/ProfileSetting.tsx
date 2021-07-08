@@ -1,9 +1,8 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
-import image from '../assets/imageNotFound.jpeg';
 import { Layout } from '../components/layout/Layout';
-import { ConcertFlyer } from '../components/ui/ConcertFlyer/ConcertFlyer';
 import { ProfileForm } from '../components/ui/ProfileForm/ProfileForm';
+import { ProfileHeader } from '../components/ui/ProfileHeader/ProfileHeader';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const ProfileSetting: React.VFC = () => {
@@ -12,7 +11,7 @@ export const ProfileSetting: React.VFC = () => {
   return (
     <Layout noPadding>
       <div>
-        <ConcertFlyer title="profile" image={image} />
+        <ProfileHeader />
         <Container maxWidth={false}>
           <ProfileForm />
         </Container>
