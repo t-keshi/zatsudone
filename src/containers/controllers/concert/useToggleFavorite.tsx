@@ -26,7 +26,6 @@ export const useToggleFavorite: UseToggleFavorite = (options) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser?.uid ?? '';
   const currentIsLikes = currentLikes?.includes(uid) ?? false;
-  console.log(currentLikes);
   const toggle = currentIsLikes ? 'remove' : 'add';
 
   const mutateFn = () =>

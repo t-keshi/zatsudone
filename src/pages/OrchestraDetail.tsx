@@ -22,7 +22,7 @@ export const OrchestraDetail: React.VFC = () => {
 
   return (
     <Layout noPadding>
-      <CoverImage title={data?.name} image={image} hasRadiusTop />
+      <CoverImage title={data?.name ?? ''} image={image} hasRadiusTop />
       <Tabs
         value={tabIndex}
         onChange={handleChangeTab}

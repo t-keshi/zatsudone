@@ -11,6 +11,7 @@ import { ConcertProgram } from '../components/ui/ConcertProgram/ConcertProgram';
 import { ConcertReactionButtons } from '../components/ui/ConcertReactionButtons/ConcertReactionButtons';
 import { ConcertSummary } from '../components/ui/ConcertSummary/ConcertSummary';
 import { useFetchConcert } from '../containers/controllers/concert/useFetchConcert';
+import { useFetchParticipants } from '../containers/controllers/participation/useFetchParticipants';
 import { ROUTE_PATHS } from '../routes/type';
 import { useRouter } from '../utility/hooks/useRouter';
 import { useTitle } from '../utility/hooks/useTitle';
@@ -28,6 +29,8 @@ export const ConcertDetail: React.VFC = () => {
   const { history } = useRouter();
   useTitle('SymphonyForum | 大阪大学吹奏楽団');
   const { data } = useFetchConcert();
+  const { data: participantsData } = useFetchParticipants();
+  console.log(participantsData, 'isss');
 
   return (
     <Layout noPadding hideAppBar>
@@ -35,6 +38,9 @@ export const ConcertDetail: React.VFC = () => {
         <ConcertReactionButtons
           isUserLike={data.isUserLike}
           likesCount={data.likesCount}
+          isUserParticipants={participantsData?.isUserParticipants ?? false}
+          participantsCount={data.participantsCount}
+          concert={data}
         />
       )}
       <ConcertFlyer title={data?.title} image={musicNote} />
@@ -55,7 +61,7 @@ export const ConcertDetail: React.VFC = () => {
               <ConcertProgram />
               <Box mt={4} />
               <ConcertAccess />
-              <Box className={classes.orchestraLink}>
+              <div className={classes.orchestraLink}>
                 <Button
                   variant="text"
                   color="default"
@@ -68,7 +74,7 @@ export const ConcertDetail: React.VFC = () => {
                 >
                   楽団情報を見る
                 </Button>
-              </Box>
+              </div>
             </>
           )}
         </Box>

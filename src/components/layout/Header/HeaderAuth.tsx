@@ -11,14 +11,13 @@ import { MenuCustom } from '../../helpers/MenuCustom/MenuCustom';
 
 export const HeaderAuth: React.VFC = () => {
   const { history } = useRouter();
-  const user = firebase.auth().currentUser;
-  console.log(user, 'uuuuuuuuuuu');
+  const { currentUser } = firebase.auth();
   const { data, isLoading } = useFetchUserInfo();
   console.log(data, 'daaaaaaaaaaata');
   const { mutate } = useLogOut();
   const { anchorEl, handleMenuOpen, handleMenuClose } = useMenu();
 
-  if (!user) {
+  if (!currentUser) {
     return (
       <>
         <Button
@@ -43,30 +42,28 @@ export const HeaderAuth: React.VFC = () => {
     return <div>loading...</div>;
   }
 
-  if (data && user) {
+  if (data && currentUser) {
     return (
-      <Box display="flex">
+      <Box display="flex" alignItems="center">
         <Avatar alt={data.displayName} src={data.photoURL} />
-        <IconButton>
-          <KeyboardArrowDown onClick={handleMenuOpen} />
+        <IconButton onClick={handleMenuOpen}>
+          <KeyboardArrowDown />
         </IconButton>
         <MenuCustom
-          id="simple-menu"
+          id="header-menu"
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
           align="right"
         >
-          <MenuItem
-            value="すべて"
-            onClick={() => history.push(ROUTE_PATHS.プロフィール設定)}
-          >
+          <MenuItem onClick={() => history.push(ROUTE_PATHS.マイページ)}>
+            マイページ
+          </MenuItem>
+          <MenuItem onClick={() => history.push(ROUTE_PATHS.プロフィール設定)}>
             プロフィール設定
           </MenuItem>
-          <MenuItem value="ログアウト" onClick={() => mutate()}>
-            ログアウト
-          </MenuItem>
+          <MenuItem onClick={() => mutate()}>ログアウト</MenuItem>
         </MenuCustom>
       </Box>
     );

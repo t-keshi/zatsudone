@@ -1,21 +1,18 @@
-import { Typography } from '@material-ui/core';
 import React from 'react';
-import image from '../assets/imageNotFound.jpeg';
+import { ContainerSpacer } from '../components/helpers/ContainerSpacer/ContainerSpacer';
 import { Layout } from '../components/layout/Layout';
-import { ConcertFlyer } from '../components/ui/ConcertFlyer/ConcertFlyer';
-import { ProfileForm } from '../components/ui/ProfileForm/ProfileForm';
+import { ProfileInfo } from '../components/ui/ProfileForm/ProfileInfo';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const Profile: React.VFC = () => {
-  useTitle('SymphonyForum | プロフィール設定');
+  useTitle('SymphonyForum | プロフィール');
 
   return (
     <Layout noPadding>
-      <div>
-        <ConcertFlyer title="hogehoe" image={image} />
-        <Typography variant="h5">hello</Typography>
-        <ProfileForm />
-      </div>
+      {/* <ProfileHeader hasRadiusTop /> */}
+      <ContainerSpacer>
+        <ProfileInfo />
+      </ContainerSpacer>
     </Layout>
   );
 };

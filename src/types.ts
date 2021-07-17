@@ -26,6 +26,8 @@ export interface ConcertResponse {
   orchestra: OrchestraSnippets;
   likes: string[];
   likesCount: number;
+  participants: string[];
+  participantsCount: number;
 }
 
 export interface OrchestraSnippets {

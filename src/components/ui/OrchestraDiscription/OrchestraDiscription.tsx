@@ -5,6 +5,6 @@ interface Props {
   description: string;
 }
 
-export const OrchestraFormDescription: React.VFC<Props> = ({ description }) => (
+export const OrchestraDescription: React.VFC<Props> = ({ description }) => (
   <Typography variant="body2">{description}</Typography>
 );

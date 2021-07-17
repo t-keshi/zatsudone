@@ -1,21 +1,31 @@
-import { Container } from '@material-ui/core';
 import React from 'react';
+import { ContainerSpacer } from '../components/helpers/ContainerSpacer/ContainerSpacer';
+import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
 import { Layout } from '../components/layout/Layout';
 import { ProfileForm } from '../components/ui/ProfileForm/ProfileForm';
-import { ProfileHeader } from '../components/ui/ProfileHeader/ProfileHeader';
+import { ProfileHeaderForm } from '../components/ui/ProfileHeader/ProfileHeaderForm';
+import { useFetchUserInfo } from '../containers/controllers/authentication/useFetchUserInfo';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const ProfileSetting: React.VFC = () => {
-  useTitle('SymphonyForum | プロフィール');
+  const { data: userInfo } = useFetchUserInfo();
+  useTitle('SymphonyForum | プロフィール設定');
 
   return (
     <Layout noPadding>
-      <div>
-        <ProfileHeader />
-        <Container maxWidth={false}>
-          <ProfileForm />
-        </Container>
-      </div>
+      <ContainerSpacer py={2}>
+        <ContentHeader
+          pageTitle="プロフィール設定"
+          pageTitleOverline="PROFILE SETTING"
+        />
+      </ContainerSpacer>
+      <ProfileHeaderForm
+        displayName={userInfo?.displayName ?? ''}
+        photoURL={userInfo?.photoURL ?? ''}
+      />
+      <ContainerSpacer my={4}>
+        <ProfileForm />
+      </ContainerSpacer>
     </Layout>
   );
 };

@@ -11,11 +11,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { EventAvailable } from '@material-ui/icons/';
 import React from 'react';
 import { useToggleFavorite } from '../../../containers/controllers/concert/useToggleFavorite';
+import { useParticipateConcert } from '../../../containers/controllers/participation/useParticipateConcert';
+import { ConcertType } from '../../../types';
 import { LikeIconButton } from '../../helpers/LikeIconButton/LikeIconButton';
 
 interface Props {
   isUserLike: boolean;
   likesCount: number;
+  isUserParticipants: boolean;
+  participantsCount: number;
+  concert: ConcertType;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -52,10 +57,15 @@ const useStyles = makeStyles((theme) => ({
 export const ConcertReactionButtons: React.VFC<Props> = ({
   isUserLike,
   likesCount,
+  isUserParticipants,
+  participantsCount,
+  concert,
 }) => {
   const classes = useStyles();
-  const { mutate } = useToggleFavorite();
   const isFooterLayout = useMediaQuery('(max-width:1200px)');
+  const { mutate } = useToggleFavorite();
+  const { mutate: participate } = useParticipateConcert();
+  console.log(isUserParticipants, 'is');
 
   if (isFooterLayout) {
     return (
@@ -73,10 +83,19 @@ export const ConcertReactionButtons: React.VFC<Props> = ({
               />
               <Typography variant="caption">{likesCount}</Typography>
               <Box ml={2} />
-              <IconButton className={classes.iconButton}>
+              <IconButton
+                className={classes.iconButton}
+                color={isUserParticipants ? 'primary' : 'default'}
+                onClick={() =>
+                  participate({
+                    concert,
+                    toggle: isUserParticipants ? 'remove' : 'add',
+                  })
+                }
+              >
                 <EventAvailable />
               </IconButton>
-              <Typography variant="caption">23</Typography>
+              <Typography variant="caption">{participantsCount}</Typography>
             </div>
           </Container>
         </Toolbar>
@@ -90,10 +109,19 @@ export const ConcertReactionButtons: React.VFC<Props> = ({
         <LikeIconButton isLike={isUserLike} toggleIsLike={() => mutate()} />
         <Typography variant="caption">{likesCount}</Typography>
         <Box mt={2} />
-        <IconButton className={classes.iconButton}>
+        <IconButton
+          className={classes.iconButton}
+          color={isUserParticipants ? 'primary' : 'default'}
+          onClick={() =>
+            participate({
+              concert,
+              toggle: isUserParticipants ? 'remove' : 'add',
+            })
+          }
+        >
           <EventAvailable />
         </IconButton>
-        <Typography variant="caption">23</Typography>
+        <Typography variant="caption">{participantsCount}</Typography>
       </div>
     </div>
   );

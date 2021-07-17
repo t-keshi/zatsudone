@@ -1,9 +1,10 @@
 import { Box, Tab, Tabs } from '@material-ui/core';
 import { Add, InsertDriveFile } from '@material-ui/icons';
 import React from 'react';
-import { useQueryClient } from 'react-query';
 import SwipeableViews from 'react-swipeable-views';
 import coverImage from '../assets/orchestraCover.jpg';
+import { ContainerSpacer } from '../components/helpers/ContainerSpacer/ContainerSpacer';
+import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
 import { NoItemMessage } from '../components/helpers/NoItemMessage/NoItemMessage';
 import { TabPanel } from '../components/helpers/TabPanel/TabPanel';
 import { Layout } from '../components/layout/Layout';
@@ -12,9 +13,8 @@ import { OrchestraFormModal } from '../components/ui/OrchestraForm/OrchestraForm
 import { OrchestraFormImage } from '../components/ui/OrchestraFormImage/OrchestraFormImage';
 import { MembersForm } from '../components/uiGroup/MembersForm/MembersForm';
 import { OrchestraForms } from '../components/uiGroup/OrchestraForms/OrchestraForms';
-import { User } from '../containers/controllers/authentication/useFetchUserInfo';
+import { useFetchUserInfo } from '../containers/controllers/authentication/useFetchUserInfo';
 import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
-import { QUERY } from '../containers/entities/query';
 import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 import { useToggle } from '../utility/hooks/useToggle';
@@ -22,22 +22,19 @@ import { useToggle } from '../utility/hooks/useToggle';
 export const OrchestraManagement: React.VFC = () => {
   const { data } = useFetchConcerts();
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
-  const client = useQueryClient();
-  const userInfo: User | undefined = client.getQueryData([QUERY.user]);
+  const { data: userInfo } = useFetchUserInfo();
   const [isModalOpen, handleIsModalOpen] = useToggle(false);
 
   useTitle('SymphonyForum | 楽団運営');
 
   return (
     <Layout noPadding>
-      {/* <Container maxWidth={false}>
-        <Box py={2}>
-          <ContentHeader
-            pageTitle="楽団運営"
-            pageTitleOverline="ORCHESTRA MANAGEMENT"
-          />
-        </Box>
-      </Container> */}
+      <ContainerSpacer py={2}>
+        <ContentHeader
+          pageTitle="楽団運営"
+          pageTitleOverline="ORCHESTRA MANAGEMENT"
+        />
+      </ContainerSpacer>
       {userInfo?.managementOrchestraId === undefined ? (
         <>
           <NoItemMessage

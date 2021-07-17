@@ -6,7 +6,7 @@ import {
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { createConcert } from '../../database/concert/createConcert';
 
-const eventInfo = {
+export const eventInfo = {
   summary: 'Google I/O 2015',
   location: '800 Howard St., San Francisco, CA 94103',
   description: "A chance to hear more about Google's developer products.",

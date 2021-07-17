@@ -9,6 +9,7 @@ import { textTruncate } from '../../../utility/textTruncate';
 import { LinkCustom } from '../../helpers/LinkCustom/LinkCustom';
 import { FacebookIconButton } from '../../helpers/OAuthButtons/FacebookIconButton';
 import { TwitterIconButton } from '../../helpers/OAuthButtons/TwitterIconButton';
+import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 import { TextEditable } from '../../helpers/TextEditable/TextEditable';
 import { ProfileFormDialog } from './ProfileFormDialog';
 
@@ -44,6 +45,9 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
 
   return (
     <>
+      <SubHeading variant="h5" gutterBottom>
+        プロフィール基本情報
+      </SubHeading>
       <form onSubmit={onSubmit}>
         <TextEditable
           control={control}

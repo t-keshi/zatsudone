@@ -25,5 +25,10 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAnyAuthenticated();
     }
+
+    match /participation/{document=**} {
+      allow read: if true;
+      allow write: if isAnyAuthenticated();
+    }
   }
 }
