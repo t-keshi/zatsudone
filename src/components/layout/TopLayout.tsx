@@ -1,6 +1,11 @@
-import { Box, Container } from '@material-ui/core';
+import { Container, ContainerProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import Div100vh from 'react-div-100vh';
+
+interface Props {
+  maxWidth?: ContainerProps['maxWidth'];
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -8,21 +13,29 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   containerWrapper: {
+    backgroundColor: theme.palette.background.default,
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    position: 'relative',
+    [theme.breakpoints.down('xs')]: {
+      padding: 0,
+    },
   },
 }));
 
-export const TopLayout: React.FC = ({ children }) => {
+export const TopLayout: React.FC<Props> = ({ children, maxWidth = 'lg' }) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.containerWrapper}>
-        <Container maxWidth="lg">
-          <Box p={3}>{children}</Box>
+    <div className={classes.root}>
+      <Div100vh className={classes.containerWrapper}>
+        <Container className={classes.container} maxWidth={maxWidth}>
+          <div>{children}</div>
         </Container>
-      </Box>
-    </Box>
+      </Div100vh>
+    </div>
   );
 };

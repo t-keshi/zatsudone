@@ -42,7 +42,7 @@ const part1: Part = {
   ],
 };
 const part2: Part = {
-  id: 1,
+  id: 2,
   title: 'Ⅱ. ポップスステージ',
   symphonies: [
     {

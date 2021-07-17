@@ -5,13 +5,14 @@ import { ConcertListItem } from './ConcertListItem';
 
 interface Props {
   concerts: ConcertsResponse['concerts'] | undefined;
+  isFirst?: boolean;
 }
 
-export const ConcertList: React.VFC<Props> = ({ concerts }) => {
+export const ConcertList: React.VFC<Props> = ({ concerts, isFirst = true }) => {
   if (concerts === undefined) {
     return (
       <>
-        <Box mt={4} />
+        <Box mt={3.5} />
         <ConcertListItem concert={undefined} />
       </>
     );
@@ -21,7 +22,9 @@ export const ConcertList: React.VFC<Props> = ({ concerts }) => {
     <>
       {concerts.map((concert, index) => (
         <Fragment key={concert.id}>
-          <Box my={2}>{index !== 0 && <Divider />}</Box>
+          <Box mt={1} mb={2.5}>
+            {!(isFirst && index === 0) && <Divider />}
+          </Box>
           <ConcertListItem concert={concert} />
         </Fragment>
       ))}

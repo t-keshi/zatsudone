@@ -19,8 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Overlay: React.VFC<Props> = (props) => {
-  const { isBlack = true } = props;
+export const Overlay: React.VFC<Props> = ({ isBlack = true }) => {
   const classes = useStyles({ isBlack });
 
   return <div className={classes.overlay} />;

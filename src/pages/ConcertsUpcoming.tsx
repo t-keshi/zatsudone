@@ -1,10 +1,10 @@
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { KeyboardArrowDown } from '@material-ui/icons';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
 import { Layout } from '../components/layout/Layout';
 import { ConcertList } from '../components/ui/ConcertList/ConcertList';
-import { ContentHeader } from '../components/ui/ContentHeader/ContentHeader';
 import { FilterByPrefecture } from '../components/ui/FilterByPrefeture/FilterByPrefecture';
 import { useInfiniteFetchConcerts } from '../containers/controllers/concert/useInfiniteFetchConcerts';
 import { Prefecture } from '../containers/entities/prefectures';
@@ -39,7 +39,9 @@ export const ConcertsUpcoming: React.VFC = () => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useTitle('SymphonyForum | 近日中のコンサート');
-
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   useIntersectionObserver({
     target: ref,
     onIntersect: () => {
@@ -61,13 +63,19 @@ export const ConcertsUpcoming: React.VFC = () => {
           handleSelectPrefecture={handleSelectPrefecture}
         />
       </div>
-      {data?.pages.map((page) =>
-        page.concerts.length > 0 ? (
-          <ConcertList key={page.concerts[0].id} concerts={page.concerts} />
+      {data?.pages.map((page, index) => {
+        const isFirst = index === 0;
+
+        return page?.concerts && page?.concerts.length > 0 ? (
+          <ConcertList
+            key={page?.concerts[0].id}
+            concerts={page?.concerts}
+            isFirst={isFirst}
+          />
         ) : (
           <div />
-        ),
-      ) ?? <ConcertList concerts={undefined} />}
+        );
+      }) ?? <ConcertList concerts={undefined} />}
       <div className={classes.fetchMoreWrapper} ref={ref}>
         <Button
           variant="text"

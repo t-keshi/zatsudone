@@ -1,22 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  Box,
-  Button,
-  ButtonBase,
-  Container,
-  Paper,
-  Typography,
-} from '@material-ui/core';
+import { Box, Button, Container, Paper, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import googleLogIn from '../assets/googleLogIn.png';
 import { DividerWithText } from '../components/helpers/DividerWithText/DividerWithText';
 import { FormTextField } from '../components/helpers/FormTextField/FormTextField';
+import { FacebookButton } from '../components/helpers/OAuthButtons/FacebookButton';
+import { GoogleButton } from '../components/helpers/OAuthButtons/GoogleButton';
+import { TwitterButton } from '../components/helpers/OAuthButtons/TwitterButton';
 import { TopLayout } from '../components/layout/TopLayout';
-import { useGoogleLogIn } from '../containers/controllers/authentication/useGoogleLogIn';
 import { useSignUp } from '../containers/controllers/authentication/useSignUp';
+import { useSocialLogIn } from '../containers/controllers/authentication/useSocialLogIn';
 import { ROUTE_PATHS } from '../routes/type';
 import { useRouter } from '../utility/hooks/useRouter';
 import { useTitle } from '../utility/hooks/useTitle';
@@ -42,7 +38,19 @@ const schema: yup.SchemaOf<FormValues> = yup.object().shape({
     .required(),
 });
 
+const useStyles = makeStyles((theme) => ({
+  oauthWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: theme.spacing(0, 2),
+    margin: theme.spacing(2, 0),
+    justifyContent: 'center',
+    rowGap: theme.spacing(2),
+  },
+}));
+
 export const AuthSignup: React.VFC = () => {
+  const classes = useStyles();
   const { history } = useRouter();
   const {
     control,
@@ -52,7 +60,7 @@ export const AuthSignup: React.VFC = () => {
     resolver: yupResolver(schema),
   });
   const { mutate } = useSignUp();
-  const { mutate: googleMutate } = useGoogleLogIn();
+  const { mutate: socialLogIn } = useSocialLogIn();
   const onSubmit = (formValues: FormValues) => {
     console.log(formValues);
     mutate(formValues);
@@ -116,11 +124,17 @@ export const AuthSignup: React.VFC = () => {
                   <Button type="submit">新規登録</Button>
                 </Box>
                 <DividerWithText>OR</DividerWithText>
-                <Box my={2} display="flex" justifyContent="center">
-                  <ButtonBase onClick={() => googleMutate()}>
-                    <img src={googleLogIn} alt="googleLogIn" />
-                  </ButtonBase>
-                </Box>
+                <div className={classes.oauthWrapper}>
+                  <GoogleButton onClick={() => socialLogIn('google')}>
+                    Googleアカウントを使用
+                  </GoogleButton>
+                  <FacebookButton onClick={() => socialLogIn('facebook')}>
+                    Facebookアカウントを使用
+                  </FacebookButton>
+                  <TwitterButton onClick={() => socialLogIn('twitter')}>
+                    twitterアカウントを使用
+                  </TwitterButton>
+                </div>
               </Box>
             </Paper>
           </Container>

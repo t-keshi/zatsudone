@@ -1,11 +1,18 @@
-import { Box, Container, Hidden, Paper, Toolbar } from '@material-ui/core';
+import { Box, Container, Hidden, Toolbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { PageTransition } from '../helpers/PageTransition/PageTransition';
+import { ResponsivePaper } from '../helpers/ResponsivePaper.tsx/ResponsivePaper';
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';
 
-const drawerWidth = 280;
+interface Props {
+  noPadding?: boolean;
+  hasPageTransition?: boolean;
+  hideAppBar?: boolean;
+}
+
+const DRAWER_WIDTH = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,33 +31,38 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
   },
+  container: {
+    position: 'relative',
+    [theme.breakpoints.down('xs')]: {
+      padding: 0,
+    },
+  },
   sidebar: {
     [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
+      width: DRAWER_WIDTH,
       flexShrink: 0,
     },
   },
 }));
 
-interface Props {
-  noPadding?: boolean;
-  hasPageTransition?: boolean;
-}
-
-export const Layout: React.FC<Props> = (props) => {
-  const { children, noPadding = false, hasPageTransition = false } = props;
+export const Layout: React.FC<Props> = ({
+  children,
+  noPadding = false,
+  hasPageTransition = true,
+  hideAppBar = false,
+}) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
-      <Header />
+      <Header hideAppBar={hideAppBar} />
       <Box className={classes.containerWrapper}>
-        <Container maxWidth="lg">
+        <Container className={classes.container} maxWidth="lg">
           <Toolbar />
           <Box className={classes.main}>
             <Box className={classes.content}>
               <PageTransition hasPageTransition={hasPageTransition}>
-                <Paper variant="outlined">
+                <ResponsivePaper breakpoint="xs" variant="outlined">
                   {noPadding ? (
                     children
                   ) : (
@@ -58,14 +70,14 @@ export const Layout: React.FC<Props> = (props) => {
                       <Box py={2}>{children}</Box>
                     </Container>
                   )}
-                </Paper>
+                </ResponsivePaper>
               </PageTransition>
             </Box>
-            <Box className={classes.sidebar}>
-              <Hidden xsDown implementation="css">
+            <Hidden xsDown implementation="css">
+              <Box className={classes.sidebar}>
                 <Sidebar />
-              </Hidden>
-            </Box>
+              </Box>
+            </Hidden>
           </Box>
         </Container>
       </Box>

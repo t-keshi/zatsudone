@@ -24,6 +24,10 @@ export interface ConcertResponse {
   closeAt: Date;
   symphonies: string[];
   orchestra: OrchestraSnippets;
+  likes: string[];
+  likesCount: number;
+  participants: string[];
+  participantsCount: number;
 }
 
 export interface OrchestraSnippets {

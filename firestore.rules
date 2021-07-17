@@ -15,5 +15,20 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAnyAuthenticated();
     }
+
+    match /orchestra/{document=**} {
+      allow read: if true;
+      allow write: if isAnyAuthenticated();
+    }
+
+    match /user/{document=**} {
+      allow read: if true;
+      allow write: if isAnyAuthenticated();
+    }
+
+    match /participation/{document=**} {
+      allow read: if true;
+      allow write: if isAnyAuthenticated();
+    }
   }
 }

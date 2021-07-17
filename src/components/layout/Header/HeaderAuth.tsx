@@ -1,21 +1,23 @@
-import { Avatar, Box, Button, IconButton } from '@material-ui/core';
+import { Avatar, Box, Button, IconButton, MenuItem } from '@material-ui/core';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import firebase from 'firebase/app';
 import React from 'react';
 import { useFetchUserInfo } from '../../../containers/controllers/authentication/useFetchUserInfo';
 import { useLogOut } from '../../../containers/controllers/authentication/useLogOut';
 import { ROUTE_PATHS } from '../../../routes/type';
+import { useMenu } from '../../../utility/hooks/useMenu';
 import { useRouter } from '../../../utility/hooks/useRouter';
+import { MenuCustom } from '../../helpers/MenuCustom/MenuCustom';
 
 export const HeaderAuth: React.VFC = () => {
   const { history } = useRouter();
-  const user = firebase.auth().currentUser;
+  const { currentUser } = firebase.auth();
   const { data, isLoading } = useFetchUserInfo();
+  console.log(data, 'daaaaaaaaaaata');
   const { mutate } = useLogOut();
+  const { anchorEl, handleMenuOpen, handleMenuClose } = useMenu();
 
-  console.log(data, user);
-
-  if (!user) {
+  if (!currentUser) {
     return (
       <>
         <Button
@@ -40,13 +42,29 @@ export const HeaderAuth: React.VFC = () => {
     return <div>loading...</div>;
   }
 
-  if (data && user) {
+  if (data && currentUser) {
     return (
-      <Box display="flex">
+      <Box display="flex" alignItems="center">
         <Avatar alt={data.displayName} src={data.photoURL} />
-        <IconButton onClick={() => mutate()}>
+        <IconButton onClick={handleMenuOpen}>
           <KeyboardArrowDown />
         </IconButton>
+        <MenuCustom
+          id="header-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          align="right"
+        >
+          <MenuItem onClick={() => history.push(ROUTE_PATHS.マイページ)}>
+            マイページ
+          </MenuItem>
+          <MenuItem onClick={() => history.push(ROUTE_PATHS.プロフィール設定)}>
+            プロフィール設定
+          </MenuItem>
+          <MenuItem onClick={() => mutate()}>ログアウト</MenuItem>
+        </MenuCustom>
       </Box>
     );
   }

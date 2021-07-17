@@ -33,7 +33,7 @@
     "query-string": "^7.0.0",
     "react": "^17.0.1",
     "react-cropper": "^2.1.7",
-    "react-div-100vh": "^0.5.6",
+    "react-div-100vh": "^0.6.0",
     "react-dnd": "^14.0.2",
     "react-dnd-html5-backend": "^14.0.0",
     "react-dnd-touch-backend": "^14.0.0",
@@ -43,12 +43,14 @@
     "react-hook-form": "^7.3.6",
     "react-html-renderer": "^0.3.2",
     "react-icons": "^4.2.0",
+    "react-lottie": "^1.2.3",
     "react-markdown": "^6.0.2",
     "react-query": "^3.13.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-swipeable-views": "^0.13.9",
+    "screenfull": "^5.1.0",
     "slate": "^0.62.1",
     "slate-react": "^0.62.1",
     "typescript": "^4.1.2",
@@ -76,10 +78,11 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "format": "prettier --write --loglevel=warn 'src/**/*.{js,jsx,ts,tsx}'",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
     "emulator": "npx firebase emulators:start",
-    "deploy:rules": "firebase deploy --only firestore:rules"
+    "deploy": "firebase deploy",
+    "deploy:rules": "firebase deploy --only firestore:rules",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
@@ -90,6 +93,14 @@
       "react-app/jest"
     ],
     "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      },
       {
         "files": [
           "**/*.stories.*"
@@ -122,16 +133,17 @@
   },
   "devDependencies": {
     "@material-ui/types": "^5.1.0",
-    "@storybook/addon-actions": "^6.2.1",
-    "@storybook/addon-essentials": "^6.2.1",
-    "@storybook/addon-links": "^6.2.1",
-    "@storybook/node-logger": "^6.2.1",
-    "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "6.2.1",
+    "@storybook/addon-actions": "^6.3.3",
+    "@storybook/addon-essentials": "^6.3.3",
+    "@storybook/addon-links": "^6.3.3",
+    "@storybook/node-logger": "^6.3.3",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.3",
     "@types/autosuggest-highlight": "^3.1.1",
     "@types/fabric": "^4.2.5",
     "@types/google.maps": "^3.45.3",
     "@types/react-helmet": "^6.1.0",
+    "@types/react-lottie": "^1.2.5",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-swipeable-views": "^0.13.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",

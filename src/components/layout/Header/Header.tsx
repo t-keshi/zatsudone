@@ -7,8 +7,13 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
 import { useMenu } from '../../../utility/hooks/useMenu';
+import { HideOnScroll } from '../../helpers/HideOnScroll/HideOnScroll';
 import { HeaderAuth } from './HeaderAuth';
 import { HeaderMenu } from './HeaderMenu';
+
+interface Props {
+  hideAppBar: boolean;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,35 +31,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Header: React.VFC = () => {
+export const Header: React.VFC<Props> = ({ hideAppBar }) => {
   const classes = useStyles();
   const { anchorEl, isMenuOpen, handleMenuOpen, handleMenuClose } = useMenu();
 
   return (
-    <div className={classes.root}>
-      <AppBar className={classes.appBar} position="fixed">
-        <Container maxWidth="lg">
-          <Toolbar className={classes.toolbar}>
-            <Hidden smUp implementation="css">
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                onClick={handleMenuOpen}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Hidden>
-            {isMenuOpen && (
-              <HeaderMenu anchorEl={anchorEl} handleClose={handleMenuClose} />
-            )}
-            <Typography variant="h6" className={classes.title}>
-              Symphony Forum
-            </Typography>
-            <HeaderAuth />
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </div>
+    <HideOnScroll hideDownBreakpoints={hideAppBar ? 'md' : undefined}>
+      <div className={classes.root}>
+        <AppBar className={classes.appBar} position="fixed">
+          <Container maxWidth="lg">
+            <Toolbar className={classes.toolbar}>
+              <Hidden smUp implementation="css">
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  onClick={handleMenuOpen}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Hidden>
+              {isMenuOpen && (
+                <HeaderMenu anchorEl={anchorEl} handleClose={handleMenuClose} />
+              )}
+              <Typography variant="h6" className={classes.title}>
+                Symphony Forum
+              </Typography>
+              <HeaderAuth />
+            </Toolbar>
+          </Container>
+        </AppBar>
+      </div>
+    </HideOnScroll>
   );
 };

@@ -5,17 +5,15 @@ import React from 'react';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
 interface Props {
-  date: string;
+  date: Date;
   location: string;
-  openAt: string;
-  startAt: string;
-  closeAt: string;
+  openAt: Date;
+  startAt: Date;
+  closeAt: Date;
 }
 
 export const ConcertDetailInfo: React.VFC<Props> = ({
   date,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  location,
   openAt,
   startAt,
   closeAt,
@@ -29,14 +27,14 @@ export const ConcertDetailInfo: React.VFC<Props> = ({
         <ListItemIcon>
           <Event fontSize="small" />
         </ListItemIcon>
-        <ListItemText secondary={format(new Date(date), 'yyyy/MM/dd')} />
+        <ListItemText secondary={format(date, 'yyyy/MM/dd')} />
       </ListItem>
       <ListItem dense>
         <ListItemIcon>
           <Schedule fontSize="small" />
         </ListItemIcon>
         <ListItemText
-          secondary={`${format(new Date(openAt), 'HH:mm')} 開場（${format(
+          secondary={`${format(openAt, 'HH:mm')} 開場（${format(
             new Date(startAt),
             'HH:mm',
           )}  開演）`}
@@ -46,9 +44,7 @@ export const ConcertDetailInfo: React.VFC<Props> = ({
         <ListItemIcon>
           <Schedule fontSize="small" />
         </ListItemIcon>
-        <ListItemText
-          secondary={`${format(new Date(closeAt), 'HH:mm')} 終演予定`}
-        />
+        <ListItemText secondary={`${format(closeAt, 'HH:mm')} 終演予定`} />
       </ListItem>
       <ListItem dense>
         <ListItemIcon>

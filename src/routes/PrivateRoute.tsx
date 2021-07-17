@@ -1,20 +1,25 @@
-import React from "react";
-import { Redirect, Route, RouteProps } from "react-router-dom";
+import React from 'react';
+import { useQueryClient } from 'react-query';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { User } from '../containers/controllers/authentication/useFetchUserInfo';
+import { QUERY } from '../containers/entities/query';
 
 export const PrivateRoute: React.VFC<RouteProps> = ({ children, ...rest }) => {
-  const isLoggedIn = true;
+  const client = useQueryClient();
+  const userInfo: User | undefined = client.getQueryData([QUERY.user]);
+  console.log(userInfo);
 
   return (
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
       render={({ location }) =>
-        isLoggedIn ? (
+        userInfo ? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: '/login',
               state: { from: location },
             }}
           />

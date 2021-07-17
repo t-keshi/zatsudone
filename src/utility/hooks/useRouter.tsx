@@ -5,6 +5,7 @@ import {
   match as Match,
   useHistory,
   useLocation,
+  useParams,
   useRouteMatch,
 } from 'react-router-dom';
 
@@ -13,19 +14,22 @@ interface ReturnType {
   match: Match<{}>;
   location: Location<any>;
   history: History<any>;
+  params: any;
 }
 
 export const useRouter = (): ReturnType => {
+  const match = useRouteMatch();
   const location = useLocation();
   const history = useHistory();
-  const match = useRouteMatch();
+  const params = useParams();
 
   return useMemo(
     () => ({
       match,
       location,
       history,
+      params,
     }),
-    [match, location, history],
+    [match, location, history, params],
   );
 };

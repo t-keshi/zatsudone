@@ -1,11 +1,11 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import {
   Prefecture,
   PREFECTURES,
 } from '../../../containers/entities/prefectures';
-import { menuProps } from '../../../containers/entities/ui';
+import { SelectCustom } from '../../helpers/SelectCustom/SelectCustom';
 
 interface Props {
   selectedPrefecture: Prefecture | 'すべて';
@@ -28,12 +28,13 @@ export const FilterByPrefecture: React.VFC<Props> = ({
   return (
     <FormControl className={classes.formControl} variant="outlined">
       <InputLabel id="prefecture">開催場所</InputLabel>
-      <Select
+      <SelectCustom
+        displayRowsCount={5.5}
         labelId="prefecture"
         value={selectedPrefecture}
         onChange={handleSelectPrefecture}
         label="開催場所"
-        MenuProps={menuProps}
+        align="right"
       >
         <MenuItem value="すべて">すべて</MenuItem>
         {prefectures.map((prefecture) => (
@@ -41,7 +42,7 @@ export const FilterByPrefecture: React.VFC<Props> = ({
             {prefecture}
           </MenuItem>
         ))}
-      </Select>
+      </SelectCustom>
     </FormControl>
   );
 };

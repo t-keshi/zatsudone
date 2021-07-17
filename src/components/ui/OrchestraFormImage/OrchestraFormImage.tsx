@@ -15,7 +15,6 @@ export const OrchestraFormImage: React.VFC<Props> = ({ image }) => {
       <CoverImage
         title="大阪大学吹奏楽団"
         image={image}
-        hasRadiusTop={false}
         editModal={() => handleIsModalOpen(true)}
       />
       <OrchestraFormImageModal

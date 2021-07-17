@@ -61,7 +61,7 @@ export const OrchestraListItem: React.VFC<Props> = ({ orchestra }) => {
         </Typography>
         <Box mt={1} />
         <Typography variant="body2" color="textSecondary">
-          大阪大学吹奏楽団は団員数100名を超える、関西でも最大級の規模を誇る吹奏楽団です。年2回の演奏会の開催を目指し、日々練習に励んでいます。
+          {orchestra.description}
         </Typography>
       </Box>
     </Box>

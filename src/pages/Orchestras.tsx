@@ -1,7 +1,7 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
+import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
 import { Layout } from '../components/layout/Layout';
-import { ContentHeader } from '../components/ui/ContentHeader/ContentHeader';
 import { OrchestraList } from '../components/ui/OrchestraList/OrchestraList';
 import { useFetchOrchestras } from '../containers/controllers/orchestra/useFetchOrchestras';
 import { useTitle } from '../utility/hooks/useTitle';
