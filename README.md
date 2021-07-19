@@ -1,6 +1,6 @@
 # SymphonyForum
 
-## [🏠URL](https://symphony-forum.vercel.app)
+## [🏠URL](https://symphony-forum.firebaseapp.com/)
 
 ## 概要
 
