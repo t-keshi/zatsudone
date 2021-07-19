@@ -32,10 +32,10 @@ jobs:
         run: yarn add firebase-tools
 
       - name: Firestoreエミュレータをインストール
-        run: yarn run setup:emu:firestore
+        run: yarn run setup
 
       - name: エミュレータの起動
-        run: yarn run emu:start:firestore &
+        run: yarn run emulator &
 
       - name: エミュレータの起動待機...
         run: sleep 10
