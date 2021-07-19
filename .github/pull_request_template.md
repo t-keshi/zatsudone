@@ -1,10 +1,6 @@
 # 🔗 LINK
 
-Ticket TICKET-${ここにチケットの番号}
-Preview PR-${ここに PR の番号}
-
-<!-- stagingにPRするときは下記を使用する -->
-<!-- Preview PR-STAGING-${ここにPRの番号} -->
+[Ticket](https://app.clickup.com/t/${ここにチケットの番号})
 
 ## ⛏ 変更内容
 
