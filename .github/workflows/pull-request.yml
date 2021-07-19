@@ -28,6 +28,18 @@ jobs:
           eslint_flags: 'src/**/*.{js,jsx,ts,tsx}'
 
       #単体テスト
+      - name: firebase-toolsをインストール
+        run: yarn add firebase-tools
+
+      - name: Firestoreエミュレータをインストール
+        run: yarn run setup:emu:firestore
+
+      - name: エミュレータの起動
+        run: yarn run emu:start:firestore &
+
+      - name: エミュレータの起動待機...
+        run: sleep 10
+
       - name: jest
         run: yarn test
 
