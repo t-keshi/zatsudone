@@ -4,7 +4,7 @@ import 'cropperjs/dist/cropper.css';
 import React, { useRef } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import { useUploadCoverImage } from '../../../containers/controllers/orchestra/useUploadCoverImage';
-import { useImageUpload } from '../../../utility/hooks/useImageUpload';
+import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
 import { ModalCustom } from '../../helpers/ModalCustom/ModalCustom';
 
 interface Props {
@@ -39,13 +39,10 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
 }) => {
   const classes = useStyles();
   const cropperRef = useRef<ReactCropperElement>(null);
-  const [_, fileName, imageUrl, handleUploadImage] = useImageUpload();
+  const [{ imageName, imageDataUrl }, handleUploadImage] = useImageTransmit();
   const { mutate } = useUploadCoverImage();
   const onSubmit = () => {
-    const dataUrl = cropperRef.current?.cropper
-      .getCroppedCanvas()
-      .toDataURL('image/jpeg');
-    mutate({ imageName: fileName, imageDataUrl: dataUrl ?? '' });
+    mutate({ imageName, imageDataUrl: imageDataUrl as string });
   };
 
   return (
@@ -67,7 +64,7 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
         <Box className={classes.cropperWrapper}>
           <Box className={classes.cropperWidth}>
             <Cropper
-              src={imageUrl}
+              src={imageDataUrl}
               aspectRatio={3 / 1}
               guides={false}
               zoomOnWheel={false}

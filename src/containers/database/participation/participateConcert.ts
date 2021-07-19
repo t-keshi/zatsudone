@@ -24,7 +24,6 @@ export const participateConcert = async (
   const { currentUser } = firebase.auth();
   const uid = currentUser?.uid ?? '';
   const photoURL = currentUser?.photoURL ?? '';
-  console.log(variables);
   if (variables.toggle === 'add') {
     await participationRef.add({
       concertSnippets: {

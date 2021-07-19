@@ -2,8 +2,8 @@ import { Avatar, Box, Button, IconButton, MenuItem } from '@material-ui/core';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import firebase from 'firebase/app';
 import React from 'react';
-import { useFetchUserInfo } from '../../../containers/controllers/authentication/useFetchUserInfo';
 import { useLogOut } from '../../../containers/controllers/authentication/useLogOut';
+import { useFetchUserInfo } from '../../../containers/controllers/user/useFetchUserInfo';
 import { ROUTE_PATHS } from '../../../routes/type';
 import { useMenu } from '../../../utility/hooks/useMenu';
 import { useRouter } from '../../../utility/hooks/useRouter';
@@ -13,7 +13,6 @@ export const HeaderAuth: React.VFC = () => {
   const { history } = useRouter();
   const { currentUser } = firebase.auth();
   const { data, isLoading } = useFetchUserInfo();
-  console.log(data, 'daaaaaaaaaaata');
   const { mutate } = useLogOut();
   const { anchorEl, handleMenuOpen, handleMenuClose } = useMenu();
 

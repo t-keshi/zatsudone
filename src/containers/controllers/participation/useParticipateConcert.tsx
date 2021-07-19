@@ -55,8 +55,6 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
         return;
       }
 
-      console.log(variables, 'vvvvvv');
-
       if (variables.toggle === 'add') {
         queryClient.setQueryData<ParticipationData>(
           [QUERY.participation, params.concertId],

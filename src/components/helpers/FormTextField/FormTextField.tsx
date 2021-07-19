@@ -1,7 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { TextField, TextFieldProps } from '@material-ui/core';
 import React from 'react';
-import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  FieldValues,
+  Path,
+  PathValue,
+  UnpackNestedValue,
+} from 'react-hook-form';
 
 interface Props<TFieldValues> {
   control: Control<TFieldValues>;
@@ -18,6 +25,11 @@ export const FormTextField = <TFieldValues extends FieldValues>({
   <Controller
     name={name}
     control={control}
+    defaultValue={
+      typographyProps.defaultValue as UnpackNestedValue<
+        PathValue<TFieldValues, Path<TFieldValues> & undefined>
+      >
+    }
     render={({ field }) => (
       <TextField
         {...field}

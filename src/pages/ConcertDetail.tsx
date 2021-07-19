@@ -30,7 +30,6 @@ export const ConcertDetail: React.VFC = () => {
   useTitle('SymphonyForum | 大阪大学吹奏楽団');
   const { data } = useFetchConcert();
   const { data: participantsData } = useFetchParticipants();
-  console.log(participantsData, 'isss');
 
   return (
     <Layout noPadding hideAppBar>

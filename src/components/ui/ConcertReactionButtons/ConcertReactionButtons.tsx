@@ -65,7 +65,6 @@ export const ConcertReactionButtons: React.VFC<Props> = ({
   const isFooterLayout = useMediaQuery('(max-width:1200px)');
   const { mutate } = useToggleFavorite();
   const { mutate: participate } = useParticipateConcert();
-  console.log(isUserParticipants, 'is');
 
   if (isFooterLayout) {
     return (

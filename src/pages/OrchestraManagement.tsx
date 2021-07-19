@@ -13,8 +13,8 @@ import { OrchestraFormModal } from '../components/ui/OrchestraForm/OrchestraForm
 import { OrchestraFormImage } from '../components/ui/OrchestraFormImage/OrchestraFormImage';
 import { MembersForm } from '../components/uiGroup/MembersForm/MembersForm';
 import { OrchestraForms } from '../components/uiGroup/OrchestraForms/OrchestraForms';
-import { useFetchUserInfo } from '../containers/controllers/authentication/useFetchUserInfo';
 import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
+import { useFetchUserInfo } from '../containers/controllers/user/useFetchUserInfo';
 import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 import { useToggle } from '../utility/hooks/useToggle';

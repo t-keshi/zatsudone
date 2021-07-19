@@ -16,7 +16,6 @@ interface Variables {
 export const createConcert = async (variables: Variables): Promise<void> => {
   const db = firebase.firestore();
   const concertsRef = db.collection('concert');
-  console.log(variables);
   await concertsRef.add({
     title: variables.title,
     date: firebase.firestore.Timestamp.fromDate(variables.date),

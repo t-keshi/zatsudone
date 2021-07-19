@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const FormArrayTextField = <
   TFieldValues extends FieldValues,
-  K extends keyof FieldArray<TFieldValues, ArrayPath<TFieldValues>>
+  K extends keyof FieldArray<TFieldValues, ArrayPath<TFieldValues>>,
 >({
   control,
   name,
@@ -71,7 +71,6 @@ export const FormArrayTextField = <
         />
         <IconButton
           onClick={() => {
-            console.log(inputIndex);
             const value = getValues(
               `${name}.${inputIndex}.${String(keyName)}` as Path<TFieldValues>,
             );

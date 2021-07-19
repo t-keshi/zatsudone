@@ -1,6 +1,6 @@
 import { IconButton, TextFieldProps, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Close, Edit } from '@material-ui/icons';
+import { Edit } from '@material-ui/icons';
 import React from 'react';
 import { Control, FieldValues, Path } from 'react-hook-form';
 import { useToggle } from '../../../utility/hooks/useToggle';
@@ -73,13 +73,6 @@ export const TextEditable = <TFieldValues extends FieldValues>({
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...rest}
         />
-        <IconButton
-          className={classes.editButton}
-          size="small"
-          onClick={() => handleIsEditMode(false)}
-        >
-          <Close />
-        </IconButton>
       </div>
       <div className={classes.yesOrNoButtonWrapper}>
         <YesOrNoButton
