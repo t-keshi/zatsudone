@@ -74,7 +74,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "emulator": "npx firebase emulators:start --only firestore",
-    "test": "yarn emulator && react-app-rewired test",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
