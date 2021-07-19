@@ -19,6 +19,18 @@ jobs:
       - name: yarn install
         run: yarn install
 
+      - name: firebase-toolsをインストール
+        run: yarn add firebase-tools
+
+      - name: Firestoreエミュレータをインストール
+        run: yarn run setup
+
+      - name: エミュレータの起動
+        run: yarn run emulator &
+
+      - name: エミュレータの起動待機...
+        run: sleep 10
+
       #firebase deploy
       - uses: actions/checkout@v2
       - run: yarn build
