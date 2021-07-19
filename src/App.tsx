@@ -25,6 +25,7 @@ Sentry.init({
 
 // ---------- firebase ----------
 firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 export const App: React.VFC = () => {
   useEffect(() => {
