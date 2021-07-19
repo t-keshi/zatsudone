@@ -1,12 +1,11 @@
 import { Box, IconButtonProps, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { useFetchUserInfo } from '../../../containers/controllers/authentication/useFetchUserInfo';
+import { useFetchUserInfo } from '../../../containers/controllers/user/useFetchUserInfo';
 import { textTruncate } from '../../../utility/textTruncate';
 import { LinkCustom } from '../../helpers/LinkCustom/LinkCustom';
 import { FacebookIconButton } from '../../helpers/OAuthButtons/FacebookIconButton';
 import { TwitterIconButton } from '../../helpers/OAuthButtons/TwitterIconButton';
-import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
 const useStyles = makeStyles((theme) => ({
   buttonWrapper: {
@@ -26,9 +25,6 @@ export const ProfileInfo: React.VFC<IconButtonProps> = () => {
 
   return (
     <>
-      <SubHeading variant="h5" gutterBottom>
-        プロフィール基本情報
-      </SubHeading>
       <Typography variant="body1" gutterBottom>
         {data?.profile}
       </Typography>

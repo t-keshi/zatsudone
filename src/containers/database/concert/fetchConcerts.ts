@@ -19,7 +19,6 @@ export const fetchConcerts = async (
   lastVisible?: firebase.firestore.QueryDocumentSnapshot<ConcertType>,
 ): Promise<FetchConcertsReturnType> => {
   const db = firebase.firestore();
-  console.log('called');
   const concertsRef = db.collection(
     'concert',
   ) as firebase.firestore.CollectionReference<ConcertType>;
@@ -36,7 +35,6 @@ export const fetchConcerts = async (
       ? concertRefOrdered.limit(3)
       : concertRefOrdered.startAfter(lastVisible).limit(3);
   const querySnapshot = await concertRefPaginated.get();
-  console.log('called', querySnapshot);
   const concerts = querySnapshot.docs.map((doc) => {
     const { id } = doc;
     const data = doc.data();
@@ -53,9 +51,6 @@ export const fetchConcerts = async (
     };
   });
   const lastConcert = querySnapshot.docs[querySnapshot.docs.length - 1];
-  // console.log('why', lastConcert);
-  // const isLast = lastConcert.id === (lastVisible?.id ?? undefined);
-  // console.log(isLast, lastConcert.id, lastVisible?.id);
 
   return { concerts, lastConcert, isLast: lastConcert === undefined };
 };

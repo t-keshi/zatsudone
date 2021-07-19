@@ -2,14 +2,13 @@ import { Box, Button, IconButtonProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useFetchUserInfo } from '../../../containers/controllers/authentication/useFetchUserInfo';
-import { useUpdateUserInfo } from '../../../containers/controllers/authentication/useUpdateUserInfo';
+import { useFetchUserInfo } from '../../../containers/controllers/user/useFetchUserInfo';
+import { useUpdateUserInfo } from '../../../containers/controllers/user/useUpdateUserInfo';
 import { useToggle } from '../../../utility/hooks/useToggle';
 import { textTruncate } from '../../../utility/textTruncate';
 import { LinkCustom } from '../../helpers/LinkCustom/LinkCustom';
 import { FacebookIconButton } from '../../helpers/OAuthButtons/FacebookIconButton';
 import { TwitterIconButton } from '../../helpers/OAuthButtons/TwitterIconButton';
-import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 import { TextEditable } from '../../helpers/TextEditable/TextEditable';
 import { ProfileFormDialog } from './ProfileFormDialog';
 
@@ -39,15 +38,11 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
   } = useForm<FormValues>();
   const { mutate: updateUserInfo } = useUpdateUserInfo();
   const onSubmit = handleSubmit((formData) => {
-    console.log(formData);
     updateUserInfo({ profile: formData.profile });
   });
 
   return (
     <>
-      <SubHeading variant="h5" gutterBottom>
-        プロフィール基本情報
-      </SubHeading>
       <form onSubmit={onSubmit}>
         <TextEditable
           control={control}

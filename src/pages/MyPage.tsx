@@ -7,8 +7,8 @@ import { Layout } from '../components/layout/Layout';
 import { ConcertList } from '../components/ui/ConcertList/ConcertList';
 import { ProfileInfo } from '../components/ui/ProfileForm/ProfileInfo';
 import { ProfileHeader } from '../components/ui/ProfileHeader/ProfileHeader';
-import { useFetchUserInfo } from '../containers/controllers/authentication/useFetchUserInfo';
 import { useFetchParticipation } from '../containers/controllers/participation/useFetchParticipation';
+import { useFetchUserInfo } from '../containers/controllers/user/useFetchUserInfo';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const MyPage: React.VFC = () => {

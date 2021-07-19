@@ -14,6 +14,7 @@ interface Props extends StyleProps {
   image: string;
   avatar?: string;
   editModal?: () => void;
+  editLabel?: string;
 }
 
 const COVER_IMAGE_HEIGHT = 320;
@@ -70,6 +71,7 @@ export const CoverImage: React.VFC<Props> = ({
   image,
   avatar,
   editModal,
+  editLabel = 'カバー写真を変更',
 }) => {
   const classes = useStyles({ hasRadiusTop });
 
@@ -97,7 +99,7 @@ export const CoverImage: React.VFC<Props> = ({
             startIcon={<Image color="inherit" />}
             onClick={editModal}
           >
-            カバー写真を変更
+            {editLabel}
           </Button>
         </>
       )}

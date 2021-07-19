@@ -18,7 +18,6 @@ export const HideOnScroll: React.VFC<Props> = ({
     theme.breakpoints.down(hideDownBreakpoints ?? 'xs'),
   );
   const trigger = useScrollTrigger({ target: window });
-  console.log(hideDownBreakpoints);
 
   if (hideDownBreakpoints === undefined || !matches) {
     return children;

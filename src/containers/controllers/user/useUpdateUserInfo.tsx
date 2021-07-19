@@ -2,9 +2,11 @@ import {
   useMutation,
   UseMutationOptions,
   UseMutationResult,
+  useQueryClient,
 } from 'react-query';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
-import { updateUserInfo } from '../../database/authentication/updateUserInfo';
+import { updateUserInfo } from '../../database/user/updateUserInfo';
+import { QUERY } from '../../entities/query';
 
 interface Variables {
   profile?: string;
@@ -18,8 +20,10 @@ type UseUpdateUserInfo = (
 
 export const useUpdateUserInfo: UseUpdateUserInfo = (options) => {
   const handleApiError = useHandleApiError();
+  const queryClient = useQueryClient();
 
   return useMutation((variables: Variables) => updateUserInfo(variables), {
+    onSettled: () => queryClient.invalidateQueries([QUERY.user]),
     onError: (error: Error) =>
       handleApiError(error, 'Googleログインに失敗しました'),
     ...options,

@@ -31,7 +31,6 @@ export const useFetchParticipants: UseFetchParticipants = (options) => {
 
   return useQuery([QUERY.participation, concertId], queryFn, {
     select: (data: FnData) => {
-      console.log(data);
       const uids =
         data && data.length > 0
           ? data.map((datum) => datum.userSnippets.uid)

@@ -62,7 +62,6 @@ export const AuthSignup: React.VFC = () => {
   const { mutate } = useSignUp();
   const { mutate: socialLogIn } = useSocialLogIn();
   const onSubmit = (formValues: FormValues) => {
-    console.log(formValues);
     mutate(formValues);
   };
 

@@ -48,7 +48,6 @@ export const FormMapLocation = <TFieldValues extends FieldValues>({
         <Grid item xs>
           <Typography variant="body1" color="textSecondary">
             {parts.map((part, index) => {
-              console.log(parts);
               if (part.highlight) {
                 return (
                   <Typography

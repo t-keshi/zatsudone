@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { fetchUserInfo } from '../../database/authentication/fetchUserInfo';
+import { fetchUserInfo } from '../../database/user/fetchUserInfo';
 import { QUERY } from '../../entities/query';
 
 export interface User {

@@ -4,9 +4,9 @@ import { Check, Link as LinkIcon } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
-import { User } from '../../../containers/controllers/authentication/useFetchUserInfo';
 import { useSocialConnect } from '../../../containers/controllers/authentication/useSocialConnect';
-import { useUpdateUserInfo } from '../../../containers/controllers/authentication/useUpdateUserInfo';
+import { User } from '../../../containers/controllers/user/useFetchUserInfo';
+import { useUpdateUserInfo } from '../../../containers/controllers/user/useUpdateUserInfo';
 import { QUERY } from '../../../containers/entities/query';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
 import { DialogCustom } from '../../helpers/ModalCustom/DialogCustom';
@@ -52,7 +52,6 @@ export const ProfileFormDialog: React.VFC<Props> = ({ open, onClose }) => {
     formState: { errors },
   } = useForm<FormValues>();
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
     updateUserInfo({ userHomePage: data.homePage });
   });
 
