@@ -32,7 +32,7 @@ export const MyPage: React.VFC = () => {
       <ContainerSpacer my={4}>
         <ProfileInfo />
         <Box mt={2} />
-        <SubHeading variant="h5">参加演奏会</SubHeading>
+        <SubHeading variant="h5">来場予定＆来場済み</SubHeading>
         {data?.length !== 0 ? (
           <ConcertList
             key={concerts ? concerts[0].id : '1'}

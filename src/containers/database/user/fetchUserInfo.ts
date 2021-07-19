@@ -12,13 +12,12 @@ interface User {
   userHomePage: string | undefined;
 }
 
-export const fetchUserInfo = async (): Promise<User> => {
-  const user = firebase.auth().currentUser;
+export const fetchUserInfo = async (uid: string): Promise<User> => {
   const db = firebase.firestore();
   const usersRef = db.collection(
     'user',
   ) as firebase.firestore.CollectionReference<User>;
-  const userRef = usersRef.where('uid', '==', user?.uid ?? undefined);
+  const userRef = usersRef.where('uid', '==', uid ?? undefined);
   const documentSnapshot = await userRef.get();
   const data = documentSnapshot.docs[0].data();
 

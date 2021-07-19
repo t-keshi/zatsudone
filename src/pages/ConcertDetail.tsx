@@ -7,6 +7,7 @@ import { Layout } from '../components/layout/Layout';
 import { ConcertAccess } from '../components/ui/ConcertAccess/ConcertAccess';
 import { ConcertDetailInfo } from '../components/ui/ConcertDetailInfo/ConcertDetailInfo';
 import { ConcertFlyer } from '../components/ui/ConcertFlyer/ConcertFlyer';
+import { ConcertParticipants } from '../components/ui/ConcertParticipants/ConcertParticipants';
 import { ConcertProgram } from '../components/ui/ConcertProgram/ConcertProgram';
 import { ConcertReactionButtons } from '../components/ui/ConcertReactionButtons/ConcertReactionButtons';
 import { ConcertSummary } from '../components/ui/ConcertSummary/ConcertSummary';
@@ -30,6 +31,9 @@ export const ConcertDetail: React.VFC = () => {
   useTitle('SymphonyForum | 大阪大学吹奏楽団');
   const { data } = useFetchConcert();
   const { data: participantsData } = useFetchParticipants();
+  const participants =
+    participantsData?.participation.map((datum) => datum.userSnippets) ??
+    undefined;
 
   return (
     <Layout noPadding hideAppBar>
@@ -60,6 +64,10 @@ export const ConcertDetail: React.VFC = () => {
               <ConcertProgram />
               <Box mt={4} />
               <ConcertAccess />
+              <Box mt={4} />
+              {participants && (
+                <ConcertParticipants participants={participants} />
+              )}
               <div className={classes.orchestraLink}>
                 <Button
                   variant="text"
