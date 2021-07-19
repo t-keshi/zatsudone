@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
 import 'firebase/analytics';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -8,15 +10,20 @@ import 'firebase/firestore';
 import 'firebase/storage';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import * as yup from 'yup';
 import { AppUtility } from './AppUtility';
+import { ErrorBoundaryFallback } from './components/helpers/ErrorBoundaryFallback/ErrorBoundaryFallback';
 import { Providers } from './containers/Providers';
 import { firebaseConfig } from './firebaseConfig';
 import { Routes } from './routes/Routes';
-import { yupLocaleJP } from './utility/yupLocaleJP';
 
-yup.setLocale(yupLocaleJP);
+// ---------- sentry ----------
+Sentry.init({
+  dsn: 'https://77022713b420441c9cf36d61357beac0@o923237.ingest.sentry.io/5870382',
+  integrations: [new Integrations.BrowserTracing()],
+  tracesSampleRate: 1.0,
+});
 
+// ---------- firebase ----------
 firebase.initializeApp(firebaseConfig);
 
 export const App: React.VFC = () => {
@@ -27,11 +34,13 @@ export const App: React.VFC = () => {
   }, []);
 
   return (
-    <Router>
-      <Providers>
-        <Routes />
-        <AppUtility />
-      </Providers>
-    </Router>
+    <Sentry.ErrorBoundary fallback={ErrorBoundaryFallback}>
+      <Router>
+        <Providers>
+          <Routes />
+          <AppUtility />
+        </Providers>
+      </Router>
+    </Sentry.ErrorBoundary>
   );
 };
