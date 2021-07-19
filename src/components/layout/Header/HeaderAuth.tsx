@@ -45,7 +45,7 @@ export const HeaderAuth: React.VFC = () => {
     return (
       <Box display="flex" alignItems="center">
         <Avatar alt={data.displayName} src={data.photoURL} />
-        <IconButton onClick={handleMenuOpen}>
+        <IconButton edge="end" onClick={handleMenuOpen}>
           <KeyboardArrowDown />
         </IconButton>
         <MenuCustom

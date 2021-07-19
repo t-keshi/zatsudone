@@ -11,7 +11,7 @@ export const ROUTE_PATHS = {
   新規登録: '/signup',
   パスワード忘れ: '/forget-password',
   プロフィール設定: '/profile-setting',
-  プロフィール: '/profile/:userId',
+  プロフィール: '/profile/:uid',
   マイページ: '/my-page',
 } as const;
 
