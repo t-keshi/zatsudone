@@ -10,6 +10,16 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
+      # 準備
+      - name: node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: yarn install
+        run: yarn install
+
+      #firebase deploy
       - uses: actions/checkout@v2
       - run: yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
