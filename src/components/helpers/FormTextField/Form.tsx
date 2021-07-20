@@ -7,7 +7,7 @@ import {
   UseControllerProps,
 } from 'react-hook-form';
 
-export const FormTextField = <TFieldValues extends FieldValues>({
+export const FormField = <TFieldValues extends FieldValues>({
   control,
   name,
   rules,

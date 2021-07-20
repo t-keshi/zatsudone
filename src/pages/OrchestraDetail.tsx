@@ -1,8 +1,8 @@
 import { Box, Tab, Tabs } from '@material-ui/core';
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
 import image from '../assets/orchestraCover.jpg';
 import { CoverImage } from '../components/helpers/CoverImage/CoverImage';
+import { SwipeableViewsCustom } from '../components/helpers/SwipeableViewsCustom/SwipeableViewsCustom';
 import { TabPanel } from '../components/helpers/TabPanel/TabPanel';
 import { Layout } from '../components/layout/Layout';
 import { ConcertList } from '../components/ui/ConcertList/ConcertList';
@@ -34,8 +34,7 @@ export const OrchestraDetail: React.VFC = () => {
         <Tab label="演奏会" />
       </Tabs>
       <Box mt={2} />
-      <SwipeableViews
-        axis="x"
+      <SwipeableViewsCustom
         index={tabIndex}
         onChangeIndex={handleChangeTabBySwipe}
       >
@@ -48,7 +47,7 @@ export const OrchestraDetail: React.VFC = () => {
         <TabPanel value={tabIndex} index={2}>
           <ConcertList concerts={concertData?.concerts} />
         </TabPanel>
-      </SwipeableViews>
+      </SwipeableViewsCustom>
     </Layout>
   );
 };

@@ -1,16 +1,32 @@
-import { Box, TextField } from '@material-ui/core';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Tab, Tabs } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import 'cropperjs/dist/cropper.css';
 import React, { useRef } from 'react';
-import Cropper, { ReactCropperElement } from 'react-cropper';
+import { ReactCropperElement } from 'react-cropper';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import { useUploadCoverImage } from '../../../containers/controllers/orchestra/useUploadCoverImage';
 import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
+import { useTab } from '../../../utility/hooks/useTab';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
+import { FormImageField } from '../../helpers/FormTextField/FormImageField';
+import { FormTextField } from '../../helpers/FormTextField/FormTextField';
+import { SwipeableViewsCustom } from '../../helpers/SwipeableViewsCustom/SwipeableViewsCustom';
+import { TabPanel } from '../../helpers/TabPanel/TabPanel';
 
 interface Props {
   isModalOpen: boolean;
   closeModal: () => void;
 }
+
+interface FormValues {
+  title: string;
+}
+
+const schema: yup.SchemaOf<FormValues> = yup.object().shape({
+  title: yup.string().min(1).max(30).required(),
+});
 
 const CROPPER_WIDTH = 400;
 const CROPPER_HEIGHT = 400;
@@ -39,11 +55,22 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
 }) => {
   const classes = useStyles();
   const cropperRef = useRef<ReactCropperElement>(null);
-  const [{ imageName, imageDataUrl }, handleUploadImage] = useImageTransmit();
+  const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
+  const [{ imageDataUrl: coverImageDataUrl }, handleTransmitCoverImage] =
+    useImageTransmit();
+  const [{ imageDataUrl: avatarImageDataUrl }, handleTransmitAvatarImage] =
+    useImageTransmit();
   const { mutate } = useUploadCoverImage();
-  const onSubmit = () => {
-    mutate({ imageName, imageDataUrl: imageDataUrl as string });
-  };
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit = handleSubmit(() => {
+    mutate({ imageName: 'hoge', imageDataUrl: coverImageDataUrl as string });
+  });
 
   return (
     <DialogCustom
@@ -52,28 +79,59 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
       open={isModalOpen}
       onClose={closeModal}
       yesButtonProps={{ onClick: onSubmit }}
-      noButtonProps={{ onClick: closeModal }}
       maxWidth="sm"
     >
       <Box>
-        <TextField
-          type="file"
-          onChange={handleUploadImage}
-          inputProps={{ accept: 'image/png, image/jpeg' }}
+        <FormTextField
+          control={control}
+          name="title"
+          margin="normal"
+          fullWidth
+          label="演奏会のタイトル"
+          defaultValue="hoge"
+          errorMessage={errors.title?.message}
         />
-        <Box className={classes.cropperWrapper}>
-          <Box className={classes.cropperWidth}>
-            <Cropper
-              src={imageDataUrl}
-              aspectRatio={3 / 1}
-              guides={false}
-              zoomOnWheel={false}
-              minContainerWidth={CROPPER_WIDTH}
-              minContainerHeight={CROPPER_HEIGHT}
-              ref={cropperRef}
+        <Tabs
+          value={tabIndex}
+          onChange={handleChangeTab}
+          indicatorColor="secondary"
+          textColor="secondary"
+          variant="fullWidth"
+        >
+          <Tab label="カバー写真" />
+          <Tab label="楽団アバター" />
+        </Tabs>
+        <SwipeableViewsCustom
+          index={tabIndex}
+          onChangeIndex={handleChangeTabBySwipe}
+        >
+          <TabPanel value={tabIndex} index={0}>
+            <FormImageField
+              imageUrl={coverImageDataUrl ?? ''}
+              label="プロフィール画像"
+              margin="normal"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{ accept: 'image/png, image/jpeg' }}
+              onChange={handleTransmitCoverImage}
             />
-          </Box>
-        </Box>
+          </TabPanel>
+          <TabPanel value={tabIndex} index={1}>
+            <FormImageField
+              imageUrl={avatarImageDataUrl ?? ''}
+              label="プロフィール画像"
+              margin="normal"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{ accept: 'image/png, image/jpeg' }}
+              onChange={handleTransmitAvatarImage}
+            />
+          </TabPanel>
+        </SwipeableViewsCustom>
       </Box>
     </DialogCustom>
   );
