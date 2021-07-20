@@ -1,5 +1,5 @@
-import imageCompression from 'browser-image-compression';
 import firebase from 'firebase/app';
+import { uploadImage } from '../utilities/uploadImage';
 
 interface Variables {
   uid: string;
@@ -14,13 +14,10 @@ export const updateUserProfile = async (
   const userRef = db.collection('user').doc(variables.uid);
 
   if (variables.image) {
-    const compressed = await imageCompression(variables.image, {
-      maxSizeMB: 3,
-    });
-    const storageRef = firebase.storage().ref();
-    const imagesRef = storageRef.child(`profile/${variables.uid}`);
-    const uploadTask = await imagesRef.put(compressed);
-    const photoURL = (await uploadTask.ref.getDownloadURL()) as string;
+    const photoURL = await uploadImage(
+      variables.image,
+      `profile/${variables.uid}`,
+    );
     await userRef.update({
       photoURL,
       displayName: variables.displayName,

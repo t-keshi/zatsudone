@@ -2,15 +2,17 @@ import {
   useMutation,
   UseMutationOptions,
   UseMutationResult,
+  useQueryClient,
 } from 'react-query';
-import { ROUTE_PATHS } from '../../../routes/type';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
-import { useRouter } from '../../../utility/hooks/useRouter';
 import { uploadCoverImage } from '../../database/orchestra/uploadCoverImage';
+import { QUERY } from '../../entities/query';
 
 interface Variables {
-  imageName: string;
-  imageDataUrl: string;
+  name: string;
+  orchestraId: string;
+  coverImage?: File;
+  avatarImage?: File;
 }
 type Data = unknown;
 type UseUploadCoverImage = (
@@ -19,11 +21,11 @@ type UseUploadCoverImage = (
 
 export const useUploadCoverImage: UseUploadCoverImage = (options) => {
   const handleApiError = useHandleApiError();
-  const { history } = useRouter();
+  const queryClient = useQueryClient();
   const mutate = (variables: Variables) => uploadCoverImage(variables);
 
   return useMutation(mutate, {
-    onSuccess: () => history.push(ROUTE_PATHS.近日中のコンサート),
+    onSuccess: () => queryClient.invalidateQueries([QUERY.orchestra]),
     onError: (error: Error) => handleApiError(error, 'ログインに失敗しました'),
     ...options,
   });

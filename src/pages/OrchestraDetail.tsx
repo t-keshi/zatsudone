@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from '@material-ui/core';
 import React from 'react';
-import image from '../assets/orchestraCover.jpg';
+import { useParams } from 'react-router';
+import coverImage from '../assets/orchestraCover.jpg';
 import { CoverImage } from '../components/helpers/CoverImage/CoverImage';
 import { SwipeableViewsCustom } from '../components/helpers/SwipeableViewsCustom/SwipeableViewsCustom';
 import { TabPanel } from '../components/helpers/TabPanel/TabPanel';
@@ -14,7 +15,8 @@ import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const OrchestraDetail: React.VFC = () => {
-  const { data } = useFetchOrchestra();
+  const params: { orchestraId: string } = useParams();
+  const { data } = useFetchOrchestra(params.orchestraId);
   const { data: concertData } = useFetchConcerts();
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
 
@@ -22,7 +24,11 @@ export const OrchestraDetail: React.VFC = () => {
 
   return (
     <Layout noPadding>
-      <CoverImage title={data?.name ?? ''} image={image} hasRadiusTop />
+      <CoverImage
+        title={data?.name ?? ''}
+        image={data?.coverUrl ?? coverImage}
+        hasRadiusTop
+      />
       <Tabs
         value={tabIndex}
         onChange={handleChangeTab}

@@ -8,6 +8,8 @@ interface Orchestra {
   conductor: string;
   subConductor: string;
   homePage: string;
+  coverUrl: string;
+  avatarUrl: string;
 }
 type OmitId<T = unknown> = Omit<T, 'id'>;
 
@@ -28,6 +30,8 @@ export const fetchOrchestra = async (
     conductor: data.conductor,
     subConductor: data.subConductor,
     homePage: data.homePage,
+    coverUrl: data.coverUrl,
+    avatarUrl: data.avatarUrl,
   };
 
   return orchestra;

@@ -47,7 +47,11 @@ export const OrchestraListItem: React.VFC<Props> = ({ orchestra }) => {
   return (
     <Box className={classes.root}>
       <Hidden xsDown implementation="css">
-        <img className={classes.image} alt="musicNote" src={musicNote} />
+        <img
+          className={classes.image}
+          alt="musicNote"
+          src={orchestra?.avatarUrl ?? musicNote}
+        />
       </Hidden>
       <Box>
         <Typography

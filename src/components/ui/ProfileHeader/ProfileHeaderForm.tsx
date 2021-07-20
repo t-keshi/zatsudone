@@ -8,6 +8,7 @@ import musicNote from '../../../assets/musicNote.png';
 import { User } from '../../../containers/controllers/user/useFetchUserInfo';
 import { useUpdateUserProfile } from '../../../containers/controllers/user/useUpdateUserProfile';
 import { QUERY } from '../../../containers/entities/query';
+import { useCropper } from '../../../utility/hooks/useCropper';
 import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
 import { useToggle } from '../../../utility/hooks/useToggle';
 import { CoverImage } from '../../helpers/CoverImage/CoverImage';
@@ -35,7 +36,8 @@ export const ProfileHeaderForm: React.VFC<Props> = ({
   const queryClient = useQueryClient();
   const userInfo: User | undefined = queryClient.getQueryData([QUERY.user]);
   const [isDialogOpen, toggleIsDialogOpen] = useToggle(false);
-  const [{ image, imageDataUrl }, handleTransmitImage] = useImageTransmit();
+  const [{ imageDataUrl }, handleTransmitImage] = useImageTransmit();
+  const [{ cropperRef, croppedFile }, handleCrop] = useCropper();
   const { mutate } = useUpdateUserProfile();
   const {
     control,
@@ -45,7 +47,7 @@ export const ProfileHeaderForm: React.VFC<Props> = ({
     resolver: yupResolver(schema),
   });
   const onSubmit = handleSubmit((data) => {
-    mutate({ displayName: data?.displayName ?? '', image });
+    mutate({ displayName: data?.displayName ?? '', image: croppedFile });
   });
 
   return (
@@ -87,6 +89,8 @@ export const ProfileHeaderForm: React.VFC<Props> = ({
             }}
             inputProps={{ accept: 'image/png, image/jpeg' }}
             onChange={handleTransmitImage}
+            cropperProps={{ crop: handleCrop }}
+            cropperRef={cropperRef}
           />
         </form>
       </DialogCustom>

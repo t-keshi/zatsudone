@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Tab, Tabs } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import 'cropperjs/dist/cropper.css';
-import React, { useRef } from 'react';
-import { ReactCropperElement } from 'react-cropper';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import imageNotFound from '../../../assets/imageNotFound.jpeg';
 import { useUploadCoverImage } from '../../../containers/controllers/orchestra/useUploadCoverImage';
+import { useCropper } from '../../../utility/hooks/useCropper';
 import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
 import { useTab } from '../../../utility/hooks/useTab';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
@@ -18,48 +18,40 @@ import { TabPanel } from '../../helpers/TabPanel/TabPanel';
 interface Props {
   isModalOpen: boolean;
   closeModal: () => void;
+  name: string;
+  orchestraId: string;
 }
 
 interface FormValues {
-  title: string;
+  name: string;
 }
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  title: yup.string().min(1).max(30).required(),
+  name: yup.string().min(1).max(30).required(),
 });
-
-const CROPPER_WIDTH = 400;
-const CROPPER_HEIGHT = 400;
-
-const useStyles = makeStyles((theme) => ({
-  image: {
-    objectFit: 'contain',
-    height: CROPPER_HEIGHT,
-    width: '100%',
-  },
-  cropperWrapper: {
-    marginTop: theme.spacing(2),
-    minHeight: '60vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cropperWidth: {
-    maxWidth: CROPPER_WIDTH,
-  },
-}));
 
 export const OrchestraFormImageModal: React.VFC<Props> = ({
   isModalOpen,
   closeModal,
+  name,
+  orchestraId,
 }) => {
-  const classes = useStyles();
-  const cropperRef = useRef<ReactCropperElement>(null);
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
+  // coverImage
   const [{ imageDataUrl: coverImageDataUrl }, handleTransmitCoverImage] =
     useImageTransmit();
+  const [
+    { cropperRef: coverCropperRef, croppedFile: coverImage },
+    handleCoverImageCrop,
+  ] = useCropper();
+  // avatar
   const [{ imageDataUrl: avatarImageDataUrl }, handleTransmitAvatarImage] =
     useImageTransmit();
+  const [
+    { cropperRef: avatarCropperRef, croppedFile: avatarImage },
+    handleAvatarImageCrop,
+  ] = useCropper();
+  // mutation
   const { mutate } = useUploadCoverImage();
   const {
     control,
@@ -68,8 +60,13 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  const onSubmit = handleSubmit(() => {
-    mutate({ imageName: 'hoge', imageDataUrl: coverImageDataUrl as string });
+  const onSubmit = handleSubmit((data) => {
+    mutate({
+      name: data.name,
+      orchestraId,
+      avatarImage: avatarImageDataUrl ? avatarImage : undefined,
+      coverImage: coverImageDataUrl ? coverImage : undefined,
+    });
   });
 
   return (
@@ -84,12 +81,12 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
       <Box>
         <FormTextField
           control={control}
-          name="title"
+          name="name"
           margin="normal"
           fullWidth
           label="演奏会のタイトル"
-          defaultValue="hoge"
-          errorMessage={errors.title?.message}
+          defaultValue={name}
+          errorMessage={errors.name?.message}
         />
         <Tabs
           value={tabIndex}
@@ -98,30 +95,17 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
           textColor="secondary"
           variant="fullWidth"
         >
-          <Tab label="カバー写真" />
           <Tab label="楽団アバター" />
+          <Tab label="カバー写真" />
         </Tabs>
         <SwipeableViewsCustom
           index={tabIndex}
           onChangeIndex={handleChangeTabBySwipe}
         >
-          <TabPanel value={tabIndex} index={0}>
+          <TabPanel value={tabIndex} index={0} gutter={false} unmountOnSwitch>
             <FormImageField
-              imageUrl={coverImageDataUrl ?? ''}
-              label="プロフィール画像"
-              margin="normal"
-              fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{ accept: 'image/png, image/jpeg' }}
-              onChange={handleTransmitCoverImage}
-            />
-          </TabPanel>
-          <TabPanel value={tabIndex} index={1}>
-            <FormImageField
-              imageUrl={avatarImageDataUrl ?? ''}
-              label="プロフィール画像"
+              imageUrl={avatarImageDataUrl ?? imageNotFound}
+              label="楽団アバター"
               margin="normal"
               fullWidth
               InputLabelProps={{
@@ -129,6 +113,28 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
               }}
               inputProps={{ accept: 'image/png, image/jpeg' }}
               onChange={handleTransmitAvatarImage}
+              cropperProps={{
+                crop: handleAvatarImageCrop,
+              }}
+              cropperRef={avatarCropperRef}
+            />
+          </TabPanel>
+          <TabPanel value={tabIndex} index={1} gutter={false} unmountOnSwitch>
+            <FormImageField
+              imageUrl={coverImageDataUrl ?? imageNotFound}
+              label="カバー写真"
+              margin="normal"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{ accept: 'image/png, image/jpeg' }}
+              onChange={handleTransmitCoverImage}
+              cropperProps={{
+                aspectRatio: 3 / 1,
+                crop: handleCoverImageCrop,
+              }}
+              cropperRef={coverCropperRef}
             />
           </TabPanel>
         </SwipeableViewsCustom>

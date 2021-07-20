@@ -28,7 +28,7 @@ export const OrchestraDetailInfoForm: React.VFC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
-  const onSubmit = (data: unknown) => console.log(data);
+  const onSubmit = (data: FormValues) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
