@@ -11,9 +11,9 @@ import { QUERY } from '../../../containers/entities/query';
 import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
 import { useToggle } from '../../../utility/hooks/useToggle';
 import { CoverImage } from '../../helpers/CoverImage/CoverImage';
+import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormImageField } from '../../helpers/FormTextField/FormImageField';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
-import { DialogCustom } from '../../helpers/ModalCustom/DialogCustom';
 
 interface Props {
   displayName: string;

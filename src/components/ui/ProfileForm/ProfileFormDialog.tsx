@@ -8,8 +8,8 @@ import { useSocialConnect } from '../../../containers/controllers/authentication
 import { User } from '../../../containers/controllers/user/useFetchUserInfo';
 import { useUpdateUserInfo } from '../../../containers/controllers/user/useUpdateUserInfo';
 import { QUERY } from '../../../containers/entities/query';
+import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
-import { DialogCustom } from '../../helpers/ModalCustom/DialogCustom';
 import { FacebookButton } from '../../helpers/OAuthButtons/FacebookButton';
 import { TwitterButton } from '../../helpers/OAuthButtons/TwitterButton';
 

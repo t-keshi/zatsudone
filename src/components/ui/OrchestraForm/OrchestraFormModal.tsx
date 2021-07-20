@@ -4,8 +4,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useCreateOrchestra } from '../../../containers/controllers/orchestra/useCreateOrchestra';
+import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
-import { ModalCustom } from '../../helpers/ModalCustom/ModalCustom';
 
 interface Props {
   isModalOpen: boolean;
@@ -42,11 +42,11 @@ export const OrchestraFormModal: React.VFC<Props> = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <ModalCustom
+      <DialogCustom
         variant="standard"
         title="楽団の作成"
-        isModalOpen={isModalOpen}
-        closeModal={closeModal}
+        open={isModalOpen}
+        onClose={closeModal}
         yesButtonProps={{
           onClick: () => {
             void onSubmit();
@@ -54,7 +54,7 @@ export const OrchestraFormModal: React.VFC<Props> = ({
           },
         }}
         noButtonProps={{ onClick: closeModal }}
-        modalWidth={500}
+        maxWidth="sm"
       >
         <FormTextField
           control={control}
@@ -76,7 +76,7 @@ export const OrchestraFormModal: React.VFC<Props> = ({
           rows={4}
           errorMessage={errors.name?.message}
         />
-      </ModalCustom>
+      </DialogCustom>
     </form>
   );
 };

@@ -6,10 +6,10 @@ import * as yup from 'yup';
 import { useCreateConcert } from '../../../containers/controllers/concert/useCreateConcert';
 import { GoogleMapLocation } from '../../../containers/controllers/concert/useSearchAccess';
 import { extractPrefectureFromAddress } from '../../../utility/extractPrefectureFromAddress';
+import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormMapLocation } from '../../helpers/FormMapLocation/FormMapLocation';
 import { FormArrayTextField } from '../../helpers/FormTextField/FormArrayTextField';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
-import { ModalCustom } from '../../helpers/ModalCustom/ModalCustom';
 
 interface Props {
   isModalOpen: boolean;
@@ -83,14 +83,13 @@ export const ConcertFormModal: React.VFC<Props> = ({
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormProvider {...methods}>
       <form onSubmit={onSubmit}>
-        <ModalCustom
+        <DialogCustom
           variant="standard"
           title="演奏会の作成"
-          isModalOpen={isModalOpen}
-          closeModal={() => handleIsModalOpen(false)}
+          open={isModalOpen}
+          onClose={() => handleIsModalOpen(false)}
           yesButtonProps={{ onClick: onSubmit }}
-          noButtonProps={{ onClick: () => handleIsModalOpen(false) }}
-          modalWidth={500}
+          maxWidth="sm"
         >
           <FormTextField
             control={control}
@@ -130,7 +129,7 @@ export const ConcertFormModal: React.VFC<Props> = ({
               errors.symphonies?.map((error) => error)[0]?.symphony?.message
             }
           />
-        </ModalCustom>
+        </DialogCustom>
       </form>
     </FormProvider>
   );

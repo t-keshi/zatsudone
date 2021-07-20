@@ -5,7 +5,7 @@ import React, { useRef } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import { useUploadCoverImage } from '../../../containers/controllers/orchestra/useUploadCoverImage';
 import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
-import { ModalCustom } from '../../helpers/ModalCustom/ModalCustom';
+import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 
 interface Props {
   isModalOpen: boolean;
@@ -46,14 +46,14 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
   };
 
   return (
-    <ModalCustom
+    <DialogCustom
       variant="standard"
       title="カバー写真"
-      isModalOpen={isModalOpen}
-      closeModal={closeModal}
+      open={isModalOpen}
+      onClose={closeModal}
       yesButtonProps={{ onClick: onSubmit }}
       noButtonProps={{ onClick: closeModal }}
-      modalWidth={500}
+      maxWidth="sm"
     >
       <Box>
         <TextField
@@ -75,6 +75,6 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
           </Box>
         </Box>
       </Box>
-    </ModalCustom>
+    </DialogCustom>
   );
 };
