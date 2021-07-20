@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { AboutSymphonyForum } from '../pages/AboutSymphonyForum';
 import { AuthForgetPassword } from '../pages/AuthForgetPassword';
 import { AuthLogIn } from '../pages/AuthLogIn';
 import { AuthSignup } from '../pages/AuthSignUp';
@@ -25,6 +26,9 @@ export const Routes: React.VFC = () => {
     <Switch>
       <Route exact path={ROUTE_PATHS.ランディングページ}>
         <LandingPage />
+      </Route>
+      <Route exact path={ROUTE_PATHS.アバウト}>
+        <AboutSymphonyForum />
       </Route>
       <Route exact path={ROUTE_PATHS.近日中のコンサート}>
         <ConcertsUpcoming />

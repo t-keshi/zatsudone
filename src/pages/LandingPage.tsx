@@ -44,7 +44,7 @@ export const LandingPage: React.VFC = () => {
             <Button
               variant="text"
               color="default"
-              onClick={() => console.log('hello')}
+              onClick={() => history.push(ROUTE_PATHS.アバウト)}
             >
               詳しく
             </Button>
