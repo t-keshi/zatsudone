@@ -4,7 +4,7 @@ import { pickBy } from '../../../utility/pickBy';
 interface Variables {
   profile?: string;
   userHomePage?: string;
-  instrument?: string;
+  part?: string;
 }
 
 export const updateUserInfo = async (variables: Variables): Promise<void> => {

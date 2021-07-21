@@ -1,7 +1,8 @@
-import { Box, Button, IconButtonProps } from '@material-ui/core';
+import { Box, Button, IconButtonProps, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { partOptions } from '../../../constants/partOptions';
 import { useFetchUserInfo } from '../../../containers/controllers/user/useFetchUserInfo';
 import { useUpdateUserInfo } from '../../../containers/controllers/user/useUpdateUserInfo';
 import { useToggle } from '../../../utility/hooks/useToggle';
@@ -10,14 +11,17 @@ import { LinkCustom } from '../../helpers/LinkCustom/LinkCustom';
 import { FacebookIconButton } from '../../helpers/OAuthButtons/FacebookIconButton';
 import { TwitterIconButton } from '../../helpers/OAuthButtons/TwitterIconButton';
 import { TextEditable } from '../../helpers/TextEditable/TextEditable';
+import { TextEditableComplete } from '../../helpers/TextEditable/TextEditableComplete';
 import { ProfileFormDialog } from './ProfileFormDialog';
 
 interface FormValues {
+  part: string;
   profile: string;
 }
 
 const useStyles = makeStyles((theme) => ({
   buttonWrapper: {
+    marginTop: theme.spacing(2),
     display: 'flex',
   },
   userHomePage: {
@@ -33,30 +37,59 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
   const facebookUserLink = data?.facebookUserLink ?? undefined;
   const {
     control,
+    register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
   const { mutate: updateUserInfo } = useUpdateUserInfo();
   const onSubmit = handleSubmit((formData) => {
-    updateUserInfo({ profile: formData.profile });
+    console.log(formData);
+    updateUserInfo({ profile: formData.profile, part: formData.part });
   });
 
   return (
     <>
       <form onSubmit={onSubmit}>
+        <Typography variant="h6" gutterBottom>
+          パート
+        </Typography>
+        <TextEditableComplete<FormValues, string>
+          register={register}
+          onSubmit={onSubmit}
+          name="part"
+          defaultValue={data?.part ?? ''}
+          autocompleteProps={{
+            options: partOptions,
+            getOptionLabel: (innerOption: string) => innerOption,
+            fullWidth: true,
+            freeSolo: true,
+            onChange: (_, innerOption: string | string[] | null) => {
+              if (innerOption !== null) {
+                setValue('part', innerOption as string);
+              }
+            },
+          }}
+          textFieldProps={{
+            margin: 'normal',
+          }}
+          errorMessage={errors.part?.message}
+        />
+        <Box mt={2} />
+        <Typography variant="h6" gutterBottom>
+          自己紹介
+        </Typography>
         <TextEditable
           control={control}
           onSubmit={onSubmit}
           name="profile"
-          value={data?.profile ?? ''}
-          placeholder="例 ） 当楽団は団員数100名を超える、関西でも最大級の規模を誇る吹奏楽団です。年2回の演奏会の開催を目指し、日々練習に励んでいます。"
+          defaultValue={data?.profile ?? ''}
           margin="normal"
-          fullWidth
           multiline
           rows={4}
           errorMessage={errors.profile?.message}
         />
-        <Box className={classes.buttonWrapper}>
+        <div className={classes.buttonWrapper}>
           <TwitterIconButton
             component="a"
             color={twitterUserLink ? 'primary' : 'default'}
@@ -64,6 +97,7 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
             disabled={twitterUserLink === undefined}
             target="_blank"
             rel="noopener"
+            edge="start"
           />
           <FacebookIconButton
             component="a"
@@ -79,7 +113,7 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
           >
             {textTruncate(data?.userHomePage ?? '', 20)}
           </LinkCustom>
-        </Box>
+        </div>
         <Button onClick={() => setIsOpen(true)}>リンクを追加</Button>
       </form>
       <ProfileFormDialog open={isOpen} onClose={() => setIsOpen(false)} />
