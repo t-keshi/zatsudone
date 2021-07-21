@@ -28,10 +28,12 @@ const useStyles = makeStyles((theme) => ({
     background: 'center/cover no-repeat',
     contentVisibility: 'auto',
     containIntrinsicSize: COVER_IMAGE_HEIGHT,
-    borderRadius: ({ hasRadiusTop }: StyleProps) =>
-      hasRadiusTop
-        ? `${theme.shape.borderRadius}px ${theme.shape.borderRadius}px 0 0`
-        : 0,
+    [theme.breakpoints.up('sm')]: {
+      borderRadius: ({ hasRadiusTop }: StyleProps) =>
+        hasRadiusTop
+          ? `${theme.shape.borderRadius}px ${theme.shape.borderRadius}px 0 0`
+          : 0,
+    },
   },
   titleWrapper: {
     position: 'absolute',

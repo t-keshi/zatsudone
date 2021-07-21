@@ -3,35 +3,59 @@ import { List } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useUpdateOrchestra } from '../../../containers/controllers/orchestra/useUpdateOrchestra';
 import { ListItemRowEditable } from '../../helpers/ListItemRow/ListItemRowEditable';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
+interface Props {
+  orchestraId: string;
+  membersCount: number;
+  conductor: string;
+  subConductor: string;
+  homePage: string;
+}
 interface FormValues {
   membersCount: number | undefined;
   conductor: string | undefined;
   subConductor: string | undefined;
-  homepage: string | undefined;
+  homePage: string | undefined;
 }
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   membersCount: yup.number(),
   conductor: yup.string(),
   subConductor: yup.string(),
-  homepage: yup.string(),
+  homePage: yup.string(),
 });
 
 const ROW_WIDTH = 500;
 
-export const OrchestraDetailInfoForm: React.VFC = () => {
+export const OrchestraDetailInfoForm: React.VFC<Props> = ({
+  orchestraId,
+  membersCount,
+  conductor,
+  subConductor,
+  homePage,
+}) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
-  const onSubmit = (data: FormValues) => console.log(data);
+  const { mutate } = useUpdateOrchestra();
+  const onSubmit = handleSubmit((data: FormValues) => {
+    console.log(data);
+    mutate({
+      orchestraId,
+      membersCount: data?.membersCount ?? undefined,
+      conductor: data?.conductor ?? undefined,
+      subConductor: data?.subConductor ?? undefined,
+      homePage: data?.homePage ?? undefined,
+    });
+  });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <SubHeading variant="h5" gutterBottom>
         楽団詳細情報
       </SubHeading>
@@ -40,33 +64,37 @@ export const OrchestraDetailInfoForm: React.VFC = () => {
           control={control}
           label="団員数"
           name="membersCount"
-          value="142名"
+          defaultValue={membersCount}
           errorMessage={errors.membersCount?.message}
           rowWidth={ROW_WIDTH}
+          onSave={onSubmit}
         />
         <ListItemRowEditable
           control={control}
           label="指揮"
           name="conductor"
-          value="142名"
+          defaultValue={conductor}
           errorMessage={errors.conductor?.message}
           rowWidth={ROW_WIDTH}
+          onSave={onSubmit}
         />
         <ListItemRowEditable
           control={control}
           label="副指揮"
           name="subConductor"
-          value="142名"
+          defaultValue={subConductor}
           errorMessage={errors.subConductor?.message}
           rowWidth={ROW_WIDTH}
+          onSave={onSubmit}
         />
         <ListItemRowEditable
           control={control}
           label="公式ホームページ"
-          name="subConductor"
-          value="https://google.com"
-          errorMessage={errors.homepage?.message}
+          name="homePage"
+          defaultValue={homePage}
+          errorMessage={errors.homePage?.message}
           rowWidth={ROW_WIDTH}
+          onSave={onSubmit}
         />
       </List>
     </form>

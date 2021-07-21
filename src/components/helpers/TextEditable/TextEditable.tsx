@@ -8,7 +8,7 @@ import { FormTextField } from '../FormTextField/FormTextField';
 import { YesOrNoButton } from '../YesOrNoButton/YesOrNoButton';
 
 interface Props<TFieldValues> {
-  value: string;
+  defaultValue: string;
   control: Control<TFieldValues>;
   name: Path<TFieldValues>;
   errorMessage: string | undefined;
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const TextEditable = <TFieldValues extends FieldValues>({
-  value,
+  defaultValue,
   control,
   name,
   errorMessage,
@@ -45,7 +45,7 @@ export const TextEditable = <TFieldValues extends FieldValues>({
     return (
       <div className={classes.textFieldWrapper}>
         <Typography variant="body2" color="textSecondary">
-          {value}
+          {defaultValue}
         </Typography>
         <IconButton
           className={classes.editButton}
@@ -66,7 +66,7 @@ export const TextEditable = <TFieldValues extends FieldValues>({
           size="small"
           variant="standard"
           fullWidth
-          defaultValue={value}
+          defaultValue={defaultValue}
           control={control}
           name={name}
           errorMessage={errorMessage}

@@ -12,6 +12,7 @@ export interface Orchestra {
   homePage: string;
   coverUrl: string;
   avatarUrl: string;
+  notifications: string[];
 }
 type Data = Orchestra;
 type UseFetchOrchestra = (

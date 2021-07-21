@@ -10,6 +10,7 @@ interface Orchestra {
   homePage: string;
   coverUrl: string;
   avatarUrl: string;
+  notifications: string[];
 }
 type OmitId<T = unknown> = Omit<T, 'id'>;
 
@@ -32,6 +33,7 @@ export const fetchOrchestra = async (
     homePage: data.homePage,
     coverUrl: data.coverUrl,
     avatarUrl: data.avatarUrl,
+    notifications: data.notifications,
   };
 
   return orchestra;

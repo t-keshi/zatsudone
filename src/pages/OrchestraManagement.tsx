@@ -86,7 +86,7 @@ export const OrchestraManagement: React.VFC = () => {
             onChangeIndex={handleChangeTabBySwipe}
           >
             <TabPanel value={tabIndex} index={0}>
-              <OrchestraForms />
+              {orchestraData && <OrchestraForms orchestra={orchestraData} />}
             </TabPanel>
             <TabPanel value={tabIndex} index={1}>
               <MembersForm />

@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { ConcertType } from '../../../types';
 
 interface ParticipationResponse {

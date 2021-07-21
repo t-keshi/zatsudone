@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { useParams } from 'react-router';
 import { fetchUserInfo } from '../../database/user/fetchUserInfo';

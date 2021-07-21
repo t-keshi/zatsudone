@@ -3,9 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { useUploadCoverImage } from '../../../containers/controllers/orchestra/useUploadCoverImage';
-import { Overlay } from '../../helpers/Overlay/Overlay';
+import { useUpdateOrchestra } from '../../../containers/controllers/orchestra/useUpdateOrchestra';
 import { TextEditable } from '../../helpers/TextEditable/TextEditable';
+
+interface Props {
+  orchestraId: string;
+  description: string;
+}
 
 interface FormValues {
   description: string;
@@ -21,29 +25,30 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const OrchestraDescriptionForm: React.VFC = () => {
+export const OrchestraDescriptionForm: React.VFC<Props> = ({
+  orchestraId,
+  description,
+}) => {
   const classes = useStyles();
-  // TODO: api連携
-  const { isLoading } = useUploadCoverImage();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
+  const { mutate } = useUpdateOrchestra();
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    mutate({ orchestraId, description: data.description });
   });
 
   return (
     <div className={classes.root}>
       <TextEditable
         name="description"
-        value="団員142名、毎日練習に励んでいます"
+        defaultValue={description}
         control={control}
         errorMessage={errors.description?.message}
         onSubmit={onSubmit}
       />
-      {isLoading && <Overlay isBlack={false} />}
     </div>
   );
 };
