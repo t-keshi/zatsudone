@@ -55,7 +55,7 @@ export const OrchestraNotificationForm: React.VFC<Props> = ({
       </SubHeading>
       <List>
         {notifications &&
-          notifications.map((notification) => (
+          notifications.reverse().map((notification) => (
             <ListItem dense key={notification}>
               <ListItemText primary={notification} />
               <ListItemSecondaryAction>
