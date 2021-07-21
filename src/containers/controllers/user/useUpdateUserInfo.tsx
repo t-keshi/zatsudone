@@ -11,7 +11,7 @@ import { QUERY } from '../../entities/query';
 interface Variables {
   profile?: string;
   userHomePage?: string;
-  instrument?: string;
+  part?: string;
 }
 type Data = unknown;
 type UseUpdateUserInfo = (

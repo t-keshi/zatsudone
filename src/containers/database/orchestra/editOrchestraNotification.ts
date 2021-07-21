@@ -13,7 +13,6 @@ export const editOrchestraNotification = async ({
 }: Variables): Promise<void> => {
   const db = firebase.firestore();
   const orchestraRef = db.collection('orchestra').doc(orchestraId);
-  console.log(orchestraId, notification, manipulation);
 
   if (manipulation === 'add') {
     await orchestraRef.update({

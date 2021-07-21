@@ -7,6 +7,7 @@ interface User {
   uid: string;
   managementOrchestraId: string;
   profile: string | undefined;
+  part: string;
   twitterUserLink: string | undefined;
   facebookUserLink: string | undefined;
   userHomePage: string | undefined;
@@ -32,6 +33,7 @@ export const fetchUserInfo = async (uid: string): Promise<User> => {
     uid: data.uid,
     managementOrchestraId: data.managementOrchestraId,
     profile: data.profile,
+    part: data.part,
     twitterUserLink: data.twitterUserLink,
     facebookUserLink: data.facebookUserLink,
     userHomePage: data.userHomePage,

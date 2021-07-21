@@ -11,6 +11,7 @@ export interface User {
   uid: string;
   managementOrchestraId: string;
   profile: string | undefined;
+  part: string | undefined;
   twitterUserLink: string | undefined;
   facebookUserLink: string | undefined;
   userHomePage: string | undefined;

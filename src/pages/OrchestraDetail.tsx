@@ -48,7 +48,7 @@ export const OrchestraDetail: React.VFC = () => {
           <OrchestraDetailInfo orchestra={data} />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
-          <OrchestraMembers />
+          {data && <OrchestraMembers orchestra={data} />}
         </TabPanel>
         <TabPanel value={tabIndex} index={2}>
           <ConcertList concerts={concertData?.concerts} />
