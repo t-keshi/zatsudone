@@ -70,6 +70,7 @@ const defaultProps = {
   noLabel: 'キャンセル',
 };
 
+// ! このコンポーネントは使わずDialogCustomを使う
 export const ModalCustom = ({
   children,
   isModalOpen,

@@ -1,8 +1,8 @@
 import { TextField, TextFieldProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import 'cropperjs/dist/cropper.css';
-import React, { useRef } from 'react';
-import Cropper, { ReactCropperElement } from 'react-cropper';
+import React from 'react';
+import Cropper, { ReactCropperElement, ReactCropperProps } from 'react-cropper';
 
 interface StyleProps {
   isCircle?: boolean;
@@ -10,6 +10,8 @@ interface StyleProps {
 
 interface Props extends StyleProps {
   imageUrl: string;
+  cropperProps?: ReactCropperProps;
+  cropperRef: React.RefObject<ReactCropperElement>;
 }
 
 const CROPPER_HEIGHT = 380;
@@ -26,7 +28,9 @@ const useStyles = makeStyles((theme) => ({
   cropperWidth: {
     height: CROPPER_HEIGHT,
     width: '100%',
-    objectFit: 'contain',
+    '& img': {
+      objectFit: 'contain',
+    },
     '& .cropper-crop-box': {
       borderRadius: ({ isCircle }: StyleProps) => (isCircle ? '50%' : 0),
     },
@@ -41,10 +45,11 @@ const useStyles = makeStyles((theme) => ({
 export const FormImageField: React.VFC<Props & TextFieldProps> = ({
   imageUrl,
   isCircle = false,
+  cropperProps,
+  cropperRef,
   ...rest
 }) => {
   const classes = useStyles({ isCircle });
-  const cropperRef = useRef<ReactCropperElement>(null);
 
   return (
     <>
@@ -63,6 +68,8 @@ export const FormImageField: React.VFC<Props & TextFieldProps> = ({
           guides={false}
           zoomOnWheel={false}
           ref={cropperRef}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...cropperProps}
         />
         {/* </div> */}
       </div>

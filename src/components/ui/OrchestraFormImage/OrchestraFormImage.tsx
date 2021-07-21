@@ -4,20 +4,28 @@ import { CoverImage } from '../../helpers/CoverImage/CoverImage';
 import { OrchestraFormImageModal } from './OrchestraFormImageModal';
 
 interface Props {
-  image: string;
+  name: string;
+  coverImage: string;
+  orchestraId: string;
 }
 
-export const OrchestraFormImage: React.VFC<Props> = ({ image }) => {
+export const OrchestraFormImage: React.VFC<Props> = ({
+  name,
+  coverImage,
+  orchestraId,
+}) => {
   const [isModalOpen, handleIsModalOpen] = useToggle(false);
 
   return (
     <div>
       <CoverImage
-        title="大阪大学吹奏楽団"
-        image={image}
+        title={name}
+        image={coverImage}
         editModal={() => handleIsModalOpen(true)}
       />
       <OrchestraFormImageModal
+        name={name}
+        orchestraId={orchestraId}
         isModalOpen={isModalOpen}
         closeModal={() => handleIsModalOpen(false)}
       />

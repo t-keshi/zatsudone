@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import {
   useMutation,
   UseMutationOptions,
@@ -9,19 +10,14 @@ import { ConcertType } from '../../../types';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { participateConcert } from '../../database/participation/participateConcert';
 import { QUERY } from '../../entities/query';
+import { User } from '../user/useFetchUserInfo';
 
 interface ParticipationResponse {
   userSnippets: {
     uid: string;
     photoURL: string;
   };
-  concertSnippets: ConcertType;
 }
-interface ParticipationData {
-  participation: ParticipationResponse[];
-  isUserParticipants: boolean;
-}
-
 interface Variables {
   concert: ConcertType;
   toggle: 'add' | 'remove';
@@ -35,19 +31,22 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
   const handleApiError = useHandleApiError();
   const queryClient = useQueryClient();
   const params: { concertId: string } = useParams();
+  const { currentUser } = firebase.auth();
+  const userInfo: User | undefined = queryClient.getQueryData([QUERY.user]);
   const mutateFn = (variables: Variables) =>
     participateConcert({
       concert: variables.concert,
+      uid: currentUser?.uid ?? '',
+      photoURL: userInfo?.photoURL ?? '',
       toggle: variables.toggle,
     });
 
   return useMutation(mutateFn, {
     onMutate: async (variables: Variables) => {
       await queryClient.cancelQueries([QUERY.participation, params.concertId]);
-      const previousConcert = queryClient.getQueryData<ParticipationData>([
-        QUERY.participation,
-        params.concertId,
-      ]);
+      const previousConcert = queryClient.getQueryData<ParticipationResponse[]>(
+        [QUERY.participation, params.concertId],
+      );
 
       if (!previousConcert) {
         console.error(variables, 'error');
@@ -56,25 +55,27 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
       }
 
       if (variables.toggle === 'add') {
-        queryClient.setQueryData<ParticipationData>(
+        queryClient.setQueryData<ParticipationResponse[]>(
           [QUERY.participation, params.concertId],
-          {
-            participation: previousConcert.participation,
-            isUserParticipants: true,
-          },
-        );
-      } else {
-        queryClient.setQueryData<ParticipationData>(
-          [QUERY.participation, params.concertId],
-          {
-            participation: previousConcert.participation,
-            isUserParticipants: false,
-          },
+          [
+            ...previousConcert,
+            {
+              userSnippets: {
+                uid: currentUser?.uid ?? '',
+                photoURL: '',
+              },
+            },
+          ],
         );
       }
     },
-    onSettled: () =>
-      queryClient.invalidateQueries([QUERY.participation, params.concertId]),
+    onSettled: () => {
+      void queryClient.invalidateQueries([
+        QUERY.participation,
+        params.concertId,
+      ]);
+      void queryClient.invalidateQueries([QUERY.concert, params.concertId]);
+    },
     onError: (error: Error) =>
       handleApiError(error, 'コンサートの作成に失敗しました'),
     ...options,

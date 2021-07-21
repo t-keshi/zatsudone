@@ -1,11 +1,12 @@
 import { Box, Tab, Tabs } from '@material-ui/core';
 import { Add, InsertDriveFile } from '@material-ui/icons';
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
+import { useQueryClient } from 'react-query';
 import coverImage from '../assets/orchestraCover.jpg';
 import { ContainerSpacer } from '../components/helpers/ContainerSpacer/ContainerSpacer';
 import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
 import { NoItemMessage } from '../components/helpers/NoItemMessage/NoItemMessage';
+import { SwipeableViewsCustom } from '../components/helpers/SwipeableViewsCustom/SwipeableViewsCustom';
 import { TabPanel } from '../components/helpers/TabPanel/TabPanel';
 import { Layout } from '../components/layout/Layout';
 import { ConcertForm } from '../components/ui/ConcertForm/ConcertForm';
@@ -14,7 +15,9 @@ import { OrchestraFormImage } from '../components/ui/OrchestraFormImage/Orchestr
 import { MembersForm } from '../components/uiGroup/MembersForm/MembersForm';
 import { OrchestraForms } from '../components/uiGroup/OrchestraForms/OrchestraForms';
 import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
+import { useFetchOrchestra } from '../containers/controllers/orchestra/useFetchOrchestra';
 import { useFetchUserInfo } from '../containers/controllers/user/useFetchUserInfo';
+import { QUERY } from '../containers/entities/query';
 import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 import { useToggle } from '../utility/hooks/useToggle';
@@ -22,7 +25,15 @@ import { useToggle } from '../utility/hooks/useToggle';
 export const OrchestraManagement: React.VFC = () => {
   const { data } = useFetchConcerts();
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
-  const { data: userInfo } = useFetchUserInfo();
+  const queryClient = useQueryClient();
+  const { data: userInfo } = useFetchUserInfo({
+    onSuccess: (res) =>
+      queryClient.refetchQueries([QUERY.orchestra, res.managementOrchestraId]),
+  });
+  const { data: orchestraData } = useFetchOrchestra(
+    userInfo?.managementOrchestraId ?? '',
+    { enabled: userInfo?.managementOrchestraId !== undefined },
+  );
   const [isModalOpen, handleIsModalOpen] = useToggle(false);
 
   useTitle('SymphonyForum | 楽団運営');
@@ -54,7 +65,11 @@ export const OrchestraManagement: React.VFC = () => {
         </>
       ) : (
         <>
-          <OrchestraFormImage image={coverImage} />
+          <OrchestraFormImage
+            name={orchestraData?.name ?? ''}
+            orchestraId={orchestraData?.id ?? ''}
+            coverImage={orchestraData?.coverUrl ?? coverImage}
+          />
           <Tabs
             value={tabIndex}
             onChange={handleChangeTab}
@@ -65,14 +80,13 @@ export const OrchestraManagement: React.VFC = () => {
             <Tab label="メンバー" />
             <Tab label="演奏会" />
           </Tabs>
-          <Box mt={2} />
-          <SwipeableViews
-            axis="x"
+          <Box mt={1} />
+          <SwipeableViewsCustom
             index={tabIndex}
             onChangeIndex={handleChangeTabBySwipe}
           >
             <TabPanel value={tabIndex} index={0}>
-              <OrchestraForms />
+              {orchestraData && <OrchestraForms orchestra={orchestraData} />}
             </TabPanel>
             <TabPanel value={tabIndex} index={1}>
               <MembersForm />
@@ -80,7 +94,7 @@ export const OrchestraManagement: React.VFC = () => {
             <TabPanel value={tabIndex} index={2}>
               <ConcertForm concerts={data?.concerts} />
             </TabPanel>
-          </SwipeableViews>
+          </SwipeableViewsCustom>
         </>
       )}
     </Layout>

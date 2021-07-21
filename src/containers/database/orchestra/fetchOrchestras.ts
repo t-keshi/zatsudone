@@ -4,6 +4,7 @@ export interface Orchestra {
   id: string;
   name: string;
   description: string;
+  avatarUrl: string;
 }
 type Data = { orchestras: Orchestra[] };
 
@@ -19,6 +20,7 @@ export const fetchOrchestras = async (): Promise<Data> => {
       id: doc.id,
       name: data.name,
       description: data.description,
+      avatarUrl: data.avatarUrl,
     };
 
     return orchestra;

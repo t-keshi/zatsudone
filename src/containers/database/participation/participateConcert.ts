@@ -3,6 +3,8 @@ import { ConcertType } from '../../../types';
 
 interface Variables {
   concert: ConcertType;
+  uid: string;
+  photoURL: string;
   toggle: 'add' | 'remove';
 }
 
@@ -21,9 +23,6 @@ export const participateConcert = async (
   const participationRef = db.collection(
     'participation',
   ) as firebase.firestore.CollectionReference<Participation>;
-  const { currentUser } = firebase.auth();
-  const uid = currentUser?.uid ?? '';
-  const photoURL = currentUser?.photoURL ?? '';
   if (variables.toggle === 'add') {
     await participationRef.add({
       concertSnippets: {
@@ -37,13 +36,13 @@ export const participateConcert = async (
         orchestra: variables.concert.orchestra,
       },
       userSnippets: {
-        uid,
-        photoURL,
+        uid: variables.uid,
+        photoURL: variables.photoURL,
       },
     });
   } else {
     const participationItemRef = participationRef
-      .where('userSnippets.uid', '==', uid)
+      .where('userSnippets.uid', '==', variables.uid)
       .where('concertSnippets.id', '==', variables.concert.id);
     const querySnapshot = await participationItemRef.get();
     const queryDocumentSnapshot = querySnapshot.docs[0];

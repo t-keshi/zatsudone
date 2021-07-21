@@ -4,6 +4,7 @@ import {
   Container,
   IconButton,
   Toolbar,
+  Tooltip,
   Typography,
   useMediaQuery,
 } from '@material-ui/core';
@@ -82,18 +83,20 @@ export const ConcertReactionButtons: React.VFC<Props> = ({
               />
               <Typography variant="caption">{likesCount}</Typography>
               <Box ml={2} />
-              <IconButton
-                className={classes.iconButton}
-                color={isUserParticipants ? 'primary' : 'default'}
-                onClick={() =>
-                  participate({
-                    concert,
-                    toggle: isUserParticipants ? 'remove' : 'add',
-                  })
-                }
-              >
-                <EventAvailable />
-              </IconButton>
+              <Tooltip title="来場予定">
+                <IconButton
+                  className={classes.iconButton}
+                  color={isUserParticipants ? 'primary' : 'default'}
+                  onClick={() =>
+                    participate({
+                      concert,
+                      toggle: isUserParticipants ? 'remove' : 'add',
+                    })
+                  }
+                >
+                  <EventAvailable />
+                </IconButton>
+              </Tooltip>
               <Typography variant="caption">{participantsCount}</Typography>
             </div>
           </Container>
@@ -108,18 +111,20 @@ export const ConcertReactionButtons: React.VFC<Props> = ({
         <LikeIconButton isLike={isUserLike} toggleIsLike={() => mutate()} />
         <Typography variant="caption">{likesCount}</Typography>
         <Box mt={2} />
-        <IconButton
-          className={classes.iconButton}
-          color={isUserParticipants ? 'primary' : 'default'}
-          onClick={() =>
-            participate({
-              concert,
-              toggle: isUserParticipants ? 'remove' : 'add',
-            })
-          }
-        >
-          <EventAvailable />
-        </IconButton>
+        <Tooltip title="来場予定">
+          <IconButton
+            className={classes.iconButton}
+            color={isUserParticipants ? 'primary' : 'default'}
+            onClick={() =>
+              participate({
+                concert,
+                toggle: isUserParticipants ? 'remove' : 'add',
+              })
+            }
+          >
+            <EventAvailable />
+          </IconButton>
+        </Tooltip>
         <Typography variant="caption">{participantsCount}</Typography>
       </div>
     </div>

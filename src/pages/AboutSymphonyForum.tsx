@@ -81,10 +81,18 @@ export const AboutSymphonyForum: React.VFC = () => {
           <br />
           Symphony
           Forumでは演奏会を告知したり、日程を調べたり、そして音楽について語り合ったりすることができます。
-          さっそく、登録してみましょう
+          さっそく、初めてみましょう
         </Typography>
       </Box>
       <div className={classes.buttonWrapper}>
+        <Button
+          color="default"
+          variant="text"
+          size="large"
+          onClick={() => history.push(ROUTE_PATHS.近日中のコンサート)}
+        >
+          登録しないではじめる
+        </Button>
         <Button size="large" onClick={() => history.push(ROUTE_PATHS.新規登録)}>
           SignUp
         </Button>

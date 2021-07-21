@@ -1,80 +1,144 @@
-import { Box, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Tab, Tabs } from '@material-ui/core';
 import 'cropperjs/dist/cropper.css';
-import React, { useRef } from 'react';
-import Cropper, { ReactCropperElement } from 'react-cropper';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import imageNotFound from '../../../assets/imageNotFound.jpeg';
 import { useUploadCoverImage } from '../../../containers/controllers/orchestra/useUploadCoverImage';
+import { useCropper } from '../../../utility/hooks/useCropper';
 import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
-import { ModalCustom } from '../../helpers/ModalCustom/ModalCustom';
+import { useTab } from '../../../utility/hooks/useTab';
+import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
+import { FormImageField } from '../../helpers/FormTextField/FormImageField';
+import { FormTextField } from '../../helpers/FormTextField/FormTextField';
+import { SwipeableViewsCustom } from '../../helpers/SwipeableViewsCustom/SwipeableViewsCustom';
+import { TabPanel } from '../../helpers/TabPanel/TabPanel';
 
 interface Props {
   isModalOpen: boolean;
   closeModal: () => void;
+  name: string;
+  orchestraId: string;
 }
 
-const CROPPER_WIDTH = 400;
-const CROPPER_HEIGHT = 400;
+interface FormValues {
+  name: string;
+}
 
-const useStyles = makeStyles((theme) => ({
-  image: {
-    objectFit: 'contain',
-    height: CROPPER_HEIGHT,
-    width: '100%',
-  },
-  cropperWrapper: {
-    marginTop: theme.spacing(2),
-    minHeight: '60vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cropperWidth: {
-    maxWidth: CROPPER_WIDTH,
-  },
-}));
+const schema: yup.SchemaOf<FormValues> = yup.object().shape({
+  name: yup.string().min(1).max(30).required(),
+});
 
 export const OrchestraFormImageModal: React.VFC<Props> = ({
   isModalOpen,
   closeModal,
+  name,
+  orchestraId,
 }) => {
-  const classes = useStyles();
-  const cropperRef = useRef<ReactCropperElement>(null);
-  const [{ imageName, imageDataUrl }, handleUploadImage] = useImageTransmit();
+  const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
+  // coverImage
+  const [{ imageDataUrl: coverImageDataUrl }, handleTransmitCoverImage] =
+    useImageTransmit();
+  const [
+    { cropperRef: coverCropperRef, croppedFile: coverImage },
+    handleCoverImageCrop,
+  ] = useCropper();
+  // avatar
+  const [{ imageDataUrl: avatarImageDataUrl }, handleTransmitAvatarImage] =
+    useImageTransmit();
+  const [
+    { cropperRef: avatarCropperRef, croppedFile: avatarImage },
+    handleAvatarImageCrop,
+  ] = useCropper();
+  // mutation
   const { mutate } = useUploadCoverImage();
-  const onSubmit = () => {
-    mutate({ imageName, imageDataUrl: imageDataUrl as string });
-  };
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit = handleSubmit((data) => {
+    mutate({
+      name: data.name,
+      orchestraId,
+      avatarImage: avatarImageDataUrl ? avatarImage : undefined,
+      coverImage: coverImageDataUrl ? coverImage : undefined,
+    });
+  });
 
   return (
-    <ModalCustom
+    <DialogCustom
       variant="standard"
       title="カバー写真"
-      isModalOpen={isModalOpen}
-      closeModal={closeModal}
+      open={isModalOpen}
+      onClose={closeModal}
       yesButtonProps={{ onClick: onSubmit }}
-      noButtonProps={{ onClick: closeModal }}
-      modalWidth={500}
+      maxWidth="sm"
     >
       <Box>
-        <TextField
-          type="file"
-          onChange={handleUploadImage}
-          inputProps={{ accept: 'image/png, image/jpeg' }}
+        <FormTextField
+          control={control}
+          name="name"
+          margin="normal"
+          fullWidth
+          label="演奏会のタイトル"
+          defaultValue={name}
+          errorMessage={errors.name?.message}
         />
-        <Box className={classes.cropperWrapper}>
-          <Box className={classes.cropperWidth}>
-            <Cropper
-              src={imageDataUrl}
-              aspectRatio={3 / 1}
-              guides={false}
-              zoomOnWheel={false}
-              minContainerWidth={CROPPER_WIDTH}
-              minContainerHeight={CROPPER_HEIGHT}
-              ref={cropperRef}
+        <Tabs
+          value={tabIndex}
+          onChange={handleChangeTab}
+          indicatorColor="secondary"
+          textColor="secondary"
+          variant="fullWidth"
+        >
+          <Tab label="楽団アバター" />
+          <Tab label="カバー写真" />
+        </Tabs>
+        <SwipeableViewsCustom
+          index={tabIndex}
+          onChangeIndex={handleChangeTabBySwipe}
+        >
+          <TabPanel value={tabIndex} index={0} gutter={false} unmountOnSwitch>
+            <FormImageField
+              imageUrl={avatarImageDataUrl ?? imageNotFound}
+              label="楽団アバター"
+              margin="normal"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{ accept: 'image/png, image/jpeg' }}
+              onChange={handleTransmitAvatarImage}
+              cropperProps={{
+                crop: handleAvatarImageCrop,
+              }}
+              cropperRef={avatarCropperRef}
             />
-          </Box>
-        </Box>
+          </TabPanel>
+          <TabPanel value={tabIndex} index={1} gutter={false} unmountOnSwitch>
+            <FormImageField
+              imageUrl={coverImageDataUrl ?? imageNotFound}
+              label="カバー写真"
+              margin="normal"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{ accept: 'image/png, image/jpeg' }}
+              onChange={handleTransmitCoverImage}
+              cropperProps={{
+                aspectRatio: 3 / 1,
+                crop: handleCoverImageCrop,
+              }}
+              cropperRef={coverCropperRef}
+            />
+          </TabPanel>
+        </SwipeableViewsCustom>
       </Box>
-    </ModalCustom>
+    </DialogCustom>
   );
 };

@@ -1,5 +1,4 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { useParams } from 'react-router-dom';
 import { fetchOrchestra } from '../../database/orchestra/fetchOrchestra';
 import { QUERY } from '../../entities/query';
 
@@ -11,15 +10,17 @@ export interface Orchestra {
   conductor: string;
   subConductor: string;
   homePage: string;
+  coverUrl: string;
+  avatarUrl: string;
+  notifications: string[];
 }
 type Data = Orchestra;
 type UseFetchOrchestra = (
+  orchestraId: string,
   options?: UseQueryOptions<Data, unknown, Data, [string, string]>,
 ) => UseQueryResult<Data, unknown>;
 
-export const useFetchOrchestra: UseFetchOrchestra = (options) => {
-  const params: { orchestraId: string } = useParams();
-  const { orchestraId } = params;
+export const useFetchOrchestra: UseFetchOrchestra = (orchestraId, options) => {
   const queryFn = () => fetchOrchestra(orchestraId);
 
   return useQuery([QUERY.orchestra, orchestraId], queryFn, {

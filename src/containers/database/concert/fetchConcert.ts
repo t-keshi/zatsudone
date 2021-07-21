@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { ConcertResponse } from '../../../types';
 
 export const fetchConcert = async (

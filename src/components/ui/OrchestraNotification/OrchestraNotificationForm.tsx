@@ -1,51 +1,90 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, List, ListItem, ListItemText } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import {
+  Box,
+  Button,
+  IconButton,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+} from '@material-ui/core';
+import { Add, Close } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useEditOrchestraNotification } from '../../../containers/controllers/orchestra/useEditOrchestraNotification';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
+interface Props {
+  orchestraId: string;
+  notifications: string[];
+}
 interface FormValues {
-  newNotification: string;
+  notification: string;
 }
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  newNotification: yup.string().required(),
+  notification: yup.string().required(),
 });
 
-export const OrchestraNotificationForm: React.VFC = () => {
+export const OrchestraNotificationForm: React.VFC<Props> = ({
+  orchestraId,
+  notifications,
+}) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
-  const onSubmit = (data: unknown) => console.log(data);
-  const news = ['ファゴット募集中！', 'サマーコンサートの受付を開始しました'];
+  const { mutate } = useEditOrchestraNotification();
+  const onSubmit = handleSubmit((data: FormValues) => {
+    mutate({
+      orchestraId,
+      notification: data.notification,
+      manipulation: 'add',
+    });
+    reset();
+  });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <SubHeading variant="h5" gutterBottom>
         お知らせ
       </SubHeading>
       <List>
-        {news.map((newsItem) => (
-          <ListItem dense key={newsItem}>
-            <ListItemText primary={newsItem} />
-          </ListItem>
-        ))}
+        {notifications &&
+          notifications.reverse().map((notification) => (
+            <ListItem dense key={notification}>
+              <ListItemText primary={notification} />
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  onClick={() =>
+                    mutate({
+                      orchestraId,
+                      notification,
+                      manipulation: 'delete',
+                    })
+                  }
+                >
+                  <Close />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
       </List>
       <Box display="flex">
         <FormTextField
           control={control}
-          name="newNotification"
+          name="notification"
           variant="standard"
           placeholder="お知らせ"
-          errorMessage={errors.newNotification?.message}
+          errorMessage={errors.notification?.message}
         />
         <Box ml={2} />
-        <Button startIcon={<Add />} size="small">
+        <Button startIcon={<Add />} size="small" onClick={onSubmit}>
           追加する
         </Button>
       </Box>

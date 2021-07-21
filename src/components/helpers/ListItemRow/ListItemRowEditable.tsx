@@ -3,6 +3,7 @@ import {
   Button,
   IconButton,
   ListItem,
+  TextFieldProps,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,10 +19,12 @@ interface StyleProps {
 
 interface Props<TFieldValues> extends StyleProps {
   label: string;
-  value: string;
+  defaultValue: TextFieldProps['defaultValue'];
   control: Control<TFieldValues>;
   name: Path<TFieldValues>;
   errorMessage: string | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSave: (...args: any) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -46,11 +49,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const ListItemRowEditable = <TFieldValues extends FieldValues>({
   label,
-  value,
+  defaultValue,
   control,
   name,
   errorMessage,
   rowWidth,
+  onSave,
 }: Props<TFieldValues>): React.ReactElement => {
   const classes = useStyles({ rowWidth });
   const [isEditMode, handleIsEditMode] = useToggle(false);
@@ -65,7 +69,7 @@ export const ListItemRowEditable = <TFieldValues extends FieldValues>({
           {!isEditMode ? (
             <>
               <Typography variant="body2" color="textSecondary">
-                {value}
+                {defaultValue as React.ReactText}
               </Typography>
               <IconButton
                 className={classes.editButton}
@@ -81,7 +85,7 @@ export const ListItemRowEditable = <TFieldValues extends FieldValues>({
                 autoFocus
                 size="small"
                 variant="standard"
-                defaultValue={value}
+                defaultValue={defaultValue}
                 control={control}
                 name={name}
                 errorMessage={errorMessage}
@@ -93,7 +97,14 @@ export const ListItemRowEditable = <TFieldValues extends FieldValues>({
               >
                 <Close />
               </IconButton>
-              <Button size="small" className={classes.editButton}>
+              <Button
+                size="small"
+                className={classes.editButton}
+                onClick={() => {
+                  onSave();
+                  handleIsEditMode(false);
+                }}
+              >
                 保存
               </Button>
             </>

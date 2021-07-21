@@ -6,6 +6,7 @@ export interface Orchestra {
   id: string;
   name: string;
   description: string;
+  avatarUrl: string;
 }
 type Data = { orchestras: Orchestra[] };
 type UseFetchConcerts = (
