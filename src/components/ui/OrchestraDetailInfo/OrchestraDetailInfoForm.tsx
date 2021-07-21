@@ -44,7 +44,6 @@ export const OrchestraDetailInfoForm: React.VFC<Props> = ({
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
   const { mutate } = useUpdateOrchestra();
   const onSubmit = handleSubmit((data: FormValues) => {
-    console.log(data);
     mutate({
       orchestraId,
       membersCount: data?.membersCount ?? undefined,

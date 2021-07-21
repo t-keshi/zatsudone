@@ -44,7 +44,6 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
   } = useForm<FormValues>();
   const { mutate: updateUserInfo } = useUpdateUserInfo();
   const onSubmit = handleSubmit((formData) => {
-    console.log(formData);
     updateUserInfo({ profile: formData.profile, part: formData.part });
   });
 

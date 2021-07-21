@@ -27,8 +27,6 @@ export const ConcertParticipants: React.VFC<Props> = ({ participants }) => {
   const classes = useStyles();
   const history = useHistory();
 
-  console.log(ROUTE_PATHS.プロフィール);
-
   return (
     <>
       <SubHeading variant="h5" paragraph>

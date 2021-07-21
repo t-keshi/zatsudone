@@ -54,7 +54,7 @@ export const AboutSymphonyForum: React.VFC = () => {
   const classes = useStyles();
   const history = useHistory();
 
-  useTitle('SymphonyForum | ログイン');
+  useTitle('SymphonyForum | SymphonyForumとは？');
 
   return (
     <div className={classes.gridWrapper}>
