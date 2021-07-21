@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, ButtonBase, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useBelongOrchestra } from '../../../containers/controllers/belong/useBelongOrchestra';
 import { useFetchMembers } from '../../../containers/controllers/belong/useFetchMembers';
 import { Orchestra } from '../../../containers/controllers/orchestra/useFetchOrchestra';
@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
 export const OrchestraMembers: React.VFC<Props> = ({ orchestra }) => {
   const classes = useStyles();
   const history = useHistory();
-  const { data } = useFetchMembers();
+  const params: { orchestraId: string } = useParams();
+  const { data } = useFetchMembers(params.orchestraId);
   const { mutate } = useBelongOrchestra();
 
   return (

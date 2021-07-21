@@ -5,10 +5,12 @@ import {
 } from 'react-query';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { createOrchestra } from '../../database/orchestra/createOrchestra';
+import { Prefecture } from '../../entities/prefectures';
 
 interface Variables {
   name: string;
   description: string;
+  prefecture: Prefecture;
 }
 type Data = unknown;
 type UseCreateOrchestra = (

@@ -121,12 +121,6 @@ export const DialogCustom = ({
             yesLabel={rest.yesLabel}
             yesButtonProps={{
               ...rest.yesButtonProps,
-              onClick: (e) => {
-                if (rest.yesButtonProps.onClick) {
-                  rest.yesButtonProps.onClick(e);
-                }
-                onClose();
-              },
             }}
             noLabel={rest.noLabel}
             noButtonProps={{ onClick: onClose, ...rest.noButtonProps }}

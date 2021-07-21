@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { useParams } from 'react-router-dom';
 import { fetchMembers } from '../../database/belong/fetchMembers';
 import { QUERY } from '../../entities/query';
 
@@ -24,12 +23,11 @@ type Data = {
   isUserBelong: boolean;
 };
 type UseFetchMembers = (
+  orchestraId: string,
   options?: UseQueryOptions<FnData, unknown, Data, [string, string]>,
 ) => UseQueryResult<Data, unknown>;
 
-export const useFetchMembers: UseFetchMembers = (options) => {
-  const params: { orchestraId: string } = useParams();
-  const { orchestraId } = params;
+export const useFetchMembers: UseFetchMembers = (orchestraId, options) => {
   const { currentUser } = firebase.auth();
   const uid = currentUser?.uid ?? undefined;
 

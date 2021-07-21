@@ -12,7 +12,7 @@ import { Layout } from '../components/layout/Layout';
 import { ConcertForm } from '../components/ui/ConcertForm/ConcertForm';
 import { OrchestraFormModal } from '../components/ui/OrchestraForm/OrchestraFormModal';
 import { OrchestraFormImage } from '../components/ui/OrchestraFormImage/OrchestraFormImage';
-import { MembersForm } from '../components/uiGroup/MembersForm/MembersForm';
+import { OrchestraMembersForm } from '../components/ui/OrchestraMembers/OrchestraMembersForm';
 import { OrchestraForms } from '../components/uiGroup/OrchestraForms/OrchestraForms';
 import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
 import { useFetchOrchestra } from '../containers/controllers/orchestra/useFetchOrchestra';
@@ -89,7 +89,9 @@ export const OrchestraManagement: React.VFC = () => {
               {orchestraData && <OrchestraForms orchestra={orchestraData} />}
             </TabPanel>
             <TabPanel value={tabIndex} index={1}>
-              <MembersForm />
+              {orchestraData && (
+                <OrchestraMembersForm orchestraId={orchestraData.id} />
+              )}
             </TabPanel>
             <TabPanel value={tabIndex} index={2}>
               <ConcertForm concerts={data?.concerts} />
