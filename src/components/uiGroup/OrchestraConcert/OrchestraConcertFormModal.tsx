@@ -39,7 +39,7 @@ const schema: yup.SchemaOf<FormValues> = yup.object().shape({
     .of(yup.object().shape({ symphony: yup.string().required() })),
 });
 
-export const ConcertFormModal: React.VFC<Props> = ({
+export const OrchestraConcertFormModal: React.VFC<Props> = ({
   isModalOpen,
   handleIsModalOpen,
 }) => {

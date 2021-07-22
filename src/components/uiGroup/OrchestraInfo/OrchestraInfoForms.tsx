@@ -9,7 +9,7 @@ interface Props {
   orchestra: Orchestra;
 }
 
-export const OrchestraForms: React.VFC<Props> = ({ orchestra }) => (
+export const OrchestraInfoForms: React.VFC<Props> = ({ orchestra }) => (
   <>
     <OrchestraDescriptionForm
       orchestraId={orchestra.id}

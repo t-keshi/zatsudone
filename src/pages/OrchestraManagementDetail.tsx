@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from '@material-ui/core';
+import { Box, CircularProgress, Tab, Tabs } from '@material-ui/core';
 import React from 'react';
 import { useQueryClient } from 'react-query';
 import coverImage from '../assets/orchestraCover.jpg';
@@ -7,11 +7,10 @@ import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader
 import { SwipeableViewsCustom } from '../components/helpers/SwipeableViewsCustom/SwipeableViewsCustom';
 import { TabPanel } from '../components/helpers/TabPanel/TabPanel';
 import { Layout } from '../components/layout/Layout';
-import { ConcertForm } from '../components/ui/ConcertForm/ConcertForm';
 import { OrchestraFormImage } from '../components/ui/OrchestraFormImage/OrchestraFormImage';
-import { OrchestraMembersForm } from '../components/ui/OrchestraMembers/OrchestraMembersForm';
-import { OrchestraForms } from '../components/uiGroup/OrchestraForms/OrchestraForms';
-import { useFetchConcerts } from '../containers/controllers/concert/useFetchConcerts';
+import { OrchestraConcertForm } from '../components/uiGroup/OrchestraConcert/OrchestraConcertForm';
+import { OrchestraInfoForms } from '../components/uiGroup/OrchestraInfo/OrchestraInfoForms';
+import { OrchestraMembersForm } from '../components/uiGroup/OrchestraMembers/OrchestraMembersForm';
 import { useFetchOrchestra } from '../containers/controllers/orchestra/useFetchOrchestra';
 import { User } from '../containers/controllers/user/useFetchUserInfo';
 import { QUERY } from '../containers/entities/query';
@@ -19,7 +18,6 @@ import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const OrchestraManagementDetail: React.VFC = () => {
-  const { data } = useFetchConcerts();
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
   const queryClient = useQueryClient();
   const userInfo: User | undefined = queryClient.getQueryData([QUERY.user]);
@@ -60,15 +58,17 @@ export const OrchestraManagementDetail: React.VFC = () => {
           onChangeIndex={handleChangeTabBySwipe}
         >
           <TabPanel value={tabIndex} index={0}>
-            {orchestraData && <OrchestraForms orchestra={orchestraData} />}
-          </TabPanel>
-          <TabPanel value={tabIndex} index={1}>
-            {orchestraData && (
-              <OrchestraMembersForm orchestraId={orchestraData.id} />
+            {!orchestraData ? (
+              <CircularProgress />
+            ) : (
+              <OrchestraInfoForms orchestra={orchestraData} />
             )}
           </TabPanel>
+          <TabPanel value={tabIndex} index={1}>
+            <OrchestraMembersForm />
+          </TabPanel>
           <TabPanel value={tabIndex} index={2}>
-            <ConcertForm concerts={data?.concerts} />
+            <OrchestraConcertForm />
           </TabPanel>
         </SwipeableViewsCustom>
       </>
