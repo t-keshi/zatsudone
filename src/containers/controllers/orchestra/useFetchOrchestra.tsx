@@ -1,11 +1,14 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { fetchOrchestra } from '../../database/orchestra/fetchOrchestra';
+import { Prefecture } from '../../entities/prefectures';
 import { QUERY } from '../../entities/query';
 
 export interface Orchestra {
   id: string;
   name: string;
+  prefecture: Prefecture;
   description: string;
+  managementUserId: string;
   membersCount: number;
   conductor: string;
   subConductor: string;

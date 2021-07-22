@@ -12,6 +12,8 @@ import { QUERY } from '../../entities/query';
 interface Variables {
   displayName: string;
   image?: File;
+  uid?: string;
+  newUser?: boolean;
 }
 type Data = unknown;
 type UseUpdateUserInfo = (
@@ -22,14 +24,22 @@ export const useUpdateUserProfile: UseUpdateUserInfo = (options) => {
   const handleApiError = useHandleApiError();
   const queryClient = useQueryClient();
   const { currentUser } = firebase.auth();
-  const uid = currentUser?.uid ?? '';
 
   return useMutation(
-    (variables: Variables) => updateUserProfile({ ...variables, uid }),
+    (variables: Variables) =>
+      updateUserProfile({
+        ...variables,
+        uid: variables.uid ?? currentUser?.uid ?? '',
+      }),
     {
       onSettled: () => queryClient.invalidateQueries([QUERY.user]),
-      onError: (error: Error) =>
-        handleApiError(error, 'プロフィールの更新に失敗しました'),
+      onError: (error: Error, variables: Variables) => {
+        if (!variables.newUser) {
+          handleApiError(error, 'プロフィールの更新に失敗しました');
+        }
+
+        return console.error(error);
+      },
       ...options,
     },
   );

@@ -25,5 +25,11 @@ export const createConcert = async (variables: Variables): Promise<void> => {
     symphonies: variables.symphonies,
     orchestra: variables.orchestra,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    programs: null,
+    openAt: null,
+    startAt: null,
+    closeAt: null,
+    likes: [],
+    participants: [],
   });
 };

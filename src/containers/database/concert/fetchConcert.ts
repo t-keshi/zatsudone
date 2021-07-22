@@ -30,9 +30,7 @@ export const fetchConcert = async (
     startAt: (data.startAt as unknown as firebase.firestore.Timestamp).toDate(),
     closeAt: (data.closeAt as unknown as firebase.firestore.Timestamp).toDate(),
     likes: data.likes,
-    likesCount: data.likesCount,
     participants: data.participants,
-    participantsCount: data.participantsCount,
     orchestra: data.orchestra,
   };
 

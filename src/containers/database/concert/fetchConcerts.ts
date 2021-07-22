@@ -7,7 +7,6 @@ interface Variables {
   orderBy?: OrderBy;
   prefecture?: Prefecture;
 }
-
 interface FetchConcertsReturnType {
   concerts: ConcertsResponse['concerts'];
   lastConcert: firebase.firestore.QueryDocumentSnapshot<ConcertType>;

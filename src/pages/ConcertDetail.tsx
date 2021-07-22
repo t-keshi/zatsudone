@@ -40,7 +40,7 @@ export const ConcertDetail: React.VFC = () => {
       {data !== undefined && (
         <ConcertReactionButtons
           isUserLike={data.isUserLike}
-          likesCount={data.likesCount}
+          likesCount={data.likes.length}
           isUserParticipants={participantsData?.isUserParticipants ?? false}
           participantsCount={data.participantsCount}
           concert={data}

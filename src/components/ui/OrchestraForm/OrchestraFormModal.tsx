@@ -1,10 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box } from '@material-ui/core';
+import { Box, MenuItem } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useBelongOrchestra } from '../../../containers/controllers/belong/useBelongOrchestra';
 import { useCreateOrchestra } from '../../../containers/controllers/orchestra/useCreateOrchestra';
+import {
+  Prefecture,
+  PREFECTURES,
+} from '../../../containers/entities/prefectures';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
+import { FormSelect } from '../../helpers/FormTextField/FormSelect';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
 
 interface Props {
@@ -14,11 +20,13 @@ interface Props {
 
 export interface FormValues {
   name: string;
+  prefecture: Prefecture;
   description: string;
 }
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   name: yup.string().min(1).max(30).required(),
+  prefecture: yup.mixed().oneOf(Object.keys(PREFECTURES)).required(),
   description: yup.string().min(1).max(300).required(),
 });
 
@@ -28,17 +36,25 @@ export const OrchestraFormModal: React.VFC<Props> = ({
 }) => {
   const {
     control,
+    register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  const { mutate } = useCreateOrchestra();
-  const onSubmit = handleSubmit((data: FormValues) => {
-    const { name, description } = data;
-
-    return mutate({ name, description });
+  const { mutate: belong } = useBelongOrchestra();
+  const { mutate } = useCreateOrchestra({
+    onSuccess: (res) => belong({ orchestra: res, toggle: 'add' }),
   });
+  const onSubmit = handleSubmit((data: FormValues) => {
+    console.log(data);
+    const { name, description, prefecture } = data;
+    void mutate({ name, description, prefecture });
+
+    return closeModal();
+  });
+  const prefectures = Object.keys(PREFECTURES) as Prefecture[];
 
   return (
     <form onSubmit={onSubmit}>
@@ -48,10 +64,7 @@ export const OrchestraFormModal: React.VFC<Props> = ({
         open={isModalOpen}
         onClose={closeModal}
         yesButtonProps={{
-          onClick: () => {
-            void onSubmit();
-            closeModal();
-          },
+          onClick: onSubmit,
         }}
         noButtonProps={{ onClick: closeModal }}
         maxWidth="sm"
@@ -65,6 +78,26 @@ export const OrchestraFormModal: React.VFC<Props> = ({
           errorMessage={errors.name?.message}
         />
         <Box mt={1} />
+        <FormSelect<FormValues>
+          label="拠点"
+          name="prefecture"
+          errorMessage={errors.prefecture?.message}
+          register={register}
+          formControlProps={{ fullWidth: true }}
+          selectProps={{
+            fullWidth: true,
+            onChange: (e) =>
+              setValue('prefecture', e.target.value as Prefecture),
+          }}
+        >
+          <MenuItem value="すべて">すべて</MenuItem>
+          {prefectures.map((prefecture) => (
+            <MenuItem key={prefecture} value={prefecture}>
+              {prefecture}
+            </MenuItem>
+          ))}
+        </FormSelect>
+        <Box mt={1} />
         <FormTextField
           control={control}
           name="description"
@@ -74,7 +107,7 @@ export const OrchestraFormModal: React.VFC<Props> = ({
           fullWidth
           multiline
           rows={4}
-          errorMessage={errors.name?.message}
+          errorMessage={errors.description?.message}
         />
       </DialogCustom>
     </form>

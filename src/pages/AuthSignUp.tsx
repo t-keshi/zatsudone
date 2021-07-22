@@ -5,6 +5,7 @@ import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { ButtonProgress } from '../components/helpers/ButtonProgress/ButtonProgress';
 import { DividerWithText } from '../components/helpers/DividerWithText/DividerWithText';
 import { FormTextField } from '../components/helpers/FormTextField/FormTextField';
 import { FacebookButton } from '../components/helpers/OAuthButtons/FacebookButton';
@@ -13,7 +14,9 @@ import { TwitterButton } from '../components/helpers/OAuthButtons/TwitterButton'
 import { TopLayout } from '../components/layout/TopLayout';
 import { useSignUp } from '../containers/controllers/authentication/useSignUp';
 import { useSocialLogIn } from '../containers/controllers/authentication/useSocialLogIn';
+import { useUpdateUserProfile } from '../containers/controllers/user/useUpdateUserProfile';
 import { ROUTE_PATHS } from '../routes/type';
+import { asyncDelay } from '../utility/asyncDelay';
 import { useRouter } from '../utility/hooks/useRouter';
 import { useTitle } from '../utility/hooks/useTitle';
 
@@ -24,18 +27,12 @@ interface FormValues {
 }
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  displayName: yup.string().max(12).required(),
+  displayName: yup.string().min(1).max(12).required(),
   email: yup
     .string()
     .email('メールアドレスの形式が正しくありません')
     .required(),
-  password: yup
-    .string()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/gm,
-      '半角英字、数字、記号を組み合わせて 8 文字以上で入力してください',
-    )
-    .required(),
+  password: yup.string().min(4).required(),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -59,10 +56,18 @@ export const AuthSignup: React.VFC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  const { mutate } = useSignUp();
+  const { mutateAsync: profileUpdate } = useUpdateUserProfile({ retry: 10 });
+  const { mutateAsync, isLoading } = useSignUp();
   const { mutate: socialLogIn } = useSocialLogIn();
-  const onSubmit = (formValues: FormValues) => {
-    mutate(formValues);
+  const onSubmit = async (formValues: FormValues) => {
+    const { user } = await mutateAsync(formValues);
+    // NOTE: cloudFunction の発火を待つ
+    await asyncDelay(1000);
+    await profileUpdate({
+      uid: user?.uid ?? undefined,
+      displayName: formValues.displayName,
+      newUser: true,
+    });
   };
 
   useTitle('SymphonyForum | ログイン');
@@ -120,7 +125,9 @@ export const AuthSignup: React.VFC = () => {
                   >
                     ログイン
                   </Button>
-                  <Button type="submit">新規登録</Button>
+                  <ButtonProgress isLoading={isLoading} type="submit">
+                    新規登録
+                  </ButtonProgress>
                 </Box>
                 <DividerWithText>OR</DividerWithText>
                 <div className={classes.oauthWrapper}>
