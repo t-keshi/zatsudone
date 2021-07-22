@@ -1,9 +1,12 @@
 import firebase from 'firebase/app';
+import { Prefecture } from '../../entities/prefectures';
 
 interface Orchestra {
   id: string;
   name: string;
+  prefecture: Prefecture;
   description: string;
+  managementUserId: string;
   membersCount: number;
   conductor: string;
   subConductor: string;
@@ -26,7 +29,9 @@ export const fetchOrchestra = async (
   const orchestra: Orchestra = {
     id,
     name: data.name,
+    prefecture: data.prefecture,
     description: data.description,
+    managementUserId: data.managementUserId,
     membersCount: data.membersCount,
     conductor: data.conductor,
     subConductor: data.subConductor,

@@ -20,12 +20,10 @@ export const toggleFavorite = async (variables: Variables): Promise<void> => {
   if (variables.toggle === 'add') {
     await concertRef.update({
       likes: firebase.firestore.FieldValue.arrayUnion(variables.uid),
-      likesCount: firebase.firestore.FieldValue.increment(1),
     });
   } else {
     await concertRef.update({
       likes: firebase.firestore.FieldValue.arrayRemove(variables.uid),
-      likesCount: firebase.firestore.FieldValue.increment(-1),
     });
   }
 };

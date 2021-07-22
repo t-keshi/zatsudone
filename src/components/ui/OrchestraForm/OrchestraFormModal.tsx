@@ -3,6 +3,7 @@ import { Box, MenuItem } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useBelongOrchestra } from '../../../containers/controllers/belong/useBelongOrchestra';
 import { useCreateOrchestra } from '../../../containers/controllers/orchestra/useCreateOrchestra';
 import {
   Prefecture,
@@ -25,7 +26,7 @@ export interface FormValues {
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   name: yup.string().min(1).max(30).required(),
-  prefecture: yup.mixed<Prefecture>().required(),
+  prefecture: yup.mixed().oneOf(Object.keys(PREFECTURES)).required(),
   description: yup.string().min(1).max(300).required(),
 });
 
@@ -37,12 +38,17 @@ export const OrchestraFormModal: React.VFC<Props> = ({
     control,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  const { mutate } = useCreateOrchestra();
+  const { mutate: belong } = useBelongOrchestra();
+  const { mutate } = useCreateOrchestra({
+    onSuccess: (res) => belong({ orchestra: res, toggle: 'add' }),
+  });
   const onSubmit = handleSubmit((data: FormValues) => {
+    console.log(data);
     const { name, description, prefecture } = data;
     void mutate({ name, description, prefecture });
 
@@ -78,7 +84,11 @@ export const OrchestraFormModal: React.VFC<Props> = ({
           errorMessage={errors.prefecture?.message}
           register={register}
           formControlProps={{ fullWidth: true }}
-          selectProps={{ fullWidth: true }}
+          selectProps={{
+            fullWidth: true,
+            onChange: (e) =>
+              setValue('prefecture', e.target.value as Prefecture),
+          }}
         >
           <MenuItem value="すべて">すべて</MenuItem>
           {prefectures.map((prefecture) => (

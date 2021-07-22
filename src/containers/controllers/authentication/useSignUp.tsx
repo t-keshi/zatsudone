@@ -13,7 +13,7 @@ interface Variables {
   email: string;
   password: string;
 }
-type Data = unknown;
+type Data = firebase.auth.UserCredential;
 type UseSignUp = (
   options?: UseMutationOptions<Data, Error, Variables>,
 ) => UseMutationResult<Data, Error, Variables>;
@@ -29,13 +29,12 @@ export const useSignUp: UseSignUp = (options) => {
         .createUserWithEmailAndPassword(variables.email, variables.password);
       const { currentUser } = firebase.auth();
       if (user) {
-        return (
-          currentUser?.updateProfile({ displayName: variables.displayName }) ??
-          console.warn('damn!')
-        );
+        currentUser?.updateProfile({
+          displayName: variables.displayName,
+        });
       }
 
-      return console.warn('note');
+      return user;
     },
     {
       onSuccess: () => history.push(ROUTE_PATHS.近日中のコンサート),

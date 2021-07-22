@@ -53,7 +53,6 @@ export const useToggleFavorite: UseToggleFavorite = (options) => {
           {
             ...previousConcert,
             likes: [...previousConcert.likes, uid],
-            likesCount: previousConcert.likesCount + 1,
           },
         );
       } else {
@@ -62,7 +61,6 @@ export const useToggleFavorite: UseToggleFavorite = (options) => {
           {
             ...previousConcert,
             likes: previousConcert.likes.filter((like) => like !== uid),
-            likesCount: previousConcert.likesCount - 1,
           },
         );
       }

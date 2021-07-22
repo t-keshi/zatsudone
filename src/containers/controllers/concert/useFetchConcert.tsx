@@ -8,6 +8,8 @@ import { QUERY } from '../../entities/query';
 type FnData = ConcertResponse;
 interface Data extends ConcertResponse {
   isUserLike: boolean;
+  likesCount: number;
+  participantsCount: number;
 }
 type UseFetchConcert = (
   options?: UseQueryOptions<FnData, unknown, Data, [string, string]>,
@@ -25,6 +27,8 @@ export const useFetchConcert: UseFetchConcert = (options) => {
     select: (data: FnData) => ({
       ...data,
       isUserLike: uid ? data.likes.includes(uid) : false,
+      likesCount: data.likes.length,
+      participantsCount: data.participants.length,
     }),
     ...options,
   });

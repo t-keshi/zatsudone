@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import { Orchestra } from '../../controllers/orchestra/useFetchOrchestra';
 import { Prefecture } from '../../entities/prefectures';
 
 interface Variables {
@@ -7,13 +8,15 @@ interface Variables {
   prefecture: Prefecture;
 }
 
-export const createOrchestra = async (variables: Variables): Promise<void> => {
+export const createOrchestra = async (
+  variables: Variables,
+): Promise<Orchestra> => {
   const db = firebase.firestore();
   const orchestrasRef = db.collection('orchestra');
   const { currentUser } = firebase.auth();
   const uid = currentUser?.uid ?? undefined;
 
-  await orchestrasRef.add({
+  const response = (await orchestrasRef.add({
     name: variables.name,
     description: variables.description,
     prefecture: variables.prefecture,
@@ -27,5 +30,24 @@ export const createOrchestra = async (variables: Variables): Promise<void> => {
     homePage: '',
     membersCount: null,
     notifications: [],
-  });
+  })) as firebase.firestore.DocumentReference<Orchestra>;
+
+  const res = await response.get();
+  const data = res.data();
+  const newId = response.id;
+
+  return {
+    id: newId,
+    name: data?.name ?? '',
+    description: data?.description ?? '',
+    prefecture: data?.prefecture ?? '東京都',
+    managementUserId: data?.managementUserId ?? '',
+    avatarUrl: data?.avatarUrl ?? '',
+    coverUrl: data?.coverUrl ?? '',
+    conductor: data?.conductor ?? '',
+    subConductor: data?.subConductor ?? '',
+    homePage: data?.homePage ?? '',
+    membersCount: data?.membersCount ?? 0,
+    notifications: data?.notifications ?? [],
+  };
 };

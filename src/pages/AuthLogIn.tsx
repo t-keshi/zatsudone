@@ -5,6 +5,7 @@ import { ChevronLeft } from '@material-ui/icons';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { ButtonProgress } from '../components/helpers/ButtonProgress/ButtonProgress';
 import { DividerWithText } from '../components/helpers/DividerWithText/DividerWithText';
 import { FormTextField } from '../components/helpers/FormTextField/FormTextField';
 import { FacebookButton } from '../components/helpers/OAuthButtons/FacebookButton';
@@ -59,7 +60,7 @@ export const AuthLogIn: React.VFC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  const { mutate } = useLogIn();
+  const { mutate, isLoading } = useLogIn();
   const { mutate: socialLogIn } = useSocialLogIn();
   const onSubmit = (formValues: FormValues) => {
     mutate(formValues);
@@ -111,7 +112,9 @@ export const AuthLogIn: React.VFC = () => {
               >
                 新規登録
               </Button>
-              <Button type="submit">ログイン</Button>
+              <ButtonProgress isLoading={isLoading} type="submit">
+                ログイン
+              </ButtonProgress>
             </Box>
             <DividerWithText>OR</DividerWithText>
             <div className={classes.oauthWrapper}>

@@ -12,7 +12,6 @@ export const updateUserProfile = async (
 ): Promise<void> => {
   const db = firebase.firestore();
   const userRef = db.collection('user').doc(variables.uid);
-
   if (variables.image) {
     const photoURL = await uploadImage(
       variables.image,

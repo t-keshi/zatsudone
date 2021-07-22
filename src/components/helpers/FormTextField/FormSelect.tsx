@@ -36,7 +36,11 @@ export const FormSelect = <TFieldValues extends FieldValues>({
   }, [name, register]);
 
   return (
-    <FormControl variant="outlined" {...formControlProps}>
+    <FormControl
+      variant="outlined"
+      error={Boolean(errorMessage)}
+      {...formControlProps}
+    >
       <InputLabel>{label}</InputLabel>
       <SelectCustom displayRowsCount={5.5} {...selectProps}>
         {children}

@@ -3,16 +3,20 @@ import {
   useMutation,
   UseMutationOptions,
   UseMutationResult,
-  useQueryClient,
+  useQueryClient
 } from 'react-query';
 import { useParams } from 'react-router';
 import { ConcertType } from '../../../types';
+import { asyncDelay } from '../../../utility/asyncDelay';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { participateConcert } from '../../database/participation/participateConcert';
 import { QUERY } from '../../entities/query';
 import { User } from '../user/useFetchUserInfo';
 
 interface ParticipationResponse {
+  concertSnippets: {
+    id: string;
+  };
   userSnippets: {
     uid: string;
     photoURL: string;
@@ -60,6 +64,9 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
           [
             ...previousConcert,
             {
+              concertSnippets: {
+                id: params.concertId,
+              },
               userSnippets: {
                 uid: currentUser?.uid ?? '',
                 photoURL: '',
@@ -69,11 +76,12 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
         );
       }
     },
-    onSettled: () => {
+    onSettled: async () => {
       void queryClient.invalidateQueries([
         QUERY.participation,
         params.concertId,
       ]);
+      await asyncDelay(1000);
       void queryClient.invalidateQueries([QUERY.concert, params.concertId]);
     },
     onError: (error: Error) =>
