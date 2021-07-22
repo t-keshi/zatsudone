@@ -15,13 +15,17 @@ interface Variables {
 }
 type UseFetchConcerts = (
   variables?: Variables,
-  options?: UseQueryOptions<Data, unknown, Data, string>,
+  options?: UseQueryOptions<Data, unknown, Data, [string, string | undefined]>,
 ) => UseQueryResult<Data, unknown>;
 
 export const useFetchOrchestras: UseFetchConcerts = (variables, options) => {
   const queryFn = () => fetchOrchestras(variables);
 
-  return useQuery(QUERY.orchestras, queryFn, {
-    ...options,
-  });
+  return useQuery(
+    [QUERY.orchestras, variables?.prefecture ?? undefined],
+    queryFn,
+    {
+      ...options,
+    },
+  );
 };

@@ -23,7 +23,10 @@ export const Orchestras: React.VFC = () => {
   const [selectedPrefecture, handleSelectPrefecture] = useSelect<
     Prefecture | 'すべて'
   >('すべて');
-  const { data } = useFetchOrchestras();
+  const { data } = useFetchOrchestras({
+    prefecture:
+      selectedPrefecture === 'すべて' ? undefined : selectedPrefecture,
+  });
 
   useTitle('SymphonyForum | 楽団リスト');
 

@@ -3,7 +3,7 @@ import {
   useMutation,
   UseMutationOptions,
   UseMutationResult,
-  useQueryClient
+  useQueryClient,
 } from 'react-query';
 import { useParams } from 'react-router';
 import { ConcertType } from '../../../types';
