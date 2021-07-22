@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { List } from '@material-ui/core';
+import { InputAdornment, List } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -22,7 +22,7 @@ interface FormValues {
 }
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  membersCount: yup.number(),
+  membersCount: yup.number().positive().integer(),
   conductor: yup.string(),
   subConductor: yup.string(),
   homePage: yup.string(),
@@ -67,6 +67,9 @@ export const OrchestraDetailInfoForm: React.VFC<Props> = ({
           errorMessage={errors.membersCount?.message}
           rowWidth={ROW_WIDTH}
           onSave={onSubmit}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">名</InputAdornment>,
+          }}
         />
         <ListItemRowEditable
           control={control}

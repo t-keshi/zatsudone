@@ -13,6 +13,7 @@ import { MyPage } from '../pages/MyPage';
 import { NotFound404 } from '../pages/NotFound404';
 import { OrchestraDetail } from '../pages/OrchestraDetail';
 import { OrchestraManagement } from '../pages/OrchestraManagement';
+import { OrchestraManagementDetail } from '../pages/OrchestraManegementDetail';
 import { Orchestras } from '../pages/Orchestras';
 import { Profile } from '../pages/Profile';
 import { ProfileSetting } from '../pages/ProfileSetting';
@@ -47,6 +48,9 @@ export const Routes: React.VFC = () => {
       </Route>
       <Route exact path={ROUTE_PATHS.楽団運営}>
         <OrchestraManagement />
+      </Route>
+      <Route exact path={ROUTE_PATHS.楽団運営詳細}>
+        <OrchestraManagementDetail />
       </Route>
       <Route exact path={ROUTE_PATHS.ログイン}>
         <AuthLogIn />

@@ -55,10 +55,14 @@ export const ConcertFormModal: React.VFC<Props> = ({
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = methods;
-  const { mutate } = useCreateConcert();
+  const { mutate } = useCreateConcert({
+    onSuccess: () => handleIsModalOpen(false),
+  });
   const onSubmit = handleSubmit((data: FormValues) => {
+    console.log(data, 'だた');
     const { title, date, location, symphonies } = data;
     const formattedSymphonies = symphonies
       .filter((symphony) => symphony.symphony !== '')
@@ -70,14 +74,15 @@ export const ConcertFormModal: React.VFC<Props> = ({
       placeId: location.placeId,
       prefecture: extractPrefectureFromAddress(location.address) ?? null,
       symphonies: formattedSymphonies,
-      orchestra: {
-        id: 'HugSlHXnLK4D39Oe3M2z',
-        name: '大阪大学吹奏楽団',
-      },
     };
+    console.log(variables, 'Vsss');
 
-    return mutate(variables);
+    mutate(variables);
   });
+
+  const watchAllFields = watch(); //
+
+  console.log(watchAllFields, errors);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -88,7 +93,12 @@ export const ConcertFormModal: React.VFC<Props> = ({
           title="演奏会の作成"
           open={isModalOpen}
           onClose={() => handleIsModalOpen(false)}
-          yesButtonProps={{ onClick: onSubmit }}
+          yesButtonProps={{
+            onClick: (e) => {
+              void onSubmit(e);
+              console.log('clicked');
+            },
+          }}
           maxWidth="sm"
         >
           <FormTextField

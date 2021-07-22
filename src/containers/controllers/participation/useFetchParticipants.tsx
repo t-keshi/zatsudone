@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { ConcertType } from '../../../types';
+import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { fetchParticipants } from '../../database/participation/fetchParticipants';
 import { QUERY } from '../../entities/query';
 
@@ -18,10 +19,11 @@ interface Data {
   isUserParticipants: boolean;
 }
 type UseFetchParticipants = (
-  options?: UseQueryOptions<FnData, unknown, Data, [string, string]>,
-) => UseQueryResult<Data, unknown>;
+  options?: UseQueryOptions<FnData, Error, Data, [string, string]>,
+) => UseQueryResult<Data, Error>;
 
 export const useFetchParticipants: UseFetchParticipants = (options) => {
+  const handleApiError = useHandleApiError();
   const params: { concertId: string } = useParams();
   const { concertId } = params;
   const { currentUser } = firebase.auth();
@@ -41,6 +43,8 @@ export const useFetchParticipants: UseFetchParticipants = (options) => {
         isUserParticipants: uid ? Boolean(uids.includes(uid)) : false,
       };
     },
+    onError: (error: Error) =>
+      handleApiError(error, '参加者の読み込みに失敗しました'),
     ...options,
   });
 };

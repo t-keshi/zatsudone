@@ -2,7 +2,7 @@
 
 type Message<
   // eslint-disable-next-line @typescript-eslint/ban-types
-  TValidationProperty extends Record<string, unknown> = {}
+  TValidationProperty extends Record<string, unknown> = {},
 > = string | ((arg: TValidationProperty) => string);
 
 interface MixedLocale {
@@ -48,10 +48,10 @@ interface Locale {
 export const yupLocaleJP: Locale = {
   mixed: {
     default: '正しい値を入力してください',
-    required: '値を入力してください',
+    required: '入力してください',
     oneOf: '${values}のいずれかを入力してください',
     notOneOf: '${values}以外のものを入力してください',
-    defined: '値を入力してください',
+    defined: '入力してください',
   },
   string: {
     length: ({ length }) => `${length}文字で入力してください`,
