@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { useCreateConcert } from '../../../containers/controllers/concert/useCreateConcert';
 import { GoogleMapLocation } from '../../../containers/controllers/concert/useSearchAccess';
 import { extractPrefectureFromAddress } from '../../../utility/extractPrefectureFromAddress';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormMapLocation } from '../../helpers/FormMapLocation/FormMapLocation';
 import { FormArrayTextField } from '../../helpers/FormTextField/FormArrayTextField';
@@ -27,8 +28,10 @@ export interface FormValues {
   symphonies: Symphony[];
 }
 
+yup.setLocale(yupLocaleJP);
+
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  title: yup.string().required(),
+  title: yup.string().min(1).max(30).required(),
   date: yup.string().required(),
   location: yup.object().shape({
     address: yup.string().required(),
@@ -39,7 +42,7 @@ const schema: yup.SchemaOf<FormValues> = yup.object().shape({
     .of(yup.object().shape({ symphony: yup.string().required() })),
 });
 
-export const ConcertFormModal: React.VFC<Props> = ({
+export const OrchestraConcertFormModal: React.VFC<Props> = ({
   isModalOpen,
   handleIsModalOpen,
 }) => {
@@ -57,7 +60,9 @@ export const ConcertFormModal: React.VFC<Props> = ({
     handleSubmit,
     formState: { errors },
   } = methods;
-  const { mutate } = useCreateConcert();
+  const { mutate } = useCreateConcert({
+    onSuccess: () => handleIsModalOpen(false),
+  });
   const onSubmit = handleSubmit((data: FormValues) => {
     const { title, date, location, symphonies } = data;
     const formattedSymphonies = symphonies
@@ -70,13 +75,9 @@ export const ConcertFormModal: React.VFC<Props> = ({
       placeId: location.placeId,
       prefecture: extractPrefectureFromAddress(location.address) ?? null,
       symphonies: formattedSymphonies,
-      orchestra: {
-        id: 'HugSlHXnLK4D39Oe3M2z',
-        name: '大阪大学吹奏楽団',
-      },
     };
 
-    return mutate(variables);
+    mutate(variables);
   });
 
   return (
@@ -88,7 +89,12 @@ export const ConcertFormModal: React.VFC<Props> = ({
           title="演奏会の作成"
           open={isModalOpen}
           onClose={() => handleIsModalOpen(false)}
-          yesButtonProps={{ onClick: onSubmit }}
+          yesButtonProps={{
+            onClick: (e) => {
+              void onSubmit(e);
+              console.log('clicked');
+            },
+          }}
           maxWidth="sm"
         >
           <FormTextField

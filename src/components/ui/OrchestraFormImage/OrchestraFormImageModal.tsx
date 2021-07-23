@@ -9,6 +9,7 @@ import { useUploadCoverImage } from '../../../containers/controllers/orchestra/u
 import { useCropper } from '../../../utility/hooks/useCropper';
 import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
 import { useTab } from '../../../utility/hooks/useTab';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormImageField } from '../../helpers/FormTextField/FormImageField';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
@@ -21,6 +22,8 @@ interface Props {
   name: string;
   orchestraId: string;
 }
+
+yup.setLocale(yupLocaleJP);
 
 interface FormValues {
   name: string;
@@ -52,7 +55,7 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
     handleAvatarImageCrop,
   ] = useCropper();
   // mutation
-  const { mutate } = useUploadCoverImage();
+  const { mutate } = useUploadCoverImage({ onSuccess: () => closeModal() });
   const {
     control,
     handleSubmit,

@@ -1,13 +1,9 @@
 import { Avatar, Box, ButtonBase, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useFetchMembers } from '../../../containers/controllers/belong/useFetchMembers';
 import { ROUTE_PATHS } from '../../../routes/type';
-
-interface Props {
-  orchestraId: string;
-}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,10 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const OrchestraMembersForm: React.VFC<Props> = ({ orchestraId }) => {
+export const OrchestraMembersForm: React.VFC = () => {
   const classes = useStyles();
+  const params: { orchestraId: string } = useParams();
   const history = useHistory();
-  const { data } = useFetchMembers(orchestraId);
+  const { data } = useFetchMembers(params.orchestraId);
 
   return (
     <div className={classes.root}>

@@ -19,24 +19,18 @@ import { useSocialLogIn } from '../containers/controllers/authentication/useSoci
 import { ROUTE_PATHS } from '../routes/type';
 import { useRouter } from '../utility/hooks/useRouter';
 import { useTitle } from '../utility/hooks/useTitle';
+import { yupLocaleJP } from '../utility/yupLocaleJP';
 
 interface FormValues {
   email: string;
   password: string;
 }
 
+yup.setLocale(yupLocaleJP);
+
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  email: yup
-    .string()
-    .email('メールアドレスの形式が正しくありません')
-    .required(),
-  password: yup
-    .string()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/gm,
-      '半角英字、数字、記号を組み合わせて 8 文字以上で入力してください',
-    )
-    .required(),
+  email: yup.string().email().required(),
+  password: yup.string().min(4).required(),
 });
 
 const useStyles = makeStyles((theme) => ({

@@ -26,9 +26,18 @@ export const fetchConcert = async (
     prefecture: data.prefecture,
     date: (data.date as unknown as firebase.firestore.Timestamp).toDate(),
     symphonies: data.symphonies,
-    openAt: (data.openAt as unknown as firebase.firestore.Timestamp).toDate(),
-    startAt: (data.startAt as unknown as firebase.firestore.Timestamp).toDate(),
-    closeAt: (data.closeAt as unknown as firebase.firestore.Timestamp).toDate(),
+    openAt:
+      (
+        (data.openAt as unknown as firebase.firestore.Timestamp) || null
+      )?.toDate() ?? undefined,
+    startAt:
+      (
+        (data.startAt as unknown as firebase.firestore.Timestamp) || null
+      )?.toDate() ?? undefined,
+    closeAt:
+      (
+        (data.closeAt as unknown as firebase.firestore.Timestamp) || null
+      )?.toDate() ?? undefined,
     likes: data.likes,
     participants: data.participants,
     orchestra: data.orchestra,

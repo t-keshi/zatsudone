@@ -24,7 +24,7 @@ export const OrchestraDetailInfo: React.VFC<Props> = ({ orchestra }) => {
       <List>
         <ListItemRow
           label="団員数"
-          value={orchestra.conductor}
+          value={`${orchestra.membersCount}名`}
           rowWidth={ROW_WIDTH}
         />
         <ListItemRow

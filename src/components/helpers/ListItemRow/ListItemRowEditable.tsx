@@ -55,7 +55,8 @@ export const ListItemRowEditable = <TFieldValues extends FieldValues>({
   errorMessage,
   rowWidth,
   onSave,
-}: Props<TFieldValues>): React.ReactElement => {
+  ...textFieldProps
+}: Props<TFieldValues> & TextFieldProps): React.ReactElement => {
   const classes = useStyles({ rowWidth });
   const [isEditMode, handleIsEditMode] = useToggle(false);
 
@@ -89,6 +90,8 @@ export const ListItemRowEditable = <TFieldValues extends FieldValues>({
                 control={control}
                 name={name}
                 errorMessage={errorMessage}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...textFieldProps}
               />
               <IconButton
                 className={classes.editButton}

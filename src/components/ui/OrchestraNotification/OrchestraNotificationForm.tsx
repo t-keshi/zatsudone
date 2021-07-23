@@ -13,6 +13,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useEditOrchestraNotification } from '../../../containers/controllers/orchestra/useEditOrchestraNotification';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
@@ -24,8 +25,10 @@ interface FormValues {
   notification: string;
 }
 
+yup.setLocale(yupLocaleJP);
+
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  notification: yup.string().required(),
+  notification: yup.string().min(1).max(100).required(),
 });
 
 export const OrchestraNotificationForm: React.VFC<Props> = ({

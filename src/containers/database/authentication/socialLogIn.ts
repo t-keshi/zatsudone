@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 type SocialApp = 'google' | 'twitter' | 'facebook';
 
 export const socialLogIn = async (socialApp: SocialApp): Promise<void> => {
+  await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
   const getProvider = () => {
     switch (socialApp) {
       case 'google':
@@ -15,6 +16,5 @@ export const socialLogIn = async (socialApp: SocialApp): Promise<void> => {
         throw Error('Invalid value of socialApp');
     }
   };
-
   await firebase.auth().signInWithPopup(getProvider());
 };

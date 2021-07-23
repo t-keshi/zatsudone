@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     marginLeft: theme.spacing(-1),
   },
-  userHomePage: {
+  homePage: {
     marginLeft: theme.spacing(1),
   },
 }));
@@ -45,11 +45,8 @@ export const ProfileInfo: React.VFC<IconButtonProps> = () => {
           target="_blank"
           rel="noopener"
         />
-        <LinkCustom
-          className={classes.userHomePage}
-          href={data?.userHomePage ?? ''}
-        >
-          {textTruncate(data?.userHomePage ?? '', 20)}
+        <LinkCustom className={classes.homePage} href={data?.homePage ?? ''}>
+          {textTruncate(data?.homePage ?? '', 20)}
         </LinkCustom>
       </Box>
     </>

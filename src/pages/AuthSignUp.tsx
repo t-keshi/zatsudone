@@ -19,6 +19,7 @@ import { ROUTE_PATHS } from '../routes/type';
 import { asyncDelay } from '../utility/asyncDelay';
 import { useRouter } from '../utility/hooks/useRouter';
 import { useTitle } from '../utility/hooks/useTitle';
+import { yupLocaleJP } from '../utility/yupLocaleJP';
 
 interface FormValues {
   displayName: string;
@@ -26,12 +27,11 @@ interface FormValues {
   password: string;
 }
 
+yup.setLocale(yupLocaleJP);
+
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  displayName: yup.string().min(1).max(12).required(),
-  email: yup
-    .string()
-    .email('メールアドレスの形式が正しくありません')
-    .required(),
+  displayName: yup.string().min(1).max(30).required(),
+  email: yup.string().email().required(),
   password: yup.string().min(4).required(),
 });
 

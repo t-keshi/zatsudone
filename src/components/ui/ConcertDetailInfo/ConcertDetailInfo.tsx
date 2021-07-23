@@ -1,7 +1,7 @@
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Event, LocationOn, Schedule } from '@material-ui/icons';
-import { format } from 'date-fns';
 import React from 'react';
+import { dateFormat } from '../../../utility/dateFormat';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
 interface Props {
@@ -27,16 +27,16 @@ export const ConcertDetailInfo: React.VFC<Props> = ({
         <ListItemIcon>
           <Event fontSize="small" />
         </ListItemIcon>
-        <ListItemText secondary={format(date, 'yyyy/MM/dd')} />
+        <ListItemText secondary={dateFormat(date)} />
       </ListItem>
       <ListItem dense>
         <ListItemIcon>
           <Schedule fontSize="small" />
         </ListItemIcon>
         <ListItemText
-          secondary={`${format(openAt, 'HH:mm')} 開場（${format(
-            new Date(startAt),
-            'HH:mm',
+          secondary={`${dateFormat(openAt, 'time')} 開場（${dateFormat(
+            startAt,
+            'time',
           )}  開演）`}
         />
       </ListItem>
@@ -44,7 +44,7 @@ export const ConcertDetailInfo: React.VFC<Props> = ({
         <ListItemIcon>
           <Schedule fontSize="small" />
         </ListItemIcon>
-        <ListItemText secondary={`${format(closeAt, 'HH:mm')} 終演予定`} />
+        <ListItemText secondary={`${dateFormat(closeAt, 'time')} 終演予定`} />
       </ListItem>
       <ListItem dense>
         <ListItemIcon>

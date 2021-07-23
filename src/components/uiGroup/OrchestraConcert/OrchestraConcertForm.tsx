@@ -1,16 +1,13 @@
 import { Box, Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import React from 'react';
-import { ConcertsResponse } from '../../../types';
+import { useFetchConcerts } from '../../../containers/controllers/concert/useFetchConcerts';
 import { useToggle } from '../../../utility/hooks/useToggle';
-import { ConcertList } from '../ConcertList/ConcertList';
-import { ConcertFormModal } from './ConcertFormModal';
+import { ConcertList } from '../../ui/ConcertList/ConcertList';
+import { OrchestraConcertFormModal } from './OrchestraConcertFormModal';
 
-interface Props {
-  concerts: ConcertsResponse['concerts'] | undefined;
-}
-
-export const ConcertForm: React.VFC<Props> = ({ concerts }) => {
+export const OrchestraConcertForm: React.VFC = () => {
+  const { data } = useFetchConcerts();
   const [isModalOpen, handleIsModalOpen] = useToggle(false);
 
   return (
@@ -20,11 +17,11 @@ export const ConcertForm: React.VFC<Props> = ({ concerts }) => {
           演奏会の作成
         </Button>
       </Box>
-      <ConcertFormModal
+      <OrchestraConcertFormModal
         isModalOpen={isModalOpen}
         handleIsModalOpen={handleIsModalOpen}
       />
-      <ConcertList concerts={concerts} />
+      <ConcertList concerts={data?.concerts ?? undefined} />
     </>
   );
 };

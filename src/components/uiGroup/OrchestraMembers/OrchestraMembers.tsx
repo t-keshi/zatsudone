@@ -8,7 +8,7 @@ import { Orchestra } from '../../../containers/controllers/orchestra/useFetchOrc
 import { ROUTE_PATHS } from '../../../routes/type';
 
 interface Props {
-  orchestra: Orchestra;
+  orchestra: Orchestra | undefined;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -44,14 +44,16 @@ export const OrchestraMembers: React.VFC<Props> = ({ orchestra }) => {
     <>
       <div className={classes.buttonWrapper}>
         <Button
-          disabled={data === undefined}
+          disabled={data === undefined || orchestra === undefined}
           variant={data?.isUserBelong ? 'outlined' : 'contained'}
-          onClick={() =>
-            mutate({
-              orchestra,
-              toggle: data?.isUserBelong ? 'remove' : 'add',
-            })
-          }
+          onClick={() => {
+            if (orchestra) {
+              void mutate({
+                orchestra,
+                toggle: data?.isUserBelong ? 'remove' : 'add',
+              });
+            }
+          }}
         >
           {data?.isUserBelong ? '参加を取り消す' : '参加'}
         </Button>

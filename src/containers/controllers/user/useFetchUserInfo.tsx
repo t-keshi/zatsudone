@@ -14,7 +14,7 @@ export interface User {
   part: string | undefined;
   twitterUserLink: string | undefined;
   facebookUserLink: string | undefined;
-  userHomePage: string | undefined;
+  homePage: string | undefined;
 }
 type Data = User;
 type UseFetchUserInfo = (

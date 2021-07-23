@@ -9,6 +9,7 @@ import {
   Prefecture,
   PREFECTURES,
 } from '../../../containers/entities/prefectures';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormSelect } from '../../helpers/FormTextField/FormSelect';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
@@ -23,6 +24,8 @@ export interface FormValues {
   prefecture: Prefecture;
   description: string;
 }
+
+yup.setLocale(yupLocaleJP);
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   name: yup.string().min(1).max(30).required(),
@@ -48,7 +51,6 @@ export const OrchestraFormModal: React.VFC<Props> = ({
     onSuccess: (res) => belong({ orchestra: res, toggle: 'add' }),
   });
   const onSubmit = handleSubmit((data: FormValues) => {
-    console.log(data);
     const { name, description, prefecture } = data;
     void mutate({ name, description, prefecture });
 

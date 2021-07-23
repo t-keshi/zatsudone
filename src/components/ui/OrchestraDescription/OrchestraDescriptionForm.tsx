@@ -4,6 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useUpdateOrchestra } from '../../../containers/controllers/orchestra/useUpdateOrchestra';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { TextEditable } from '../../helpers/TextEditable/TextEditable';
 
 interface Props {
@@ -15,8 +16,10 @@ interface FormValues {
   description: string;
 }
 
+yup.setLocale(yupLocaleJP);
+
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  description: yup.string().required(),
+  description: yup.string().min(1).max(400).required(),
 });
 
 const useStyles = makeStyles(() => ({
