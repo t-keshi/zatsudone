@@ -87,7 +87,7 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
           name="name"
           margin="normal"
           fullWidth
-          label="演奏会のタイトル"
+          label="のタイトル"
           defaultValue={name}
           errorMessage={errors.name?.message}
         />
