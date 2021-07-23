@@ -41,7 +41,9 @@ export const ProfileHeaderForm: React.VFC<Props> = ({
   const [isDialogOpen, toggleIsDialogOpen] = useToggle(false);
   const [{ imageDataUrl }, handleTransmitImage] = useImageTransmit();
   const [{ cropperRef, croppedFile }, handleCrop] = useCropper();
-  const { mutate } = useUpdateUserProfile();
+  const { mutate } = useUpdateUserProfile({
+    onSuccess: () => toggleIsDialogOpen(false),
+  });
   const {
     control,
     handleSubmit,

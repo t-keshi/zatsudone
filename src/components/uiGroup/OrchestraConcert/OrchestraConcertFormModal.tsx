@@ -58,14 +58,12 @@ export const OrchestraConcertFormModal: React.VFC<Props> = ({
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = methods;
   const { mutate } = useCreateConcert({
     onSuccess: () => handleIsModalOpen(false),
   });
   const onSubmit = handleSubmit((data: FormValues) => {
-    console.log(data, 'だた');
     const { title, date, location, symphonies } = data;
     const formattedSymphonies = symphonies
       .filter((symphony) => symphony.symphony !== '')
@@ -78,14 +76,9 @@ export const OrchestraConcertFormModal: React.VFC<Props> = ({
       prefecture: extractPrefectureFromAddress(location.address) ?? null,
       symphonies: formattedSymphonies,
     };
-    console.log(variables, 'Vsss');
 
     mutate(variables);
   });
-
-  const watchAllFields = watch(); //
-
-  console.log(watchAllFields, errors);
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

@@ -51,7 +51,6 @@ export const OrchestraFormModal: React.VFC<Props> = ({
     onSuccess: (res) => belong({ orchestra: res, toggle: 'add' }),
   });
   const onSubmit = handleSubmit((data: FormValues) => {
-    console.log(data);
     const { name, description, prefecture } = data;
     void mutate({ name, description, prefecture });
 

@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export const ProfileFormDialog: React.VFC<Props> = ({ open, onClose }) => {
   const classes = useStyles();
   const { mutate: socialConnect } = useSocialConnect();
-  const { mutate: updateUserInfo } = useUpdateUserInfo();
+  const { mutate: updateUserInfo } = useUpdateUserInfo({ onSuccess: onClose });
   const client = useQueryClient();
   const user: User | undefined = client.getQueryData([QUERY.user]);
   const twitterUserName = user?.twitterUserLink;

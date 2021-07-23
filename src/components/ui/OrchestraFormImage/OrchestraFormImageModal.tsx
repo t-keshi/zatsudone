@@ -55,7 +55,7 @@ export const OrchestraFormImageModal: React.VFC<Props> = ({
     handleAvatarImageCrop,
   ] = useCropper();
   // mutation
-  const { mutate } = useUploadCoverImage();
+  const { mutate } = useUploadCoverImage({ onSuccess: () => closeModal() });
   const {
     control,
     handleSubmit,
