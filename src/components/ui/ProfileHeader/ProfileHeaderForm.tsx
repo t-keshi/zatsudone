@@ -11,6 +11,7 @@ import { QUERY } from '../../../containers/entities/query';
 import { useCropper } from '../../../utility/hooks/useCropper';
 import { useImageTransmit } from '../../../utility/hooks/useImageTransmit';
 import { useToggle } from '../../../utility/hooks/useToggle';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { CoverImage } from '../../helpers/CoverImage/CoverImage';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormImageField } from '../../helpers/FormTextField/FormImageField';
@@ -24,6 +25,8 @@ interface Props {
 interface FormValues {
   displayName?: string;
 }
+
+yup.setLocale(yupLocaleJP);
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   displayName: yup.string().min(1).max(30),

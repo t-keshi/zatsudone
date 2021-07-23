@@ -31,7 +31,7 @@ export const fetchConcerts = async (
       : concertRefFiltered.orderBy(variables.orderBy, 'desc');
   const concertRefPaginated =
     lastVisible === undefined
-      ? concertRefOrdered.limit(3)
+      ? concertRefOrdered.limit(30)
       : concertRefOrdered.startAfter(lastVisible).limit(3);
   const querySnapshot = await concertRefPaginated.get();
   const concerts = querySnapshot.docs.map((doc) => {

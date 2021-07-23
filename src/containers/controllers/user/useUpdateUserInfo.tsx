@@ -10,7 +10,7 @@ import { QUERY } from '../../entities/query';
 
 interface Variables {
   profile?: string;
-  userHomePage?: string;
+  homePage?: string;
   part?: string;
 }
 type Data = unknown;

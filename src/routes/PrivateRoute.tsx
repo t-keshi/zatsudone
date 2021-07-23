@@ -1,19 +1,27 @@
-import React from 'react';
-import { useQueryClient } from 'react-query';
+import { CircularProgress } from '@material-ui/core';
+import firebase from 'firebase';
+import React, { useState } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { User } from '../containers/controllers/user/useFetchUserInfo';
-import { QUERY } from '../containers/entities/query';
 
 export const PrivateRoute: React.VFC<RouteProps> = ({ children, ...rest }) => {
-  const client = useQueryClient();
-  const userInfo: User | undefined = client.getQueryData([QUERY.user]);
+  const [user, setUser] = useState<firebase.User | boolean | undefined>(
+    undefined,
+  );
+
+  firebase
+    .auth()
+    .onAuthStateChanged(() => setUser(firebase.auth().currentUser ?? false));
+
+  if (user === undefined) {
+    return <CircularProgress />;
+  }
 
   return (
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
       render={({ location }) =>
-        userInfo ? (
+        user ? (
           children
         ) : (
           <Redirect

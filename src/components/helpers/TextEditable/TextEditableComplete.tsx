@@ -89,10 +89,7 @@ export const TextEditableComplete = <
         <YesOrNoButton
           yesLabel="保存"
           yesButtonProps={{
-            onClick: () => {
-              onSubmit();
-              handleIsEditMode(false);
-            },
+            onClick: onSubmit,
           }}
           noLabel="キャンセル"
           noButtonProps={{ onClick: () => handleIsEditMode(false) }}

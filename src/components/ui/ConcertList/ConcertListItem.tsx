@@ -10,11 +10,11 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { Event, LocationOn, QueueMusic } from '@material-ui/icons';
 import { Skeleton } from '@material-ui/lab';
-import { format } from 'date-fns';
 import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
 import { ROUTE_PATHS } from '../../../routes/type';
 import { ConcertType } from '../../../types';
+import { dateFormat } from '../../../utility/dateFormat';
 import { StyledLink } from '../../helpers/StyledLink/StyledLink';
 import { TextLabel } from '../../helpers/TextLabel/TextLabel';
 
@@ -81,9 +81,7 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
             <ListItemIcon className={classes.icon}>
               <Event fontSize="small" />
             </ListItemIcon>
-            <ListItemText
-              secondary={format(new Date(concert.date), 'yyyy/MM/dd')}
-            />
+            <ListItemText secondary={dateFormat(concert.date)} />
           </ListItem>
           <ListItem dense>
             <ListItemIcon className={classes.icon}>

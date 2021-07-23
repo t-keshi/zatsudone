@@ -52,7 +52,7 @@ export const ProfileFormDialog: React.VFC<Props> = ({ open, onClose }) => {
     formState: { errors },
   } = useForm<FormValues>();
   const onSubmit = handleSubmit((data) => {
-    updateUserInfo({ userHomePage: data.homePage });
+    updateUserInfo({ homePage: data.homePage });
   });
 
   return (

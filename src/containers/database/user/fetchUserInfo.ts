@@ -10,7 +10,7 @@ interface User {
   part: string;
   twitterUserLink: string | undefined;
   facebookUserLink: string | undefined;
-  userHomePage: string | undefined;
+  homePage: string | undefined;
 }
 
 export const fetchUserInfo = async (uid: string): Promise<User> => {
@@ -36,7 +36,7 @@ export const fetchUserInfo = async (uid: string): Promise<User> => {
     part: data.part,
     twitterUserLink: data.twitterUserLink,
     facebookUserLink: data.facebookUserLink,
-    userHomePage: data.userHomePage,
+    homePage: data.homePage,
   };
 
   return userInfo;

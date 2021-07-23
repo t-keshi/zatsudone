@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { useCreateConcert } from '../../../containers/controllers/concert/useCreateConcert';
 import { GoogleMapLocation } from '../../../containers/controllers/concert/useSearchAccess';
 import { extractPrefectureFromAddress } from '../../../utility/extractPrefectureFromAddress';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormMapLocation } from '../../helpers/FormMapLocation/FormMapLocation';
 import { FormArrayTextField } from '../../helpers/FormTextField/FormArrayTextField';
@@ -27,8 +28,10 @@ export interface FormValues {
   symphonies: Symphony[];
 }
 
+yup.setLocale(yupLocaleJP);
+
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  title: yup.string().required(),
+  title: yup.string().min(1).max(30).required(),
   date: yup.string().required(),
   location: yup.object().shape({
     address: yup.string().required(),

@@ -9,6 +9,7 @@ import {
   Prefecture,
   PREFECTURES,
 } from '../../../containers/entities/prefectures';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { DialogCustom } from '../../helpers/DialogCustom/DialogCustom';
 import { FormSelect } from '../../helpers/FormTextField/FormSelect';
 import { FormTextField } from '../../helpers/FormTextField/FormTextField';
@@ -23,6 +24,8 @@ export interface FormValues {
   prefecture: Prefecture;
   description: string;
 }
+
+yup.setLocale(yupLocaleJP);
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   name: yup.string().min(1).max(30).required(),

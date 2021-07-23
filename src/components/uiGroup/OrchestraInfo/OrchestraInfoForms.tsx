@@ -1,8 +1,8 @@
 import { Box } from '@material-ui/core';
 import React from 'react';
 import { Orchestra } from '../../../containers/controllers/orchestra/useFetchOrchestra';
+import { OrchestraDescriptionForm } from '../../ui/OrchestraDescription/OrchestraDescriptionForm';
 import { OrchestraDetailInfoForm } from '../../ui/OrchestraDetailInfo/OrchestraDetailInfoForm';
-import { OrchestraDescriptionForm } from '../../ui/OrchestraDiscription/OrchestraDescriptionForm';
 import { OrchestraNotificationForm } from '../../ui/OrchestraNotification/OrchestraNotificationForm';
 
 interface Props {

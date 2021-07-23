@@ -4,6 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useUpdateOrchestra } from '../../../containers/controllers/orchestra/useUpdateOrchestra';
+import { yupLocaleJP } from '../../../utility/yupLocaleJP';
 import { ListItemRowEditable } from '../../helpers/ListItemRow/ListItemRowEditable';
 import { SubHeading } from '../../helpers/SubHeading/SubHeading';
 
@@ -21,11 +22,18 @@ interface FormValues {
   homePage: string | undefined;
 }
 
+yup.setLocale(yupLocaleJP);
+
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   membersCount: yup.number().positive().integer(),
-  conductor: yup.string(),
-  subConductor: yup.string(),
-  homePage: yup.string(),
+  conductor: yup.string().min(1),
+  subConductor: yup.string().min(1),
+  homePage: yup
+    .string()
+    .matches(
+      new RegExp("/^https?://[w!?/+-_~;.,*&@#$%()'[]]+$/"),
+      'https(http)://で始まる正しいURLを入力してください',
+    ),
 });
 
 const ROW_WIDTH = 500;
