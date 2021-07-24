@@ -12,7 +12,6 @@ import { Event, LocationOn, QueueMusic } from '@material-ui/icons';
 import { Skeleton } from '@material-ui/lab';
 import React from 'react';
 import musicNote from '../../../assets/musicNote.png';
-import { ROUTE_PATHS } from '../../../routes/type';
 import { ConcertType } from '../../../types';
 import { dateFormat } from '../../../utility/dateFormat';
 import { StyledLink } from '../../helpers/StyledLink/StyledLink';
@@ -39,9 +38,10 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   concert: ConcertType | undefined;
+  link: string;
 }
 
-export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
+export const ConcertListItem: React.VFC<Props> = ({ concert, link }) => {
   const classes = useStyles();
 
   if (concert === undefined) {
@@ -68,7 +68,7 @@ export const ConcertListItem: React.VFC<Props> = ({ concert }) => {
         <TextLabel gutterBottom>{concert.orchestra.name}</TextLabel>
         <Typography
           component={StyledLink}
-          to={`/${ROUTE_PATHS.コンサート詳細.split('/')[1]}/${concert.id}`}
+          to={link}
           variant="h6"
           color="textPrimary"
           underline="always"

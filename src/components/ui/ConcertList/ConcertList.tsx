@@ -6,14 +6,19 @@ import { ConcertListItem } from './ConcertListItem';
 interface Props {
   concerts: ConcertsResponse['concerts'] | undefined;
   isFirst?: boolean;
+  linkParam: string;
 }
 
-export const ConcertList: React.VFC<Props> = ({ concerts, isFirst = true }) => {
+export const ConcertList: React.VFC<Props> = ({
+  concerts,
+  isFirst = true,
+  linkParam,
+}) => {
   if (concerts === undefined) {
     return (
       <>
         <Box mt={3.5} />
-        <ConcertListItem concert={undefined} />
+        <ConcertListItem concert={undefined} link="" />
       </>
     );
   }
@@ -25,7 +30,10 @@ export const ConcertList: React.VFC<Props> = ({ concerts, isFirst = true }) => {
           <Box mt={1} mb={2.5}>
             {!(isFirst && index === 0) && <Divider />}
           </Box>
-          <ConcertListItem concert={concert} />
+          <ConcertListItem
+            concert={concert}
+            link={`${linkParam}/${concert.id}`}
+          />
         </Fragment>
       ))}
     </>
