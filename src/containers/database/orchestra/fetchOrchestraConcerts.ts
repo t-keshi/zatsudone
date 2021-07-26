@@ -17,6 +17,7 @@ export const fetchOrchestraConcerts = async (
   const concertsRef = db.collection(
     'concert',
   ) as firebase.firestore.CollectionReference<ConcertType>;
+  console.log(variables.orchestraId);
   const concertRefFiltered = concertsRef.where(
     'orchestra.id',
     '==',

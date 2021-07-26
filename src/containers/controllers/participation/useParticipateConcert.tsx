@@ -5,7 +5,8 @@ import {
   UseMutationResult,
   useQueryClient,
 } from 'react-query';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
+import { ROUTE_PATHS } from '../../../routes/type';
 import { ConcertResponse, ConcertType } from '../../../types';
 import { asyncDelay } from '../../../utility/asyncDelay';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
@@ -36,14 +37,21 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
   const queryClient = useQueryClient();
   const params: { concertId: string } = useParams();
   const { currentUser } = firebase.auth();
+  const history = useHistory();
+  const uid = currentUser?.uid ?? '';
   const userInfo: User | undefined = queryClient.getQueryData([QUERY.user]);
-  const mutateFn = (variables: Variables) =>
-    participateConcert({
+  const mutateFn = (variables: Variables) => {
+    if (currentUser === null) {
+      history.push(ROUTE_PATHS.ログイン);
+    }
+
+    return participateConcert({
       concert: variables.concert,
-      uid: currentUser?.uid ?? '',
+      uid,
       photoURL: userInfo?.photoURL ?? '',
       toggle: variables.toggle,
     });
+  };
 
   return useMutation(mutateFn, {
     onMutate: async (variables: Variables) => {
@@ -73,7 +81,7 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
                 id: params.concertId,
               },
               userSnippets: {
-                uid: currentUser?.uid ?? '',
+                uid,
                 photoURL: '',
               },
             },

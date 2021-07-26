@@ -1,5 +1,5 @@
 import { CircularProgress } from '@material-ui/core';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import React, { useState } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 

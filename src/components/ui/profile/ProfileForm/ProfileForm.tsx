@@ -98,7 +98,7 @@ export const ProfileForm: React.VFC<IconButtonProps> = () => {
           defaultValue={data?.profile ?? ''}
           margin="normal"
           multiline
-          rows={4}
+          rows={8}
           errorMessage={errors.profile?.message}
         />
         <div className={classes.buttonWrapper}>

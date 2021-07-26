@@ -1,7 +1,8 @@
 import 'cropperjs/dist/cropper.css';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import imageNotFound from '../../../../assets/imageNotFound.jpeg';
-import { useUploadCoverImage } from '../../../../containers/controllers/orchestra/useUploadCoverImage';
+import { useUpdateConcert } from '../../../../containers/controllers/concert/useUpdateConcert';
 import { useCropper } from '../../../../utility/hooks/useCropper';
 import { useImageTransmit } from '../../../../utility/hooks/useImageTransmit';
 import { DialogCustom } from '../../../helpers/DialogCustom/DialogCustom';
@@ -11,7 +12,6 @@ interface Props {
   isModalOpen: boolean;
   closeModal: () => void;
   name: string;
-  orchestraId: string;
 }
 
 export const ConcertFlayerFormDialog: React.VFC<Props> = ({
@@ -25,12 +25,12 @@ export const ConcertFlayerFormDialog: React.VFC<Props> = ({
     handleCoverImageCrop,
   ] = useCropper();
   // mutation
-  const { mutate } = useUploadCoverImage({ onSuccess: () => closeModal() });
+  const { mutate } = useUpdateConcert({ onSuccess: () => closeModal() });
+  const params: { concertId: string } = useParams();
   const onSubmit = () => {
     mutate({
-      coverImage: coverImageDataUrl ? coverImage : undefined,
-      name: '',
-      orchestraId: '',
+      id: params.concertId,
+      coverUrl: coverImageDataUrl ? coverImage : undefined,
     });
   };
 

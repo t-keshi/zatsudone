@@ -2,7 +2,11 @@ import React from 'react';
 import { API_KEY } from '../../../../containers/entities/env';
 import { SubHeading } from '../../../helpers/SubHeading/SubHeading';
 
-export const ConcertAccess: React.VFC = () => (
+interface Props {
+  placeId: string;
+}
+
+export const ConcertAccess: React.VFC<Props> = ({ placeId }) => (
   <div>
     <SubHeading variant="h5" paragraph>
       会場アクセス
@@ -14,7 +18,7 @@ export const ConcertAccess: React.VFC = () => (
       style={{ border: 0 }}
       loading="lazy"
       allowFullScreen
-      src={`https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ4R137qjvAGAR18pA_2nu0tw&key=${API_KEY}`}
+      src={`https://www.google.com/maps/embed/v1/place?q=place_id:${placeId}&key=${API_KEY}`}
     />
   </div>
 );

@@ -6,14 +6,9 @@ import { ConcertFlayerFormDialog } from './ConcertFlayerFormDialog';
 interface Props {
   name: string;
   coverImage: string;
-  orchestraId: string;
 }
 
-export const ConcertFlayerForm: React.VFC<Props> = ({
-  name,
-  coverImage,
-  orchestraId,
-}) => {
+export const ConcertFlayerForm: React.VFC<Props> = ({ name, coverImage }) => {
   const [isModalOpen, handleIsModalOpen] = useToggle(false);
 
   return (
@@ -25,7 +20,6 @@ export const ConcertFlayerForm: React.VFC<Props> = ({
       />
       <ConcertFlayerFormDialog
         name={name}
-        orchestraId={orchestraId}
         isModalOpen={isModalOpen}
         closeModal={() => handleIsModalOpen(false)}
       />

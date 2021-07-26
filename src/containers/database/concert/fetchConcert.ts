@@ -20,6 +20,7 @@ export const fetchConcert = async (
   const concert = {
     id,
     title: data.title,
+    coverUrl: data.coverUrl,
     programs: data.programs,
     address: data.address,
     placeId: data.placeId,

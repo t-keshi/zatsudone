@@ -24,7 +24,10 @@ export const ConcertEdit: React.VFC = () => {
           pageTitleOverline="CONCERT EDIT"
         />
       </ContainerSpacer>
-      <ConcertFlayerForm name="" coverImage="" orchestraId="" />
+      <ConcertFlayerForm
+        name={data?.title ?? ''}
+        coverImage={data?.coverUrl ?? ''}
+      />
       <ContainerSpacer my={4}>
         {data && (
           <ConcertSummaryForm
@@ -35,17 +38,19 @@ export const ConcertEdit: React.VFC = () => {
         )}
         <Box mt={4} />
         {data && (
-          <ConcertDetailInfoForm
-            date={data.date}
-            openAt={data.openAt}
-            startAt={data.startAt}
-            closeAt={data.closeAt}
-          />
+          <>
+            <ConcertDetailInfoForm
+              date={data.date}
+              openAt={data.openAt}
+              startAt={data.startAt}
+              closeAt={data.closeAt}
+            />
+            <Box mt={4} />
+            <ConcertProgramForm programs={data.programs} />
+            <Box mt={4} />
+            <ConcertAccessForm address={data.address} placeId={data.placeId} />
+          </>
         )}
-        <Box mt={4} />
-        <ConcertProgramForm />
-        <Box mt={4} />
-        <ConcertAccessForm />
       </ContainerSpacer>
     </Layout>
   );

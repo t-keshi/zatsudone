@@ -28,12 +28,7 @@ const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   membersCount: yup.number().positive().integer(),
   conductor: yup.string().min(1),
   subConductor: yup.string().min(1),
-  homePage: yup
-    .string()
-    .matches(
-      new RegExp("/^https?://[w!?/+-_~;.,*&@#$%()'[]]+$/"),
-      'https(http)://で始まる正しいURLを入力してください',
-    ),
+  homePage: yup.string().url(),
 });
 
 const ROW_WIDTH = 500;
@@ -52,6 +47,7 @@ export const OrchestraDetailInfoForm: React.VFC<Props> = ({
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
   const { mutate } = useUpdateOrchestra();
   const onSubmit = handleSubmit((data: FormValues) => {
+    console.log('aaaaaaaaaa', data);
     mutate({
       orchestraId,
       membersCount: data?.membersCount ?? undefined,

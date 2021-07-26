@@ -61,9 +61,9 @@ export const ConcertDetail: React.VFC = () => {
                 closeAt={data.closeAt}
               />
               <Box mt={4} />
-              <ConcertProgram />
+              <ConcertProgram programs={data.programs} />
               <Box mt={4} />
-              <ConcertAccess />
+              <ConcertAccess placeId={data.placeId} />
               <Box mt={4} />
               {participants && (
                 <ConcertParticipants participants={participants} />

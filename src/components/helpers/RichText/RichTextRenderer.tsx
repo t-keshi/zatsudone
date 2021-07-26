@@ -1,13 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { createEditor, Descendant } from 'slate';
 import { Editable, Slate, withReact } from 'slate-react';
-import { initialValue } from './initialValue';
 import { RichTextElement } from './RichTextElement';
 import { RichTextLeaf } from './RichTextLeaf';
 
-export const RichTextRenderer: React.VFC = () => {
-  const [value, setValue] = useState<Descendant[]>(initialValue);
+interface Props {
+  richText: Descendant[];
+}
+
+export const RichTextRenderer: React.VFC<Props> = ({ richText }) => {
   const editor = useMemo(() => withReact(createEditor()), []);
   const renderElement = useCallback(
     (props) => <RichTextElement {...props} />,
@@ -18,8 +20,8 @@ export const RichTextRenderer: React.VFC = () => {
   return (
     <Slate
       editor={editor}
-      value={value}
-      onChange={(newValue) => setValue(newValue)}
+      value={richText}
+      onChange={(newValue) => console.log(newValue)}
     >
       <Editable
         readOnly

@@ -32,7 +32,7 @@ export const fetchConcerts = async (
   const concertRefPaginated =
     lastVisible === undefined
       ? concertRefOrdered.limit(30)
-      : concertRefOrdered.startAfter(lastVisible).limit(3);
+      : concertRefOrdered.startAfter(lastVisible).limit(30);
   const querySnapshot = await concertRefPaginated.get();
   const concerts = querySnapshot.docs.map((doc) => {
     const { id } = doc;

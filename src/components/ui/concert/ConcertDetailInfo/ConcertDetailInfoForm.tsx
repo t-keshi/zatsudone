@@ -2,7 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { List } from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import * as yup from 'yup';
+import { useUpdateConcert } from '../../../../containers/controllers/concert/useUpdateConcert';
 import { dateFormat } from '../../../../utility/dateFormat';
 import { ListItemRowEditable } from '../../../helpers/ListItemRow/ListItemRowEditable';
 import { SubHeading } from '../../../helpers/SubHeading/SubHeading';
@@ -15,17 +17,17 @@ interface Props {
 }
 
 interface FormValues {
-  date?: Date;
-  openAt?: Date;
-  startAt?: Date;
-  closeAt?: Date;
+  date?: string;
+  openAt?: string;
+  startAt?: string;
+  closeAt?: string;
 }
 
 const schema: yup.SchemaOf<FormValues> = yup.object().shape({
-  date: yup.date(),
-  openAt: yup.date(),
-  startAt: yup.date(),
-  closeAt: yup.date(),
+  date: yup.string(),
+  openAt: yup.string(),
+  startAt: yup.string(),
+  closeAt: yup.string(),
 });
 
 const ROW_WIDTH = 500;
@@ -41,7 +43,23 @@ export const ConcertDetailInfoForm: React.VFC<Props> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const { mutate } = useUpdateConcert();
+  const params: { concertId: string } = useParams();
+  const onSubmit = handleSubmit((data) => {
+    mutate({
+      id: params.concertId,
+      date: data.date ? new Date(data.date) : undefined,
+      openAt: data.openAt
+        ? new Date(`${dateFormat(date)} ${data.openAt}`)
+        : undefined,
+      startAt: data.startAt
+        ? new Date(`${dateFormat(date)} ${data.startAt}`)
+        : undefined,
+      closeAt: data.closeAt
+        ? new Date(`${dateFormat(date)} ${data.closeAt}`)
+        : undefined,
+    });
+  });
 
   return (
     <div>
@@ -52,7 +70,7 @@ export const ConcertDetailInfoForm: React.VFC<Props> = ({
         <ListItemRowEditable
           control={control}
           label="開催日"
-          name="openAt"
+          name="date"
           defaultValue={dateFormat(date)}
           errorMessage={errors.date?.message}
           rowWidth={ROW_WIDTH}
@@ -63,7 +81,7 @@ export const ConcertDetailInfoForm: React.VFC<Props> = ({
           control={control}
           label="会場時間"
           name="openAt"
-          defaultValue={dateFormat(openAt)}
+          defaultValue={dateFormat(openAt, 'time')}
           errorMessage={errors.openAt?.message}
           rowWidth={ROW_WIDTH}
           type="time"
@@ -73,7 +91,7 @@ export const ConcertDetailInfoForm: React.VFC<Props> = ({
           control={control}
           label="開演時間"
           name="startAt"
-          defaultValue={dateFormat(startAt)}
+          defaultValue={dateFormat(startAt, 'time')}
           errorMessage={errors.startAt?.message}
           rowWidth={ROW_WIDTH}
           type="time"
@@ -83,7 +101,7 @@ export const ConcertDetailInfoForm: React.VFC<Props> = ({
           control={control}
           label="終演予定時間"
           name="closeAt"
-          defaultValue={dateFormat(closeAt)}
+          defaultValue={dateFormat(closeAt, 'time')}
           errorMessage={errors.closeAt?.message}
           rowWidth={ROW_WIDTH}
           type="time"

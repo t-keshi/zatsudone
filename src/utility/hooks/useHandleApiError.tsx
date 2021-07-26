@@ -6,18 +6,24 @@ type UseHandleApiErrorReturnType = (error: Error, errorMessage: string) => void;
 export const useHandleApiError = (): UseHandleApiErrorReturnType => {
   const [, snackbarDispatch] = useSnackbar();
   const isOnline = onlineManager.isOnline();
-  if (!isOnline) {
-    snackbarDispatch({
-      type: 'open',
-      payload: {
-        severity: 'warning',
-        message: 'インターネット接続がありません',
-      },
-    });
-  }
   const handleApiError = (error: Error, errorMessage: string) => {
-    console.error(error, errorMessage);
-    snackbarDispatch({
+    if (!isOnline) {
+      return snackbarDispatch({
+        type: 'open',
+        payload: {
+          severity: 'warning',
+          message: 'インターネット接続がありません',
+        },
+      });
+    }
+    if (error.message === 'The caller does not have permission') {
+      return snackbarDispatch({
+        type: 'open',
+        payload: { severity: 'error', message: 'ログインしてください' },
+      });
+    }
+
+    return snackbarDispatch({
       type: 'open',
       payload: { severity: 'error', message: errorMessage },
     });

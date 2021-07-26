@@ -1,4 +1,5 @@
 export const partOptions = [
+  'ピアノ',
   'フルート',
   'ピッコロ',
   'クラリネット',

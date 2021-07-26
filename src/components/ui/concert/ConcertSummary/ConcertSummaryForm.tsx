@@ -1,7 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import * as yup from 'yup';
+import { useUpdateConcert } from '../../../../containers/controllers/concert/useUpdateConcert';
 import { TextEditable } from '../../../helpers/TextEditable/TextEditable';
 import { TextLabel } from '../../../helpers/TextLabel/TextLabel';
 
@@ -31,7 +33,15 @@ export const ConcertSummaryForm: React.VFC<Props> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const { mutate } = useUpdateConcert();
+  const params: { concertId: string } = useParams();
+  const onSubmit = handleSubmit((data) =>
+    mutate({
+      id: params.concertId,
+      title: data.title,
+      description: data.description,
+    }),
+  );
 
   return (
     <div>
