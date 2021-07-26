@@ -4,6 +4,7 @@ import {
   UseMutationResult,
   useQueryClient,
 } from 'react-query';
+import { useParams } from 'react-router-dom';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { uploadCoverImage } from '../../database/orchestra/uploadCoverImage';
 import { QUERY } from '../../entities/query';
@@ -22,11 +23,14 @@ type UseUploadCoverImage = (
 export const useUploadCoverImage: UseUploadCoverImage = (options) => {
   const handleApiError = useHandleApiError();
   const queryClient = useQueryClient();
+  const params: { orchestraId: string } = useParams();
   const mutate = (variables: Variables) => uploadCoverImage(variables);
 
   return useMutation(mutate, {
-    onSuccess: () => queryClient.invalidateQueries([QUERY.orchestra]),
-    onError: (error: Error) => handleApiError(error, 'ログインに失敗しました'),
+    onSuccess: () =>
+      queryClient.invalidateQueries([QUERY.orchestra, params.orchestraId]),
+    onError: (error: Error) =>
+      handleApiError(error, '楽団情報の変更に失敗しました'),
     ...options,
   });
 };

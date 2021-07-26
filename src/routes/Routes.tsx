@@ -5,6 +5,7 @@ import { AuthForgetPassword } from '../pages/AuthForgetPassword';
 import { AuthLogIn } from '../pages/AuthLogIn';
 import { AuthSignup } from '../pages/AuthSignUp';
 import { ConcertDetail } from '../pages/ConcertDetail';
+import { ConcertEdit } from '../pages/ConcertEdit';
 import { ConcertsRecent } from '../pages/ConcertsRecent';
 import { ConcertsUpcoming } from '../pages/ConcertsUpcoming';
 import { LandingPage } from '../pages/LandingPage';
@@ -63,6 +64,9 @@ export const Routes: React.VFC = () => {
       </PrivateRoute>
       <PrivateRoute exact path={ROUTE_PATHS.楽団運営詳細}>
         <OrchestraManagementDetail />
+      </PrivateRoute>
+      <PrivateRoute exact path={ROUTE_PATHS.楽団運営コンサート編集}>
+        <ConcertEdit />
       </PrivateRoute>
       <PrivateRoute exact path={ROUTE_PATHS.プロフィール設定}>
         <ProfileSetting />

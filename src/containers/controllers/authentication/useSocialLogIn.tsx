@@ -20,7 +20,8 @@ export const useSocialLogIn: UseSocialLogIn = (options) => {
 
   return useMutation((socialApp: SocialApp) => socialLogIn(socialApp), {
     onSuccess: () => history.push(ROUTE_PATHS.近日中のコンサート),
-    onError: (error: Error) => handleApiError(error, 'ログインに失敗しました'),
+    onError: (error: Error) =>
+      handleApiError(error, 'ソーシャルログインに失敗しました'),
     ...options,
   });
 };

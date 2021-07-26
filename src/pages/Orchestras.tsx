@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
+import { FilterByPrefecture } from '../components/helpers/FilterByPrefeture/FilterByPrefecture';
 import { Layout } from '../components/layout/Layout';
-import { FilterByPrefecture } from '../components/ui/FilterByPrefeture/FilterByPrefecture';
-import { OrchestraList } from '../components/ui/OrchestraList/OrchestraList';
+import { OrchestraList } from '../components/ui/orchestras/OrchestraList/OrchestraList';
 import { useFetchOrchestras } from '../containers/controllers/orchestra/useFetchOrchestras';
 import { Prefecture } from '../containers/entities/prefectures';
 import { useSelect } from '../utility/hooks/useSelect';

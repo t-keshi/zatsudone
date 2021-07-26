@@ -25,7 +25,8 @@ export const useEditOrchestraNotification: UseUpdateOrchestra = (options) => {
 
   return useMutation(mutate, {
     onSuccess: () => queryClient.invalidateQueries([QUERY.orchestra]),
-    onError: (error: Error) => handleApiError(error, 'ログインに失敗しました'),
+    onError: (error: Error) =>
+      handleApiError(error, 'お知らせの変更に失敗しました'),
     ...options,
   });
 };

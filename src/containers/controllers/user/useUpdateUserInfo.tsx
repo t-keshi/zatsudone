@@ -25,7 +25,7 @@ export const useUpdateUserInfo: UseUpdateUserInfo = (options) => {
   return useMutation((variables: Variables) => updateUserInfo(variables), {
     onSettled: () => queryClient.invalidateQueries([QUERY.user]),
     onError: (error: Error) =>
-      handleApiError(error, 'Googleログインに失敗しました'),
+      handleApiError(error, 'プロフィールの更新に失敗しました'),
     ...options,
   });
 };

@@ -48,7 +48,7 @@ export const useWriteGoogleCalendar: UseUploadCoverImage = (options) => {
 
   return useMutation(mutateFn, {
     onError: (error: Error) =>
-      handleApiError(error, 'コンサートの作成に失敗しました'),
+      handleApiError(error, 'カレンダーへの登録に失敗しました'),
     ...options,
   });
 };

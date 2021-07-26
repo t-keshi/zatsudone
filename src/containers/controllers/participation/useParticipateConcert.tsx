@@ -5,8 +5,9 @@ import {
   UseMutationResult,
   useQueryClient,
 } from 'react-query';
-import { useParams } from 'react-router';
-import { ConcertType } from '../../../types';
+import { useHistory, useParams } from 'react-router';
+import { ROUTE_PATHS } from '../../../routes/type';
+import { ConcertResponse, ConcertType } from '../../../types';
 import { asyncDelay } from '../../../utility/asyncDelay';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { participateConcert } from '../../database/participation/participateConcert';
@@ -36,23 +37,35 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
   const queryClient = useQueryClient();
   const params: { concertId: string } = useParams();
   const { currentUser } = firebase.auth();
+  const history = useHistory();
+  const uid = currentUser?.uid ?? '';
   const userInfo: User | undefined = queryClient.getQueryData([QUERY.user]);
-  const mutateFn = (variables: Variables) =>
-    participateConcert({
+  const mutateFn = (variables: Variables) => {
+    if (currentUser === null) {
+      history.push(ROUTE_PATHS.ログイン);
+    }
+
+    return participateConcert({
       concert: variables.concert,
-      uid: currentUser?.uid ?? '',
+      uid,
       photoURL: userInfo?.photoURL ?? '',
       toggle: variables.toggle,
     });
+  };
 
   return useMutation(mutateFn, {
     onMutate: async (variables: Variables) => {
       await queryClient.cancelQueries([QUERY.participation, params.concertId]);
-      const previousConcert = queryClient.getQueryData<ParticipationResponse[]>(
-        [QUERY.participation, params.concertId],
-      );
+      await queryClient.cancelQueries([QUERY.concert, params.concertId]);
+      const previousParticipation = queryClient.getQueryData<
+        ParticipationResponse[]
+      >([QUERY.participation, params.concertId]);
+      const previousConcert = queryClient.getQueryData<ConcertResponse>([
+        QUERY.concert,
+        params.concertId,
+      ]);
 
-      if (!previousConcert) {
+      if (!previousParticipation || !previousConcert) {
         console.error(variables, 'error');
 
         return;
@@ -62,17 +75,44 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
         queryClient.setQueryData<ParticipationResponse[]>(
           [QUERY.participation, params.concertId],
           [
-            ...previousConcert,
+            ...previousParticipation,
             {
               concertSnippets: {
                 id: params.concertId,
               },
               userSnippets: {
-                uid: currentUser?.uid ?? '',
+                uid,
                 photoURL: '',
               },
             },
           ],
+        );
+        queryClient.setQueryData<ConcertResponse>(
+          [QUERY.concert, params.concertId],
+          {
+            ...previousConcert,
+            participants: [...previousConcert.participants, params.concertId],
+          },
+        );
+      }
+
+      if (variables.toggle === 'remove') {
+        queryClient.setQueryData<ParticipationResponse[]>(
+          [QUERY.participation, params.concertId],
+          previousParticipation.filter(
+            (participation) =>
+              participation.userSnippets.uid !== currentUser?.uid ?? '',
+          ),
+        );
+        queryClient.setQueryData<ConcertResponse>(
+          [QUERY.concert, params.concertId],
+          {
+            ...previousConcert,
+            participants: previousConcert.participants.slice(
+              0,
+              previousConcert.participants.length - 1,
+            ),
+          },
         );
       }
     },
@@ -81,11 +121,11 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
         QUERY.participation,
         params.concertId,
       ]);
-      await asyncDelay(1000);
+      await asyncDelay(2000);
       void queryClient.invalidateQueries([QUERY.concert, params.concertId]);
     },
     onError: (error: Error) =>
-      handleApiError(error, 'コンサートの作成に失敗しました'),
+      handleApiError(error, 'コンサートへの参加に失敗しました'),
     ...options,
   });
 };

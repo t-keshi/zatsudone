@@ -80,7 +80,7 @@ export const useBelongOrchestra: UseBelongOrchestra = (options) => {
       void queryClient.invalidateQueries([QUERY.belong, params.orchestraId]);
     },
     onError: (error: Error) =>
-      handleApiError(error, 'コンサートの作成に失敗しました'),
+      handleApiError(error, 'コンサートへの参加に失敗しました'),
     ...options,
   });
 };

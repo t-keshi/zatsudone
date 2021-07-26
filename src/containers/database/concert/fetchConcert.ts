@@ -20,10 +20,12 @@ export const fetchConcert = async (
   const concert = {
     id,
     title: data.title,
+    coverUrl: data.coverUrl,
     programs: data.programs,
     address: data.address,
     placeId: data.placeId,
     prefecture: data.prefecture,
+    description: data.description,
     date: (data.date as unknown as firebase.firestore.Timestamp).toDate(),
     symphonies: data.symphonies,
     openAt:

@@ -3,11 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { KeyboardArrowDown } from '@material-ui/icons';
 import React, { useEffect, useRef } from 'react';
 import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
+import { FilterByPrefecture } from '../components/helpers/FilterByPrefeture/FilterByPrefecture';
 import { Layout } from '../components/layout/Layout';
-import { ConcertList } from '../components/ui/ConcertList/ConcertList';
-import { FilterByPrefecture } from '../components/ui/FilterByPrefeture/FilterByPrefecture';
+import { ConcertList } from '../components/ui/concerts/ConcertList/ConcertList';
 import { useInfiniteFetchConcerts } from '../containers/controllers/concert/useInfiniteFetchConcerts';
 import { Prefecture } from '../containers/entities/prefectures';
+import { ROUTE_PATHS } from '../routes/type';
 import { useIntersectionObserver } from '../utility/hooks/useIntersectionObserver';
 import { useSelect } from '../utility/hooks/useSelect';
 import { useTitle } from '../utility/hooks/useTitle';
@@ -45,7 +46,7 @@ export const ConcertsRecent: React.VFC = () => {
   useIntersectionObserver({
     target: ref,
     onIntersect: () => {
-      if (hasNextPage) {
+      if (hasNextPage && data) {
         void fetchNextPage();
       }
     },
@@ -71,11 +72,12 @@ export const ConcertsRecent: React.VFC = () => {
             key={page?.concerts[0].id}
             concerts={page?.concerts}
             isFirst={isFirst}
+            linkParam={`/${ROUTE_PATHS.コンサート詳細.split('/')[1]}`}
           />
         ) : (
           <div />
         );
-      }) ?? <ConcertList concerts={undefined} />}
+      }) ?? <ConcertList concerts={undefined} linkParam="" />}
       <div className={classes.fetchMoreWrapper} ref={ref}>
         <Button
           variant="text"

@@ -5,7 +5,8 @@ import {
   UseMutationResult,
   useQueryClient,
 } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { ROUTE_PATHS } from '../../../routes/type';
 import { ConcertResponse } from '../../../types';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
 import { toggleFavorite } from '../../database/concert/toggleFavorite';
@@ -24,16 +25,22 @@ export const useToggleFavorite: UseToggleFavorite = (options) => {
     params.concertId,
   ])?.likes;
   const { currentUser } = firebase.auth();
+  const history = useHistory();
   const uid = currentUser?.uid ?? '';
   const currentIsLikes = currentLikes?.includes(uid) ?? false;
   const toggle = currentIsLikes ? 'remove' : 'add';
 
-  const mutateFn = () =>
-    toggleFavorite({
+  const mutateFn = () => {
+    if (currentUser === null) {
+      history.push(ROUTE_PATHS.ログイン);
+    }
+
+    return toggleFavorite({
       uid,
       concertId: params.concertId,
       toggle,
     });
+  };
 
   return useMutation(mutateFn, {
     onMutate: async () => {
@@ -66,7 +73,7 @@ export const useToggleFavorite: UseToggleFavorite = (options) => {
       }
     },
     onError: (error: Error) =>
-      handleApiError(error, 'コンサートの作成に失敗しました'),
+      handleApiError(error, 'お気に入りの変更にしました'),
     ...options,
   });
 };
