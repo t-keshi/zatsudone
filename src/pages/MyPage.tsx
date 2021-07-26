@@ -4,11 +4,12 @@ import { ContainerSpacer } from '../components/helpers/ContainerSpacer/Container
 import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
 import { SubHeading } from '../components/helpers/SubHeading/SubHeading';
 import { Layout } from '../components/layout/Layout';
-import { ConcertList } from '../components/ui/ConcertList/ConcertList';
-import { ProfileInfo } from '../components/ui/ProfileForm/ProfileInfo';
-import { ProfileHeader } from '../components/ui/ProfileHeader/ProfileHeader';
+import { ConcertList } from '../components/ui/concerts/ConcertList/ConcertList';
+import { ProfileInfo } from '../components/ui/profile/ProfileForm/ProfileInfo';
+import { ProfileHeader } from '../components/ui/profile/ProfileHeader/ProfileHeader';
 import { useFetchParticipation } from '../containers/controllers/participation/useFetchParticipation';
 import { useFetchUserInfo } from '../containers/controllers/user/useFetchUserInfo';
+import { ROUTE_PATHS } from '../routes/type';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const MyPage: React.VFC = () => {
@@ -37,6 +38,7 @@ export const MyPage: React.VFC = () => {
           <ConcertList
             key={concerts ? concerts[0].id : '1'}
             concerts={concerts}
+            linkParam={`/${ROUTE_PATHS.コンサート詳細.split('/')[1]}`}
             isFirst
           />
         ) : (

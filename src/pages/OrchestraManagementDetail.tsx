@@ -7,10 +7,10 @@ import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader
 import { SwipeableViewsCustom } from '../components/helpers/SwipeableViewsCustom/SwipeableViewsCustom';
 import { TabPanel } from '../components/helpers/TabPanel/TabPanel';
 import { Layout } from '../components/layout/Layout';
-import { OrchestraFormImage } from '../components/ui/OrchestraFormImage/OrchestraFormImage';
-import { OrchestraConcertForm } from '../components/uiGroup/OrchestraConcert/OrchestraConcertForm';
-import { OrchestraInfoForms } from '../components/uiGroup/OrchestraInfo/OrchestraInfoForms';
-import { OrchestraMembersForm } from '../components/uiGroup/OrchestraMembers/OrchestraMembersForm';
+import { OrchestraConcertForm } from '../components/ui/orchestra/OrchestraConcert/OrchestraConcertForm';
+import { OrchestraFormImage } from '../components/ui/orchestra/OrchestraFormImage/OrchestraFormImage';
+import { OrchestraInfoForms } from '../components/ui/orchestra/OrchestraInfo/OrchestraInfoForms';
+import { OrchestraMembersForm } from '../components/ui/orchestra/OrchestraMembers/OrchestraMembersForm';
 import { useFetchOrchestra } from '../containers/controllers/orchestra/useFetchOrchestra';
 import { User } from '../containers/controllers/user/useFetchUserInfo';
 import { QUERY } from '../containers/entities/query';

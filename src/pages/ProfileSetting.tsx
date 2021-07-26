@@ -2,8 +2,8 @@ import React from 'react';
 import { ContainerSpacer } from '../components/helpers/ContainerSpacer/ContainerSpacer';
 import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
 import { Layout } from '../components/layout/Layout';
-import { ProfileForm } from '../components/ui/ProfileForm/ProfileForm';
-import { ProfileHeaderForm } from '../components/ui/ProfileHeader/ProfileHeaderForm';
+import { ProfileForm } from '../components/ui/profile/ProfileForm/ProfileForm';
+import { ProfileHeaderForm } from '../components/ui/profile/ProfileHeader/ProfileHeaderForm';
 import { useFetchUserInfo } from '../containers/controllers/user/useFetchUserInfo';
 import { useTitle } from '../utility/hooks/useTitle';
 

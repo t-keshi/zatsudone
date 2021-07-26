@@ -14,6 +14,7 @@ export interface TimeStamp {
 export interface ConcertResponse {
   id: string;
   title: string;
+  description: string;
   programs: string;
   address: string;
   placeId: string;

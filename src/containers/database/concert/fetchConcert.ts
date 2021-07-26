@@ -24,6 +24,7 @@ export const fetchConcert = async (
     address: data.address,
     placeId: data.placeId,
     prefecture: data.prefecture,
+    description: data.description,
     date: (data.date as unknown as firebase.firestore.Timestamp).toDate(),
     symphonies: data.symphonies,
     openAt:

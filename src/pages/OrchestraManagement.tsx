@@ -6,7 +6,7 @@ import { ContainerSpacer } from '../components/helpers/ContainerSpacer/Container
 import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
 import { NoItemMessage } from '../components/helpers/NoItemMessage/NoItemMessage';
 import { Layout } from '../components/layout/Layout';
-import { OrchestraFormModal } from '../components/ui/OrchestraForm/OrchestraFormModal';
+import { OrchestraFormDialog } from '../components/ui/orchestra/OrchestraForm/OrchestraFormModal';
 import { useFetchUserInfo } from '../containers/controllers/user/useFetchUserInfo';
 import { QUERY } from '../containers/entities/query';
 import { ROUTE_PATHS } from '../routes/type';
@@ -53,7 +53,7 @@ export const OrchestraManagement: React.VFC = () => {
             startIcon: <Add />,
           }}
         />
-        <OrchestraFormModal
+        <OrchestraFormDialog
           isModalOpen={isModalOpen}
           closeModal={() => handleIsModalOpen(false)}
         />
