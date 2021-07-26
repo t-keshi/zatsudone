@@ -23,7 +23,8 @@ export const useResetPassword: UseResetPassword = (options) => {
 
   return useMutation(mutateFn, {
     onSuccess: () => history.push(ROUTE_PATHS.ログイン),
-    onError: (error: Error) => handleApiError(error, 'ログインに失敗しました'),
+    onError: (error: Error) =>
+      handleApiError(error, 'パスワードのリセットに失敗しました'),
     ...options,
   });
 };

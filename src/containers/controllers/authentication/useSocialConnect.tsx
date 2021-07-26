@@ -21,7 +21,7 @@ export const useSocialConnect: UseSocialConnect = (options) => {
   return useMutation((socialApp: SocialApp) => socialConnect(socialApp), {
     onSuccess: () => history.push(ROUTE_PATHS.近日中のコンサート),
     onError: (error: Error) =>
-      handleApiError(error, 'Googleログインに失敗しました'),
+      handleApiError(error, 'ソーシャルログインに失敗しました'),
     ...options,
   });
 };

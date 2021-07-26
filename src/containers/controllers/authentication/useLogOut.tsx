@@ -19,7 +19,8 @@ export const useLogOut: UseLogIn = (options) => {
 
   return useMutation(() => firebase.auth().signOut(), {
     onSuccess: () => history.push(ROUTE_PATHS.ログイン),
-    onError: (error: Error) => handleApiError(error, 'ログインに失敗しました'),
+    onError: (error: Error) =>
+      handleApiError(error, 'ログアウトに失敗しました'),
     ...options,
   });
 };

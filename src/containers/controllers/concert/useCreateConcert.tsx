@@ -31,7 +31,6 @@ export const useCreateConcert: UseUploadCoverImage = (options) => {
     QUERY.orchestra,
     params.orchestraId,
   ]);
-  console.log(orchestra, 'orche');
   const mutateFn = (variables: Variables) =>
     createConcert({
       ...variables,

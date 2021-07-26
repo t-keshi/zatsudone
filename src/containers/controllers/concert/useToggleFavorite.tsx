@@ -66,7 +66,7 @@ export const useToggleFavorite: UseToggleFavorite = (options) => {
       }
     },
     onError: (error: Error) =>
-      handleApiError(error, 'コンサートの作成に失敗しました'),
+      handleApiError(error, 'お気に入りの変更にしました'),
     ...options,
   });
 };

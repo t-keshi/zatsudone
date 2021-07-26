@@ -117,7 +117,7 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
       void queryClient.invalidateQueries([QUERY.concert, params.concertId]);
     },
     onError: (error: Error) =>
-      handleApiError(error, 'コンサートの作成に失敗しました'),
+      handleApiError(error, 'コンサートへの参加に失敗しました'),
     ...options,
   });
 };

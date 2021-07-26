@@ -26,7 +26,8 @@ export const useUploadCoverImage: UseUploadCoverImage = (options) => {
 
   return useMutation(mutate, {
     onSuccess: () => queryClient.invalidateQueries([QUERY.orchestra]),
-    onError: (error: Error) => handleApiError(error, 'ログインに失敗しました'),
+    onError: (error: Error) =>
+      handleApiError(error, '楽団情報の変更に失敗しました'),
     ...options,
   });
 };
