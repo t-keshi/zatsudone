@@ -5,6 +5,12 @@ service cloud.firestore {
     function isAnyAuthenticated() {
       return request.auth != null;
     }
+
+
+    function isUserAuthenticated(userId) { // 条件 1 かつ 条件 2
+        return isAuthenticated() && userId == request.auth.uid;
+    }
+
     // ---------- helperst end ----------
 
     match /{document=**} {

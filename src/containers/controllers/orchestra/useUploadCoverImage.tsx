@@ -27,8 +27,8 @@ export const useUploadCoverImage: UseUploadCoverImage = (options) => {
   const mutate = (variables: Variables) => uploadCoverImage(variables);
 
   return useMutation(mutate, {
-    onSuccess: () =>
-      queryClient.invalidateQueries([QUERY.orchestra, params.orchestraId]),
+    onSettled: () =>
+      queryClient.refetchQueries([QUERY.orchestra, params.orchestraId]),
     onError: (error: Error) =>
       handleApiError(error, '楽団情報の変更に失敗しました'),
     ...options,

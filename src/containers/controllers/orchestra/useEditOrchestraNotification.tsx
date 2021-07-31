@@ -24,7 +24,9 @@ export const useEditOrchestraNotification: UseUpdateOrchestra = (options) => {
   const mutate = (variables: Variables) => editOrchestraNotification(variables);
 
   return useMutation(mutate, {
-    onSuccess: () => queryClient.invalidateQueries([QUERY.orchestra]),
+    onSettled: (_, __, variables) => {
+      void queryClient.refetchQueries([QUERY.orchestra, variables.orchestraId]);
+    },
     onError: (error: Error) =>
       handleApiError(error, 'お知らせの変更に失敗しました'),
     ...options,

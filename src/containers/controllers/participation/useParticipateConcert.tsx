@@ -10,6 +10,7 @@ import { ROUTE_PATHS } from '../../../routes/type';
 import { ConcertResponse, ConcertType } from '../../../types';
 import { asyncDelay } from '../../../utility/asyncDelay';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
+import { useSnackbar } from '../../contexts/snackbar';
 import { participateConcert } from '../../database/participation/participateConcert';
 import { QUERY } from '../../entities/query';
 import { User } from '../user/useFetchUserInfo';
@@ -33,6 +34,7 @@ type UseParticipateConcert = (
 ) => UseMutationResult<Data, Error, Variables>;
 
 export const useParticipateConcert: UseParticipateConcert = (options) => {
+  const [_, dispatch] = useSnackbar();
   const handleApiError = useHandleApiError();
   const queryClient = useQueryClient();
   const params: { concertId: string } = useParams();
@@ -42,6 +44,10 @@ export const useParticipateConcert: UseParticipateConcert = (options) => {
   const userInfo: User | undefined = queryClient.getQueryData([QUERY.user]);
   const mutateFn = (variables: Variables) => {
     if (currentUser === null) {
+      dispatch({
+        type: 'open',
+        payload: { severity: 'error', message: 'ログインしてください' },
+      });
       history.push(ROUTE_PATHS.ログイン);
     }
 
