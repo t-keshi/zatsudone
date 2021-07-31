@@ -30,7 +30,7 @@ export const useUpdateOrchestra: UseUpdateOrchestra = (options) => {
 
   return useMutation(mutate, {
     onSuccess: () =>
-      queryClient.invalidateQueries([QUERY.orchestra, params.orchestraId]),
+      queryClient.refetchQueries([QUERY.orchestra, params.orchestraId]),
     onError: (error: Error) =>
       handleApiError(error, '楽団情報の変更に失敗しました'),
     ...options,

@@ -43,6 +43,7 @@ export const OrchestraNotificationForm: React.VFC<Props> = ({
   } = useForm<FormValues>({ resolver: yupResolver(schema) });
   const { mutate } = useEditOrchestraNotification();
   const onSubmit = handleSubmit((data: FormValues) => {
+    console.log('hoge', data);
     mutate({
       orchestraId,
       notification: data.notification,

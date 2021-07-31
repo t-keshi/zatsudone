@@ -27,7 +27,7 @@ export const PrivateRoute: React.VFC<RouteProps> = ({ children, ...rest }) => {
           <Redirect
             to={{
               pathname: '/login',
-              state: { from: location },
+              state: location.pathname,
             }}
           />
         )

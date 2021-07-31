@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ChevronLeft } from '@material-ui/icons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { ButtonProgress } from '../components/helpers/ButtonProgress/ButtonProgress';
@@ -14,6 +14,7 @@ import { TwitterButton } from '../components/helpers/OAuthButtons/TwitterButton'
 import { ResponsivePaper } from '../components/helpers/ResponsivePaper.tsx/ResponsivePaper';
 import { StyledLink } from '../components/helpers/StyledLink/StyledLink';
 import { TopLayout } from '../components/layout/TopLayout';
+import { useSnackbar } from '../containers/contexts/snackbar';
 import { useLogIn } from '../containers/controllers/authentication/useLogIn';
 import { useSocialLogIn } from '../containers/controllers/authentication/useSocialLogIn';
 import { ROUTE_PATHS } from '../routes/type';
@@ -46,7 +47,9 @@ const useStyles = makeStyles((theme) => ({
 
 export const AuthLogIn: React.VFC = () => {
   const classes = useStyles();
-  const { history } = useRouter();
+  const [_, dispatch] = useSnackbar();
+  const { history, location } = useRouter();
+  const locationState = (location?.state ?? undefined) as string | undefined;
   const {
     control,
     handleSubmit,
@@ -54,13 +57,30 @@ export const AuthLogIn: React.VFC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  const { mutate, isLoading } = useLogIn();
+  const { mutate, isLoading } = useLogIn({
+    onSuccess: () => {
+      if (locationState !== undefined) {
+        history.push(locationState);
+      }
+    },
+  });
   const { mutate: socialLogIn } = useSocialLogIn();
   const onSubmit = (formValues: FormValues) => {
     mutate(formValues);
   };
 
   useTitle('SymphonyForum | ログイン');
+
+  console.log(location);
+
+  useEffect(() => {
+    if (locationState !== undefined) {
+      dispatch({
+        type: 'open',
+        payload: { severity: 'error', message: 'ログインしてください' },
+      });
+    }
+  }, [dispatch, locationState]);
 
   return (
     <TopLayout maxWidth="sm">

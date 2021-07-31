@@ -1,6 +1,5 @@
 import { Box, CircularProgress, Tab, Tabs } from '@material-ui/core';
-import React from 'react';
-import { useQueryClient } from 'react-query';
+import React, { useEffect } from 'react';
 import coverImage from '../assets/orchestraCover.jpg';
 import { ContainerSpacer } from '../components/helpers/ContainerSpacer/ContainerSpacer';
 import { ContentHeader } from '../components/helpers/ContentHeader/ContentHeader';
@@ -12,21 +11,30 @@ import { OrchestraFormImage } from '../components/ui/orchestra/OrchestraFormImag
 import { OrchestraInfoForms } from '../components/ui/orchestra/OrchestraInfo/OrchestraInfoForms';
 import { OrchestraMembersForm } from '../components/ui/orchestra/OrchestraMembers/OrchestraMembersForm';
 import { useFetchOrchestra } from '../containers/controllers/orchestra/useFetchOrchestra';
-import { User } from '../containers/controllers/user/useFetchUserInfo';
-import { QUERY } from '../containers/entities/query';
+import { useFetchUserInfo } from '../containers/controllers/user/useFetchUserInfo';
 import { useTab } from '../utility/hooks/useTab';
 import { useTitle } from '../utility/hooks/useTitle';
 
 export const OrchestraManagementDetail: React.VFC = () => {
   const { tabIndex, handleChangeTab, handleChangeTabBySwipe } = useTab();
-  const queryClient = useQueryClient();
-  const userInfo: User | undefined = queryClient.getQueryData([QUERY.user]);
-  const { data: orchestraData } = useFetchOrchestra(
+  const { data: userInfo } = useFetchUserInfo();
+  const { refetch, data: orchestraData } = useFetchOrchestra(
     userInfo?.managementOrchestraId ?? '',
-    { enabled: userInfo?.managementOrchestraId !== undefined },
+    {
+      enabled: false,
+    },
   );
 
   useTitle('SymphonyForum | 楽団運営');
+
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await refetch();
+
+      return data;
+    };
+    void fetch();
+  }, [refetch, userInfo]);
 
   return (
     <Layout noPadding>

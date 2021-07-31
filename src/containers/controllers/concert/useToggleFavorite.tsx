@@ -9,6 +9,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { ROUTE_PATHS } from '../../../routes/type';
 import { ConcertResponse } from '../../../types';
 import { useHandleApiError } from '../../../utility/hooks/useHandleApiError';
+import { useSnackbar } from '../../contexts/snackbar';
 import { toggleFavorite } from '../../database/concert/toggleFavorite';
 import { QUERY } from '../../entities/query';
 
@@ -17,6 +18,7 @@ type UseToggleFavorite = (
 ) => UseMutationResult<void, Error, void>;
 
 export const useToggleFavorite: UseToggleFavorite = (options) => {
+  const [_, dispatch] = useSnackbar();
   const handleApiError = useHandleApiError();
   const params: { concertId: string } = useParams();
   const queryClient = useQueryClient();
@@ -32,6 +34,10 @@ export const useToggleFavorite: UseToggleFavorite = (options) => {
 
   const mutateFn = () => {
     if (currentUser === null) {
+      dispatch({
+        type: 'open',
+        payload: { severity: 'error', message: 'ログインしてください' },
+      });
       history.push(ROUTE_PATHS.ログイン);
     }
 

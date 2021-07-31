@@ -26,6 +26,8 @@ type UseFetchOrchestra = (
 export const useFetchOrchestra: UseFetchOrchestra = (orchestraId, options) => {
   const queryFn = () => fetchOrchestra(orchestraId);
 
+  console.log(orchestraId)
+
   return useQuery([QUERY.orchestra, orchestraId], queryFn, {
     ...options,
   });
