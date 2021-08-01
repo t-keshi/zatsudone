@@ -25,7 +25,9 @@ export const createConcert = async (variables: Variables): Promise<void> => {
     symphonies: variables.symphonies,
     orchestra: variables.orchestra,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    programs: null,
+    coverUrl:
+      'https://firebasestorage.googleapis.com/v0/b/symphony-forum.appspot.com/o/orchestraAvatar%2FmusicNote.png?alt=media&token=aa3f5354-2f7b-41d7-b7c9-4e67dd45e667',
+    programs: `[{"type":"paragraph","children":[{"text":"プログラムは未登録です"}]}]`,
     openAt: null,
     startAt: null,
     closeAt: null,

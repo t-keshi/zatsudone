@@ -16,6 +16,7 @@ export const ConcertFlayerForm: React.VFC<Props> = ({ name, coverImage }) => {
       <CoverImage
         title={name}
         image={coverImage}
+        editLabel="フライヤーを変更"
         editModal={() => handleIsModalOpen(true)}
       />
       <ConcertFlayerFormDialog
