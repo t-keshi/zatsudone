@@ -38,6 +38,8 @@ export const useCreateConcert: UseUploadCoverImage = (options) => {
     });
 
   return useMutation(mutateFn, {
+    onSettled: () =>
+      queryClient.invalidateQueries([QUERY.concerts, params.orchestraId]),
     onError: (error: Error) =>
       handleApiError(error, 'コンサートの作成に失敗しました'),
     ...options,

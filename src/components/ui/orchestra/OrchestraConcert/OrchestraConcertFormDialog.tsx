@@ -8,24 +8,20 @@ import { GoogleMapLocation } from '../../../../containers/controllers/concert/us
 import { extractPrefectureFromAddress } from '../../../../utility/extractPrefectureFromAddress';
 import { yupLocaleJP } from '../../../../utility/yupLocaleJP';
 import { DialogCustom } from '../../../helpers/DialogCustom/DialogCustom';
-import { FormMapLocation } from '../../../helpers/FormMapLocation/FormMapLocation';
-import { FormArrayTextField } from '../../../helpers/FormTextField/FormArrayTextField';
+import { FormMapLocation } from '../../../helpers/FormTextField/FormMapLocation';
 import { FormTextField } from '../../../helpers/FormTextField/FormTextField';
+import { FormSelectArray } from '../../../helpers/FormTextField/FromSelectArray';
 
 interface Props {
   isModalOpen: boolean;
   handleIsModalOpen: (nextValue?: boolean | undefined) => void;
 }
 
-interface Symphony {
-  symphony: string;
-}
-
 export interface FormValues {
   title: string;
   date: string;
   location: GoogleMapLocation;
-  symphonies: Symphony[];
+  symphonies: { value?: string }[];
 }
 
 yup.setLocale(yupLocaleJP);
@@ -37,9 +33,7 @@ const schema: yup.SchemaOf<FormValues> = yup.object().shape({
     address: yup.string().required(),
     placeId: yup.string().required(),
   }),
-  symphonies: yup
-    .array()
-    .of(yup.object().shape({ symphony: yup.string().required() })),
+  symphonies: yup.array().of(yup.object().shape({ value: yup.string() })),
 });
 
 export const OrchestraConcertFormDialog: React.VFC<Props> = ({
@@ -48,26 +42,30 @@ export const OrchestraConcertFormDialog: React.VFC<Props> = ({
 }) => {
   const methods = useForm<FormValues>({
     defaultValues: {
-      title: '',
       date: '2017-05-24',
-      location: { address: '', placeId: '' },
-      symphonies: [],
     },
     resolver: yupResolver(schema),
   });
   const {
     control,
     handleSubmit,
+    watch,
+    reset,
     formState: { errors },
   } = methods;
+  const all = watch();
   const { mutate } = useCreateConcert({
-    onSuccess: () => handleIsModalOpen(false),
+    onSuccess: () => {
+      reset();
+      handleIsModalOpen(false);
+    },
   });
   const onSubmit = handleSubmit((data: FormValues) => {
+    console.log(data, 'data');
     const { title, date, location, symphonies } = data;
     const formattedSymphonies = symphonies
-      .filter((symphony) => symphony.symphony !== '')
-      .map((symphony) => symphony.symphony);
+      .filter((symphony) => symphony.value !== undefined)
+      .map((symphony) => symphony.value as string);
     const variables = {
       title,
       date: new Date(date),
@@ -92,7 +90,7 @@ export const OrchestraConcertFormDialog: React.VFC<Props> = ({
           yesButtonProps={{
             onClick: (e) => {
               void onSubmit(e);
-              console.log('clicked');
+              console.log('clicked', all);
             },
           }}
           maxWidth="sm"
@@ -126,13 +124,12 @@ export const OrchestraConcertFormDialog: React.VFC<Props> = ({
             }
           />
           <Box mt={2} />
-          <FormArrayTextField
+          <FormSelectArray<FormValues>
             control={control}
-            keyName="symphony"
             name="symphonies"
             label="主な演奏曲(3曲まで)"
             errorMessage={
-              errors.symphonies?.map((error) => error)[0]?.symphony?.message
+              errors.symphonies?.map((error) => error)[0]?.value?.message
             }
           />
         </DialogCustom>

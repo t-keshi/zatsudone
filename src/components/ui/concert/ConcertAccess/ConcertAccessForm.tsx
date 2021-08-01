@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { useUpdateConcert } from '../../../../containers/controllers/concert/useUpdateConcert';
 import { API_KEY } from '../../../../containers/entities/env';
 import { extractPrefectureFromAddress } from '../../../../utility/extractPrefectureFromAddress';
-import { FormMapLocation } from '../../../helpers/FormMapLocation/FormMapLocation';
+import { FormMapLocation } from '../../../helpers/FormTextField/FormMapLocation';
 import { SubHeading } from '../../../helpers/SubHeading/SubHeading';
 
 interface Props {
