@@ -6,6 +6,7 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
+import axios, { AxiosResponse } from 'axios';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useMembers } from '../../containers/contexts/members';
 import {
@@ -20,7 +21,22 @@ interface TopicGroup {
   answerMembers: string[];
 }
 
+const BACKEND_API =
+  'https://pgxath08x1.execute-api.us-west-2.amazonaws.com/default/hackathon-topics';
+
+const api = () =>
+  axios.get<AxiosResponse<TopicResponse>>(BACKEND_API, {
+    params: {
+      intimacyLevel: 1,
+    },
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    },
+  });
+
 export const Topic: React.VFC = () => {
+  console.log(api());
   const [count, setCount] = useState<number>(0);
   const [members] = useMembers();
   const intimacyLevel = useMemo(() => {
