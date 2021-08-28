@@ -22,15 +22,15 @@ declare module '@material-ui/core/styles/createPalette' {
 export const colorTheme = {
   palette: {
     primary: {
-      light: '#fff950',
-      main: '#f7c602',
-      dark: '#bf9600',
-      contrastText: '#000000',
+      light: '#5749b8',
+      main: '#1d2087',
+      dark: '#000059',
+      contrastText: '#ffffff',
     },
     secondary: {
-      light: '#a8faff',
-      main: '#74c7e7',
-      dark: '#3e96b5',
+      light: '#ffffff',
+      main: '#fce0cf',
+      dark: '#c9ae9e',
       contrastText: '#000000',
     },
     background: {
