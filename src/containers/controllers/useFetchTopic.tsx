@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
+import { topics } from './topics';
 
 export interface TopicResponse {
   topicId: number;
@@ -17,17 +18,16 @@ export const useFetchTopic: UseFetchMembers = (intimacy, options) => {
   const [topicIds, setTopicIds] = useState<number[]>([]);
   const queryFn = async () => {
     await sleep();
-    const req = () => {
-      console.log('req');
-
-      return 1;
-    };
-    const resId = 1;
-    if (topicIds.includes(resId)) {
-      req();
+    const getRandomInt = (max: number): number =>
+      Math.floor(Math.random() * max);
+    const req = () => topics[getRandomInt(5)];
+    const result = req();
+    if (topicIds.includes(result.topicId)) {
+      throw Error('');
     }
+
     setTopicIds((prevTopicIds) => {
-      const id = req();
+      const id = req().topicId;
       if (!prevTopicIds) {
         return [id];
       }
@@ -41,5 +41,9 @@ export const useFetchTopic: UseFetchMembers = (intimacy, options) => {
     };
   };
 
-  return useQuery(['topic'], queryFn, { ...options });
+  return useQuery(['topic'], queryFn, {
+    onError: () => console.log('err'),
+    retry: 100,
+    ...options,
+  });
 };
