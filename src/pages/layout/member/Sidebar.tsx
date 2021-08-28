@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { SidebarMenu } from './SidebarMenu';
 
-const SIDEBAR_WIDTH = 540;
+const SIDEBAR_WIDTH = 380;
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -6,7 +6,7 @@ import { ResponsivePaper } from '../../components/helpers/ResponsivePaper.tsx/Re
 import { Header } from './Header';
 import { Sidebar } from './member/Sidebar';
 
-const DRAWER_WIDTH = 240;
+const DRAWER_WIDTH = 380;
 
 const useStyles = makeStyles((theme) => ({
   root: {
