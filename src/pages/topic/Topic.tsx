@@ -103,8 +103,7 @@ export const Topic: React.VFC = () => {
       <DisplayTopic />
       <List>
         {topicGroup
-          .reverse()
-          .slice(rand, rand + 1)
+          .slice(topicGroup.length - 1, topicGroup.length)
           .map((topicGroupItem) => (
             <ListItem key={topicGroupItem.count}>
               <ListItemText
