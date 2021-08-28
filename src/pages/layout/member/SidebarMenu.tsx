@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, List, ListItem, ListItemText } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -17,10 +16,7 @@ const schema: yup.SchemaOf<FormValues> = yup.object().shape({
   name: yup.string().min(1).max(15).required(),
 });
 
-const useStyles = makeStyles(() => ({}));
-
 export const SidebarMenu: React.VFC = () => {
-  const classes = useStyles();
   const [members, dispatch] = useMembers();
   const {
     control,

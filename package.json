@@ -52,7 +52,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "CI=false react-app-rewired build",
     "setup": "firebase setup:emulators:firestore",
     "emulator": "firebase emulators:start --only firestore",
     "test": "react-app-rewired test",

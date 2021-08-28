@@ -88,10 +88,10 @@ export const Topic: React.VFC = () => {
       </Box>
       <DisplayTopic />
       <List>
-        {topicGroup.map((topicGroupItem) => (
+        {topicGroup.reverse().map((topicGroupItem) => (
           <ListItem key={topicGroupItem.count}>
             <ListItemText
-              primary={topicGroupItem.topic.text}
+              primary={`${count}. ${topicGroupItem.topic.text}`}
               secondary={`回答者: ${topicGroupItem.answerMembers.join(', ')}`}
             />
           </ListItem>
