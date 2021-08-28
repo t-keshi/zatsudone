@@ -19,4 +19,24 @@ export const topics = [
     topicId: 5,
     text: '特技は？',
   },
+  {
+    topicId: 6,
+    text: '出身地は？',
+  },
+  {
+    topicId: 7,
+    text: '最近ハマったものは？',
+  },
+  {
+    topicId: 8,
+    text: 'どうしてエンジニアになったの？',
+  },
+  {
+    topicId: 9,
+    text: '100万あったらなに使う？',
+  },
+  {
+    topicId: 10,
+    text: '好きな食べ物は？',
+  },
 ];

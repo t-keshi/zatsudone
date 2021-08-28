@@ -49,6 +49,20 @@ export const Topic: React.VFC = () => {
   }, [members.members.length]);
   const [topicGroup, setTopicGroup] = useState<TopicGroup[]>([]);
 
+  console.log(topicGroup);
+  const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
+  const rand = getRandomInt(count);
+  const getMembers = () => {
+    const first = getRandomInt(members.members.length);
+    const second = getRandomInt(members.members.length);
+    const third = getRandomInt(members.members.length);
+    const generated = new Set([first, second, third]);
+    const randomThree = Array.from(generated);
+    const answerMembers = randomThree.map((random) => members.members[random]);
+
+    return answerMembers;
+  };
+
   useEffect(() => {
     const randomThree = generateRandThree();
     const answerMembers = randomThree.map((random) => members.members[random]);
@@ -88,14 +102,17 @@ export const Topic: React.VFC = () => {
       </Box>
       <DisplayTopic />
       <List>
-        {topicGroup.reverse().map((topicGroupItem) => (
-          <ListItem key={topicGroupItem.count}>
-            <ListItemText
-              primary={`${count}. ${topicGroupItem.topic.text}`}
-              secondary={`回答者: ${topicGroupItem.answerMembers.join(', ')}`}
-            />
-          </ListItem>
-        ))}
+        {topicGroup
+          .reverse()
+          .slice(rand, rand + 1)
+          .map((topicGroupItem) => (
+            <ListItem key={topicGroupItem.count}>
+              <ListItemText
+                primary={`${count}. ${topicGroupItem.topic.text}`}
+                secondary={`回答者: ${getMembers().join(', ')}`}
+              />
+            </ListItem>
+          ))}
       </List>
     </>
   );

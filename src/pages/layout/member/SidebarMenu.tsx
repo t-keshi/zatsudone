@@ -1,5 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, List, ListItem, ListItemText } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from '@material-ui/core';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -33,6 +40,7 @@ export const SidebarMenu: React.VFC = () => {
 
   return (
     <Box p={3}>
+      <Typography variant="h6">メンバー</Typography>
       <FormTextField
         name="name"
         fullWidth

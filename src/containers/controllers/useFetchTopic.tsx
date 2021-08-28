@@ -12,22 +12,44 @@ type UseFetchMembers = (
   options?: UseQueryOptions<Data, Error, Data, [string]>,
 ) => UseQueryResult<Data, Error>;
 
-const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
+const sleep = () => new Promise((resolve) => setTimeout(resolve, 1));
 
 export const useFetchTopic: UseFetchMembers = (intimacy, options) => {
   const [topicIds, setTopicIds] = useState<number[]>([]);
   const queryFn = async () => {
-    await sleep();
-    const getRandomInt = (max: number): number =>
-      Math.floor(Math.random() * max);
-    const req = () => topics[getRandomInt(5)];
-    const result = req();
-    if (topicIds.includes(result.topicId)) {
+    const req = async (): Promise<{ data: TopicResponse }> => {
+      const BACKEND_API =
+        'https://pgxath08x1.execute-api.us-west-2.amazonaws.com/default/hackathon-topics';
+
+      // const api = await axios.get<AxiosResponse<TopicResponse>>(BACKEND_API, {
+      //   params: {
+      //     intimacyLevel: intimacy,
+      //   },
+      //   headers: {
+      //     'Access-Control-Allow-Origin': '*',
+      //     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      //   },
+      // });
+      // console.log(api);
+      await sleep();
+
+      const getRandomInt = (max: number): number =>
+        Math.floor(Math.random() * max);
+      const int = getRandomInt(10);
+      console.log(int);
+
+      return {
+        data: topics[int],
+      };
+    };
+
+    const res = await req();
+    if (topicIds.includes(res.data.topicId)) {
       throw Error('');
     }
 
     setTopicIds((prevTopicIds) => {
-      const id = req().topicId;
+      const id = res.data.topicId;
       if (!prevTopicIds) {
         return [id];
       }
@@ -35,10 +57,7 @@ export const useFetchTopic: UseFetchMembers = (intimacy, options) => {
       return [...prevTopicIds, id];
     });
 
-    return {
-      topicId: 1,
-      text: '趣味は何ですか',
-    };
+    return res.data;
   };
 
   return useQuery(['topic'], queryFn, {
