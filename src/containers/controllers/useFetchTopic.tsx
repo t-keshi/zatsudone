@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 
 export interface TopicResponse {
-  id: number;
-  topic: string;
+  topicId: number;
+  text: string;
 }
 type Data = TopicResponse;
 type UseFetchMembers = (
@@ -13,13 +14,30 @@ type UseFetchMembers = (
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
 export const useFetchTopic: UseFetchMembers = (intimacy, options) => {
+  const [topicIds, setTopicIds] = useState<number[]>([]);
   const queryFn = async () => {
     await sleep();
-    console.log(intimacy);
+    const req = () => {
+      console.log('req');
+
+      return 1;
+    };
+    const resId = 1;
+    if (topicIds.includes(resId)) {
+      req();
+    }
+    setTopicIds((prevTopicIds) => {
+      const id = req();
+      if (!prevTopicIds) {
+        return [id];
+      }
+
+      return [...prevTopicIds, id];
+    });
 
     return {
-      id: 1,
-      topic: '趣味は何ですか',
+      topicId: 1,
+      text: '趣味は何ですか',
     };
   };
 

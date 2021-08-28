@@ -91,7 +91,7 @@ export const Topic: React.VFC = () => {
         {topicGroup.map((topicGroupItem) => (
           <ListItem key={topicGroupItem.count}>
             <ListItemText
-              primary={topicGroupItem.topic.topic}
+              primary={topicGroupItem.topic.text}
               secondary={`回答者: ${topicGroupItem.answerMembers.join(', ')}`}
             />
           </ListItem>

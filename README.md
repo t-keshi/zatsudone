@@ -1,10 +1,8 @@
 # SymphonyForum
 
-## [🏠URL](https://symphony-forum.firebaseapp.com/)
-
 ## 概要
 
-吹奏楽向けのイベントサイト Web アプリケーションのフロントエンド
+雑談話題提供アプリのフロントエンド
 
 ## スタートガイド
 
